@@ -51,7 +51,8 @@ def test_linear_transport_rescaling_domain_conditions():
     lam, t = sp.symbols("lam t", positive=True)
     A = 1 / (3 * lam)
     B = 1 / lam
-    assert sp.simplify((B - A) - 3 * t) == (2 - 9 * lam * t) / (3 * lam)
+    rhs = (2 - 9 * lam * t) / (3 * lam)
+    assert sp.simplify(((B - A) - 3 * t) - rhs) == 0
     # Local concavity of the regular quality branch requires lambda*t > 1/9.
     curvature = sp.Rational(1, 9) / t - lam
-    assert sp.simplify(curvature * t) == sp.Rational(1, 9) - lam * t
+    assert sp.simplify(curvature * t - (sp.Rational(1, 9) - lam * t)) == 0
