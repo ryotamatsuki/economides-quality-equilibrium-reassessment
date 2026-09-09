@@ -14,15 +14,15 @@ regions = [
 ]
 
 lines = [
-    r"\begin{tabular}{lll}",
-    r"\hline",
-    r"Region & Status & Welfare comparison \\",
-    r"\hline",
-    r"$(1/9,4/27)$ & symmetric profile fails & profile comparison only \\",
-    r"$[4/27,4/21)$ & coexistence & $W_E>W_S,\;PS_E>PS_S,\;CS_E<CS_S$ \\",
-    r"$[4/21,2/9)$ & coexistence & $W_E>W_S,\;PS_E>PS_S,\;CS_E>CS_S$ \\",
-    r"\hline",
-    r"\end{tabular}",
+    "\\begin{tabular}{lll}",
+    "\\hline",
+    "Region & Status & Welfare comparison \\\\",
+    "\\hline",
+    "$(1/9,4/27)$ & symmetric profile fails & profile comparison only \\\\",
+    "$[4/27,4/21)$ & coexistence & $W_E>W_S,\\;PS_E>PS_S,\\;CS_E<CS_S$ \\\\",
+    "$[4/21,2/9)$ & coexistence & $W_E>W_S,\\;PS_E>PS_S,\\;CS_E>CS_S$ \\\\",
+    "\\hline",
+    "\\end{tabular}",
 ]
 TABLE.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
