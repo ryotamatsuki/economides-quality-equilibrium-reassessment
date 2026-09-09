@@ -1,0 +1,32 @@
+\section{Exact Rescaling with a General Linear Transportation Coefficient}\label{sec:robustness}
+
+The baseline normalizes the linear transportation coefficient to one. This normalization can be relaxed without changing the strategic structure. Replace \eqref{eq:utility} by
+\begin{equation}\label{eq:utility-t}
+ u_i(z)=k+a_i-p_i-t|z-\ell_i|,
+ \qquad t>0.
+\end{equation}
+At maximal locations, the regular price continuation becomes
+\[
+ p_1=t+\frac{\delta}{3},
+ \qquad
+ p_2=t-\frac{\delta}{3},
+\]
+and the exclusion boundary is $|\delta|=3t$.
+
+The reported symmetric quality on the regular branch remains $A=1/(3\lambda)$, while the exclusionary quality choice remains $1/\lambda$. Repeating the global payoff comparison yields
+\begin{equation}\label{eq:gain-t}
+ \frac{\pi_i(1/\lambda,A)-\pi_i(A,A)}{\mu}
+ =\frac{4-27\lambda t}{18\lambda}.
+\end{equation}
+Thus the private regime-switch threshold is the dimensionless condition
+\begin{equation}\label{eq:threshold-t}
+ \lambda t=\frac4{27}.
+\end{equation}
+The welfare and consumer-surplus differences similarly become
+\begin{align}
+ \frac{W_E-W_S}{\mu}&=\frac{10-9\lambda t}{36\lambda},\label{eq:w-t}\\
+ \frac{CS_E-CS_S}{\mu}&=\frac{21\lambda t-4}{12\lambda}.\label{eq:cs-t}
+\end{align}
+Accordingly, the consumer-surplus threshold rescales to $\lambda t=4/21$.
+
+This section establishes exact parametric rescaling within the class of linear transportation costs. It does not establish robustness to quadratic transportation costs, arbitrary transportation technologies, or arbitrary convex quality-cost functions. Those would change the theoretical object and are outside the frozen scope of the paper.
