@@ -11,6 +11,7 @@ CSV.parent.mkdir(parents=True, exist_ok=True)
 regions = [
     (Fraction(1, 9), Fraction(4, 27), "reported symmetric profile is not a quality-stage Nash equilibrium"),
     (Fraction(4, 27), Fraction(4, 21), "symmetric and certified exclusion equilibria coexist; exclusion has higher W and PS but lower CS"),
+    (Fraction(4, 21), Fraction(4, 21), "symmetric and certified exclusion equilibria coexist; exclusion has higher W and PS and equal CS"),
     (Fraction(4, 21), Fraction(2, 9), "symmetric and certified exclusion equilibria coexist; exclusion has higher W, PS, and CS"),
 ]
 
@@ -21,7 +22,8 @@ lines = [
     "\\hline",
     "$(1/9,4/27)$ & symmetric profile fails & profile comparison only \\\\",
     "$[4/27,4/21)$ & coexistence & $W_E>W_S,\\;PS_E>PS_S,\\;CS_E<CS_S$ \\\\",
-    "$[4/21,2/9)$ & coexistence & $W_E>W_S,\\;PS_E>PS_S,\\;CS_E>CS_S$ \\\\",
+    "$\\{4/21\\}$ & coexistence & $W_E>W_S,\\;PS_E>PS_S,\\;CS_E=CS_S$ \\\\",
+    "$(4/21,2/9)$ & coexistence & $W_E>W_S,\\;PS_E>PS_S,\\;CS_E>CS_S$ \\\\",
     "\\hline",
     "\\end{tabular}",
 ]
@@ -53,6 +55,8 @@ fig_lines = [
     rf"\node[align=center,font=\scriptsize] at ({dec((x1+x2)/2)},0.72) {{reported symmetric\\profile fails}};",
     rf"\draw[line width=0.7pt] ({dec(x2)},0.38) -- ({dec(x3)},0.38);",
     rf"\node[align=center,font=\scriptsize] at ({dec((x2+x3)/2)},0.72) {{coexistence;\\$CS_E<CS_S$}};",
+    rf"\fill ({dec(x3)},0.38) circle (1.4pt);",
+    rf"\node[align=center,font=\scriptsize,above] at ({dec(x3)},1.02) {{$CS_E=CS_S$}};",
     rf"\draw[line width=0.7pt] ({dec(x3)},0.38) -- ({dec(x4)},0.38);",
     rf"\node[align=center,font=\scriptsize] at ({dec((x3+x4)/2)},0.72) {{coexistence;\\$CS_E>CS_S$}};",
     r"\end{tikzpicture}",
