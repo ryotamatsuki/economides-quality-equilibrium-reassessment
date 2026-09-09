@@ -1,4 +1,5 @@
 lower,upper,interpretation
 0.111111111111,0.148148148148,reported symmetric profile is not a quality-stage Nash equilibrium
 0.148148148148,0.190476190476,symmetric and certified exclusion equilibria coexist; exclusion has higher W and PS but lower CS
+0.190476190476,0.190476190476,symmetric and certified exclusion equilibria coexist; exclusion has higher W and PS and equal CS
 0.190476190476,0.222222222222,symmetric and certified exclusion equilibria coexist; exclusion has higher W, PS, and CS
