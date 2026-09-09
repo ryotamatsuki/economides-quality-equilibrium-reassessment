@@ -37,17 +37,17 @@ At $x=0$ and $y=1$, the pure-strategy price equilibrium is
 Thus the downstream game switches from shared-market pricing to exclusion when the absolute quality gap reaches three.
 \end{lemma}
 
-The regular candidate is globally stable against a full-market undercut precisely on its valid branch. In normalized revenue units,
+The regular candidate is globally stable against feasible full-market capture deviations on its valid branch. For firm 1, when $\delta\geq0$, the highest nonnegative price that captures the entire market against $p_2^I$ is $2\delta/3$, and
 \begin{equation}\label{eq:square1}
  R_1^{I}-R_1^{\mathrm{capture}}
- =\frac{(\delta-3)^2}{18},
+ =\frac{(\delta-3)^2}{18}.
 \end{equation}
-and symmetrically
+For $\delta<0$, full-market capture by firm 1 would require a negative price and is therefore infeasible under the maintained nonnegative-price strategy set. Symmetrically, when $\delta\leq0$, firm 2's feasible capture comparison is
 \begin{equation}\label{eq:square2}
  R_2^{I}-R_2^{\mathrm{capture}}
- =\frac{(\delta+3)^2}{18}.
+ =\frac{(\delta+3)^2}{18},
 \end{equation}
-The square terms make clear that the issue is not a hidden profitable price deviation inside the regular region. The issue arises one stage earlier: a sufficiently large quality deviation moves the subsequent price game to a different branch.
+while for $\delta>0$ firm 2 cannot capture the entire market at a nonnegative price. Together with the concavity of profit on the shared-market branch and the zero-demand regions, these comparisons complete the global price best-response check summarized in Lemma~\ref{lem:price}. The issue that drives the correction is therefore not a hidden profitable price deviation inside the regular region. It arises one stage earlier: a sufficiently large quality deviation moves the subsequent price game to a different branch.
 
 Substituting Lemma~\ref{lem:price} into firm 1's payoff and dividing by $\mu$ gives the continuation value
 \begin{equation}\label{eq:v1-piecewise}
@@ -66,7 +66,7 @@ The original quality-stage calculation substitutes the regular prices into profi
 \begin{equation}\label{eq:A}
  A\equiv \frac{1}{3\lambda}
 \end{equation}
-as the symmetric quality candidate. The following proposition gives the global incentive check within the parameter interval used in the original theorem.
+as the symmetric quality candidate. Throughout the paper, ``the quality subgame at maximal locations'' refers to the reduced quality game obtained by assigning to every quality pair the pure price equilibrium in Lemma~\ref{lem:price}. The following proposition gives the global incentive check within the parameter interval used in the original theorem.
 
 \begin{proposition}[Global-deviation correction]\label{prop:correction}
 Fix $x=0$, $y=1$, and $\lambda\in(1/9,2/9)$. The reported symmetric profile $(A,A)$, where $A=1/(3\lambda)$, is a Nash equilibrium of the quality subgame if and only if
@@ -111,13 +111,13 @@ The best-response logic is particularly transparent. Against zero quality, the r
 \]
 is maximized at $a=1/\lambda$. Hence $BR(0)=1/\lambda$. Conversely, against quality $1/\lambda$, choosing zero gives the lagging firm zero profit. Remaining excluded with positive quality is costly, entering the regular branch yields a negative payoff at its lower boundary and a decreasing continuation thereafter, and leapfrogging into the opposite exclusion branch is also unprofitable. Thus $BR(1/\lambda)=0$.
 
-Proposition~\ref{prop:asymmetric} is an existence result, not a complete characterization of the quality-equilibrium correspondence. In particular, we do not claim that \eqref{eq:asymmetric-equilibria}, together with the symmetric profile when it survives, exhaust all pure quality equilibria. What follows immediately is enough for the reassessment: the reported symmetric profile fails over part of the claimed interval, and over the remainder it coexists with at least two asymmetric exclusion equilibria.
+Proposition~\ref{prop:asymmetric} is an existence result, not a complete characterization of the quality-equilibrium correspondence. In particular, we do not claim that \eqref{eq:asymmetric-equilibria}, together with the symmetric profile when it survives, exhaust all pure quality equilibria. What follows immediately is enough for the reassessment: the reported symmetric quality-stage characterization at the maximal locations fails over part of the claimed interval, and over the remainder it coexists with at least two asymmetric exclusion equilibria.
 
 Figure~\ref{fig:regions} summarizes the parameter regions used in the main text. It is generated directly from the repository verification pipeline.
 
 \begin{figure}[t]
 \centering
 \input{../figures/parameter_regions}
-\caption{Certified parameter regions at maximal locations. The figure distinguishes failure of the reported symmetric quality profile, coexistence with the certified exclusion equilibria, and the consumer-surplus comparison discussed in Section~\ref{sec:welfare}.}
+\caption{Certified parameter regions at maximal locations. The figure distinguishes failure of the reported symmetric quality profile, coexistence with the certified exclusion equilibria, the equality point $CS_E=CS_S$ at $\lambda=4/21$, and the strict consumer-surplus comparisons on either side.}
 \label{fig:regions}
 \end{figure}
