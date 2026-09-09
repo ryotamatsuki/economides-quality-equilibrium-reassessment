@@ -41,12 +41,14 @@ A deviation by firm 1 that captures the whole market must satisfy
 \[
  p_1\leq p_2+\delta-1.
 \]
-Evaluated against the interior candidate $p_2=1-\delta/3$, the highest full-market capture price is $2\delta/3$. The difference between firm 1's interior-candidate revenue and this capture revenue is
+Evaluated against the interior candidate $p_2=1-\delta/3$, the capture threshold is $2\delta/3$. Because prices are constrained to be nonnegative, a feasible nonnegative full-market capture price for firm 1 exists on the regular branch only when $\delta\geq0$. For $0\leq\delta\leq3$, the highest such capture price is $2\delta/3$, and the difference between firm 1's interior-candidate revenue and the feasible capture revenue is
 \[
  \frac12\left(1+\frac{\delta}{3}\right)^2-\frac{2\delta}{3}
  =\frac{(\delta-3)^2}{18}\geq0.
 \]
-The symmetric calculation for firm 2 gives $(\delta+3)^2/18$. Hence the interior candidate is globally stable when $-3\leq\delta\leq3$, including the limiting boundary cases.
+For $-3\leq\delta<0$, the capture threshold is negative, so the nonnegative-price strategy set contains no firm-1 full-market capture deviation against the interior candidate. Symmetrically, firm 2's capture threshold is $-2\delta/3$: a feasible nonnegative full-market capture price exists only when $\delta\leq0$, and for $-3\leq\delta\leq0$ the corresponding comparison is $(\delta+3)^2/18\geq0$. For $0<\delta\leq3$, firm 2's full-market capture set is empty under the nonnegative-price constraint.
+
+Together with strict concavity on the shared-market branch and the fact that a move into a zero-demand region yields zero revenue, these feasible capture comparisons rule out profitable deviations from the interior candidate for $-3<\delta<3$. At $\delta=0$ both capture thresholds equal zero and the square comparisons are consistent with the shared-market optimum. At $\delta=3$ (respectively $\delta=-3$), the regular candidate coincides with the firm-1 (respectively firm-2) exclusion boundary, so the limiting branch formulas agree. Thus the interior candidate is globally stable on its valid regular branch without treating a negative capture threshold as a feasible price deviation.
 
 Now suppose $\delta>3$. Against $p_2=0$, firm 1 can capture the whole market at any $p_1\leq\delta-1$, so its best full-market price is $p_1=\delta-1$. For $p_1\geq\delta-1$, its interior-branch revenue is
 \[
