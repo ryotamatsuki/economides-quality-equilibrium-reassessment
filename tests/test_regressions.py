@@ -1,3 +1,4 @@
+from pathlib import Path
 import sympy as sp
 
 
@@ -35,3 +36,22 @@ def test_welfare_dominance_on_equilibrium_coexistence_region():
     assert wdiff.subs(lam, sp.Rational(4, 27)) > 0
     assert wdiff.subs(lam, sp.Rational(4, 21)) > 0
     assert wdiff.subs(lam, sp.Rational(2, 9)) > 0
+
+
+def test_generated_table_marks_cs_equality_at_four_over_twenty_one():
+    text = Path("tables/parameter_regions.tex").read_text(encoding="utf-8")
+    assert r"$\{4/21\}$" in text
+    assert r"CS_E=CS_S" in text
+    assert r"$[4/21,2/9)$" not in text
+    assert r"$(4/21,2/9)$" in text
+
+
+def test_linear_transport_rescaling_domain_conditions():
+    # The exclusionary deviation B-A crosses the 3t boundary iff lambda*t <= 2/9.
+    lam, t = sp.symbols("lam t", positive=True)
+    A = 1 / (3 * lam)
+    B = 1 / lam
+    assert sp.simplify((B - A) - 3 * t) == (2 - 9 * lam * t) / (3 * lam)
+    # Local concavity of the regular quality branch requires lambda*t > 1/9.
+    curvature = sp.Rational(1, 9) / t - lam
+    assert sp.simplify(curvature * t) == sp.Rational(1, 9) - lam * t
