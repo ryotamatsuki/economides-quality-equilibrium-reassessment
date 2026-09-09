@@ -1,11 +1,14 @@
 PYTHON ?= python
 
-.PHONY: verify symbolic test outputs paper clean
+.PHONY: verify symbolic numerical test outputs paper clean
 
-verify: symbolic test outputs
+verify: symbolic numerical test outputs
 
 symbolic:
 	$(PYTHON) verification/symbolic_checks.py
+
+numerical:
+	$(PYTHON) verification/numerical_deviation_scan.py
 
 test:
 	pytest -q
