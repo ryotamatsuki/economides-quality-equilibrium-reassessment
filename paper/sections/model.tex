@@ -1,7 +1,32 @@
-\section{Model}
+\section{Model}\label{sec:model}
 
-Two firms choose locations, then qualities, then prices. Consumers are uniformly distributed on $[0,1]$ with density $\mu>0$ and utility
-\[
+We retain the three-stage game studied by \citet{Economides1989}. Two firms, indexed by $i\in\{1,2\}$, serve consumers distributed uniformly on the unit interval. Consumer density is $\mu>0$. Firm $i$ chooses a location $\ell_i\in[0,1]$, a quality $a_i\geq 0$, and a nonnegative price $p_i\geq 0$. A consumer located at $z\in[0,1]$ obtains utility
+\begin{equation}\label{eq:utility}
  u_i(z)=k+a_i-p_i-|z-\ell_i|.
+\end{equation}
+The maintained baseline is complete coverage, as in the original analysis. Production has zero marginal cost, while quality entails the fixed cost
+\begin{equation}\label{eq:qualitycost}
+ C(a_i)=\frac{c}{2}a_i^2,
+\end{equation}
+with $c>0$. It is convenient to normalize the quality-cost parameter by market density,
+\begin{equation}\label{eq:lambda}
+ \lambda\equiv \frac{c}{\mu}.
+\end{equation}
+
+The timing is location, then quality, then price. In stage 1 the firms simultaneously choose locations. In stage 2, after observing both locations, they simultaneously choose qualities. In stage 3, after observing locations and qualities, they simultaneously choose prices. We focus on pure strategies because the equilibrium claim reassessed below is a pure-strategy claim.
+
+For an ordered location history $x\leq y$, an interior consumer indifferent between the two firms satisfies
+\begin{equation}\label{eq:indiff-general}
+ \hat z=\frac{p_2-p_1+a_1-a_2+x+y}{2}.
+\end{equation}
+Equation \eqref{eq:indiff-general} is only an interior-allocation formula. When the implied indifferent consumer lies outside the relevant market segment, demand must be recomputed from utilities rather than obtained by extrapolating the interior expression. That distinction is central below.
+
+\subsection{Equilibrium concept and a preliminary observation}\label{subsec:spne}
+
+The original paper describes the three-stage solution as a ``perfect'' pure-strategy equilibrium. We separate two issues. First, under the standard modern definition of subgame-perfect Nash equilibrium, a pure strategy profile must induce a pure Nash equilibrium in every proper subgame. Second, even if one adopts a weaker, equilibrium-path reading of the original backward-induction calculation, the quality-stage characterization must still be globally incentive compatible.
+
+The first issue is immediate in the present model because linear Hotelling pricing is known to admit histories without a pure price equilibrium; see, for example, \citet{DAspremontGabszewiczThisse1979}. For completeness, Appendix~\ref{app:proofs} gives a direct witness inside the present game. At
+\[
+ x=\frac13,\qquad y=\frac23,\qquad a_1=a_2=0,
 \]
-Quality cost is $c a_i^2/2$, production marginal cost is zero, and $\lambda=c/\mu$. The maintained baseline assumes complete coverage. Full prose and notation must match the canonical freeze record.
+the price subgame has no pure Nash equilibrium. Consequently, under the standard modern full-history interpretation, the three-stage game has no pure-strategy SPNE for any $\lambda>0$. We treat this as an equilibrium-concept observation rather than the paper's main novelty claim. The main reassessment below instead grants the maximal-location continuation used by \citet{Economides1989} and asks whether its reported quality profile is a global Nash equilibrium of that quality subgame.
