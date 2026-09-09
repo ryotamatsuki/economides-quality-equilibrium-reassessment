@@ -1,3 +1,69 @@
-\section{Welfare}
+\section{Welfare and Benchmark Comparisons}\label{sec:welfare}
 
-\noindent\textit{Stage 10 writing target.} Welfare comparisons are between named certified profiles. The phrase ``equilibrium welfare dominance'' is permitted only on $[4/27,2/9)$, where both the reported symmetric profile and the certified exclusion profiles are quality-subgame equilibria. No all-equilibria welfare statement is authorized.
+We next compare the reported symmetric profile with either of the certified asymmetric exclusion profiles at maximal locations. Prices are transfers between consumers and firms, so total welfare is gross utility net of transportation costs and quality costs.
+
+Let $S$ denote the reported symmetric profile,
+\[
+ a_1=a_2=\frac1{3\lambda},\qquad p_1=p_2=1,
+\]
+and let $E$ denote either mirror-image exclusion profile, for example
+\[
+ (a_1,a_2)=\left(\frac1\lambda,0\right),
+ \qquad
+ (p_1,p_2)=\left(\frac1\lambda-1,0\right).
+\]
+At $S$, average transportation loss is $1/4$. At $E$, one endpoint firm serves the entire market, so average transportation loss is $1/2$.
+
+For $S$, normalized consumer surplus, producer surplus, and total welfare are
+\begin{align}
+ \frac{CS_S}{\mu}&=k+\frac1{3\lambda}-\frac54,\label{eq:csS}\\
+ \frac{PS_S}{\mu}&=1-\frac1{9\lambda},\label{eq:psS}\\
+ \frac{W_S}{\mu}&=k-\frac14+\frac{2}{9\lambda}.\label{eq:wS}
+\end{align}
+For $E$, they are
+\begin{align}
+ \frac{CS_E}{\mu}&=k+\frac12,\label{eq:csE}\\
+ \frac{PS_E}{\mu}&=\frac1{2\lambda}-1,\label{eq:psE}\\
+ \frac{W_E}{\mu}&=k-\frac12+\frac1{2\lambda}.\label{eq:wE}
+\end{align}
+Hence
+\begin{align}
+ \frac{W_E-W_S}{\mu}&=\frac{10-9\lambda}{36\lambda},\label{eq:wdiff}\\
+ \frac{CS_E-CS_S}{\mu}&=\frac{21\lambda-4}{12\lambda},\label{eq:csdiff}\\
+ \frac{PS_E-PS_S}{\mu}&=\frac{11-36\lambda}{18\lambda}.\label{eq:psdiff}
+\end{align}
+
+\begin{proposition}[Welfare comparison of certified profiles]\label{prop:welfare}
+For every $\lambda\in(1/9,2/9)$, the certified exclusion profile $E$ has strictly higher total welfare than the reported symmetric profile $S$ as a profile comparison. On the coexistence region
+\[
+ \lambda\in\left[\frac4{27},\frac29\right),
+\]
+where both $S$ and the certified exclusion profiles are quality-subgame equilibria, the exclusion equilibria welfare-dominate the reported symmetric equilibrium. Producer surplus is also higher at $E$ throughout this region. Consumer surplus is lower at $E$ for $\lambda<4/21$, equal at $\lambda=4/21$, and higher at $E$ for $\lambda>4/21$.
+\end{proposition}
+
+The distinction between a profile comparison and an equilibrium comparison matters. For $1/9<\lambda<4/27$, Proposition~\ref{prop:correction} shows that $S$ is not a quality-subgame equilibrium. Equation \eqref{eq:wdiff} remains a valid comparison of two named profiles, but it is not an equilibrium-selection statement in that region. Nor do we claim that $E$ welfare-dominates every quality equilibrium; the complete equilibrium set has not been characterized.
+
+\subsection{Planner benchmarks}\label{subsec:planner}
+
+The welfare calculation also clarifies where the remaining inefficiency lies. Consider first an unrestricted planner within the maintained model who may choose the active firm, consumer allocation, the active firm's location, and qualities. If a firm serves a fraction $s$ of consumers, its optimal quality is $s/\lambda$. Allowing the planner to locate each serving firm at the median of its assigned segment yields normalized welfare
+\begin{equation}\label{eq:planner-share}
+ \frac{W^{P}(s)}{\mu}
+ =k+\left[s^2+(1-s)^2\right]\left(\frac1{2\lambda}-\frac14\right).
+\end{equation}
+For the parameter region considered here, $\lambda<2$, so \eqref{eq:planner-share} is maximized at $s\in\{0,1\}$. First-best allocations therefore have one active firm located at the market midpoint, quality $1/\lambda$, and full market service. Firm labels are symmetric, so this allocation is not unique by label.
+
+Now constrain locations to the maximal-differentiation pair $(0,1)$. The analogous planner objective is
+\begin{equation}\label{eq:fixed-location-planner}
+ \frac{W^{FL}(s)}{\mu}
+ =k+\left[s^2+(1-s)^2\right]\left(\frac1{2\lambda}-\frac12\right).
+\end{equation}
+For $\lambda\in(1/9,2/9)$, \eqref{eq:fixed-location-planner} is maximized by assigning the full market to one endpoint firm and choosing quality $1/\lambda$. Thus the two certified asymmetric exclusion equilibria coincide with the two mirror-image fixed-location planner optima. They are not first-best allocations: moving the active firm from an endpoint to the market center saves exactly one quarter unit of normalized transportation loss.
+
+This decomposition is useful for interpretation. In the frozen baseline, the welfare loss associated with the certified exclusion equilibrium is not excessive quality investment conditional on maximal locations. The remaining wedge is location. We do not infer a policy prescription from this observation because the model contains neither an equilibrium-selection institution nor a policy instrument that implements one equilibrium rather than another.
+
+\begin{table}[t]
+\centering
+\caption{Parameter-region summary at maximal locations}
+\label{tab:regions}
+\input{../tables/parameter_regions}
+\end{table}
