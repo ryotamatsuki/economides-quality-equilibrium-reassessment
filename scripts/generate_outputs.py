@@ -1,4 +1,5 @@
 """Generate deterministic manuscript-ready parameter-region outputs."""
+import csv
 from pathlib import Path
 from fractions import Fraction
 
@@ -9,10 +10,10 @@ TABLE.parent.mkdir(parents=True, exist_ok=True)
 CSV.parent.mkdir(parents=True, exist_ok=True)
 
 regions = [
-    (Fraction(1, 9), Fraction(4, 27), "reported symmetric profile is not a quality-stage Nash equilibrium"),
-    (Fraction(4, 27), Fraction(4, 21), "symmetric and certified exclusion equilibria coexist; exclusion has higher W and PS but lower CS"),
-    (Fraction(4, 21), Fraction(4, 21), "symmetric and certified exclusion equilibria coexist; exclusion has higher W and PS and equal CS"),
-    (Fraction(4, 21), Fraction(2, 9), "symmetric and certified exclusion equilibria coexist; exclusion has higher W, PS, and CS"),
+    (Fraction(1, 9), Fraction(4, 27), "(1/9,4/27): reported symmetric profile is not a quality-stage Nash equilibrium"),
+    (Fraction(4, 27), Fraction(4, 21), "[4/27,4/21): symmetric and certified exclusion equilibria coexist; exclusion has higher W and PS but lower CS"),
+    (Fraction(4, 21), Fraction(4, 21), "{4/21}: symmetric and certified exclusion equilibria coexist; exclusion has higher W and PS and equal CS"),
+    (Fraction(4, 21), Fraction(2, 9), "(4/21,2/9): symmetric and certified exclusion equilibria coexist; exclusion has higher W, PS, and CS"),
 ]
 
 lines = [
@@ -29,10 +30,11 @@ lines = [
 ]
 TABLE.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
-csv_lines = ["lower,upper,interpretation"]
-for lo, hi, label in regions:
-    csv_lines.append(f"{float(lo):.12f},{float(hi):.12f},{label}")
-CSV.write_text("\n".join(csv_lines) + "\n", encoding="utf-8")
+with CSV.open("w", newline="", encoding="utf-8") as handle:
+    writer = csv.writer(handle, lineterminator="\n")
+    writer.writerow(["lower", "upper", "interpretation"])
+    for lo, hi, label in regions:
+        writer.writerow([f"{float(lo):.12f}", f"{float(hi):.12f}", label])
 
 # The horizontal coordinate equals 36*lambda, so distances between thresholds
 # preserve the actual scale of lambda rather than using equally spaced labels.
