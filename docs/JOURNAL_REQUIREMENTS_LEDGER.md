@@ -3,7 +3,7 @@
 Target journal: **Review of Industrial Organization (RIO)**  
 Publisher: Springer Nature  
 Evidence refresh date: **2026-09-10 JST**  
-Stage-14 submission-package content baseline: `9c78ab3cfc234e2b56ce146170e2cadc08b5199e`  
+Stage-14 submission-package content baseline: `a4b53d568fa17fd88972b008e59edaf9f892d4a4`  
 Theory freeze: `ECONOMIDES-THEORY-FREEZE-2026-09-10-v1`
 
 Evidence hierarchy follows `research-paper-workflow/checklists/JOURNAL_REQUIREMENTS_CHECKLIST.md`.
@@ -25,7 +25,7 @@ Evidence hierarchy follows `research-paper-workflow/checklists/JOURNAL_REQUIREME
 | Submission system | Current journal page routes submissions to Springer Nature submission system. | portal | Official journal link confirmed. | PASS |
 | Originality / simultaneous submission | Work must not have been published before or be under consideration elsewhere. | author attestation / cover letter | Current guidelines checked; manuscript is being prepared for one target at a time. | PASS subject to portal attestation |
 | Review/anonymity model | The public RIO instructions do not identify the current review model. Generic Springer text does not resolve RIO. | anonymous/identified manuscript, title page, repository link | Both clean variants are generated and compile; operative choice requires authenticated portal. | UNVERIFIED — PORTAL ONLY |
-| Title page | Must contain title, author name(s), affiliation(s), active corresponding-author email, ORCID if available. Acknowledgments belong in a separate title-page section. | `paper/title_page.tex` | Prepared with Ryota Matsuki, Independent Researcher, Matsuyama, Ehime, Japan, corresponding email and ORCID; acknowledgments thank Hiroshi Kinokuni and Takao Ohkawa for undergraduate guidance. | PASS |
+| Title page | Must contain title, author name(s), affiliation(s), active corresponding-author email, ORCID if available. Acknowledgments belong in a separate title-page section. | `paper/title_page.tex` | Prepared with Ryota Matsuki, Independent Researcher, Matsuyama, Ehime, Japan, corresponding email and ORCID; `Acknowledgments: None` confirmed as the intended submission metadata. | PASS |
 | Editable source at initial submission | All relevant editable sources must be provided at every submission and revision; `.docx` or LaTeX accepted. | flat LaTeX source package | CI builds source variants from clean flat directories. | PASS |
 | LaTeX admissibility | Mathematical manuscripts can be submitted in LaTeX; Springer template is recommended, not stated as mandatory. | manuscript source | Current article-class source compiles with standard TeX dependencies. | PASS |
 | LaTeX folder structure | Do not use subfolders. | `build/rio_anonymous`, `build/rio_identified` | Builder rejects path-bearing dependencies and CI verifies flat clean packages. | PASS |
@@ -60,7 +60,9 @@ Evidence hierarchy follows `research-paper-workflow/checklists/JOURNAL_REQUIREME
 
 ## Final non-portal QA status
 
-The submission-package content baseline `9c78ab3cfc234e2b56ce146170e2cadc08b5199e` has passed the non-portal Stage-14 checks that are reproducible locally: symbolic and numerical verification, regression tests, deterministic output checks, pinned Lean/mathlib kernel verification, manuscript and both RIO source-variant builds, unresolved citation/reference rejection, flat-package hygiene, font embedding, and visual inspection of the 18-page manuscript including the principal figure and table. The title page is separately built and inspected after final author-metadata and acknowledgment correction.
+The submission-package content baseline `a4b53d568fa17fd88972b008e59edaf9f892d4a4` has passed the non-portal Stage-14 checks that are reproducible locally: symbolic and numerical verification, regression tests, deterministic output checks, pinned Lean/mathlib kernel verification, manuscript and both RIO source-variant builds, unresolved citation/reference rejection, flat-package hygiene, and font embedding.
+
+Final PDF visual QA was performed page by page on both the 18-page anonymous manuscript and the 18-page identified manuscript, together with the separate one-page title page. No clipping, overlap, broken glyph, unreadable mathematical object, figure/table legibility defect, or title-page layout defect was found. Fig. 1, Table 1, declarations, proofs, and references were specifically inspected. `Acknowledgments: None` is confirmed and internally consistent with the title-page source.
 
 No Stage-14 change alters the economic model, theorem statements, parameter regions, welfare claims, or formal-proof scope. `NO THEORY DRIFT`.
 
