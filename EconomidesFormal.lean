@@ -8,6 +8,8 @@ piecewise quality payoffs are encoded here. The complete consumer continuum,
 full three-stage game, and P1 full-history SPNE nonexistence argument are not.
 -/
 
+noncomputable section
+
 namespace EconomidesFormal
 
 -- P2: correction-producing global deviation.
@@ -20,7 +22,8 @@ def exclusionBestProfit (lam : ℝ) : ℝ :=
 theorem p2_gain_formula (lam : ℝ) (hlam : lam ≠ 0) :
     exclusionBestProfit lam - symmetricProfit lam =
       (4 - 27 * lam) / (18 * lam) := by
-  field_simp [exclusionBestProfit, symmetricProfit, hlam]
+  unfold exclusionBestProfit symmetricProfit
+  field_simp [hlam]
   <;> ring
 
 theorem p2_profitable_deviation {lam : ℝ}
@@ -57,7 +60,8 @@ def payoffAgainstZero (lam a : ℝ) : ℝ :=
 theorem exclusion_zero_gap (lam a : ℝ) (hlam : lam ≠ 0) :
     exclusionAgainstZero lam (1 / lam) - exclusionAgainstZero lam a =
       (a * lam - 1) ^ 2 / (2 * lam) := by
-  field_simp [exclusionAgainstZero, hlam]
+  unfold exclusionAgainstZero
+  field_simp [hlam]
   <;> ring
 
 theorem exclusion_zero_le_best {lam a : ℝ} (hlam : 0 < lam) :
@@ -71,7 +75,8 @@ theorem interior_zero_gap (lam a : ℝ) (hlam : lam ≠ 0) :
     exclusionAgainstZero lam (1 / lam) - interiorAgainstZero lam a =
       (lam * (a - 3) * (a * (9 * lam - 1) + 27 * lam - 9) +
         9 * (3 * lam - 1) ^ 2) / (18 * lam) := by
-  field_simp [exclusionAgainstZero, interiorAgainstZero, hlam]
+  unfold exclusionAgainstZero interiorAgainstZero
+  field_simp [hlam]
   <;> ring
 
 theorem interior_zero_le_best {lam a : ℝ}
@@ -101,7 +106,7 @@ theorem interior_zero_le_best {lam a : ℝ}
   linarith
 
 theorem p3_best_response_to_zero {lam a : ℝ}
-    (hlo : 1 / 9 < lam) (hhi : lam < 2 / 9) :
+    (hlo : 1 / 9 < lam) (hhi : lam < 2 / 9) (_ha : 0 ≤ a) :
     payoffAgainstZero lam a ≤ payoffAgainstZero lam (1 / lam) := by
   have hlam : 0 < lam := by nlinarith
   have hbest : 3 < 1 / lam := by
@@ -138,7 +143,8 @@ theorem excluded_high_le_zero {lam a : ℝ} (hlam : 0 < lam) :
 theorem middle_lower_boundary (lam : ℝ) (hlam : lam ≠ 0) :
     middleAgainstHigh lam (1 / lam - 3) =
       -(3 * lam - 1) ^ 2 / (2 * lam) := by
-  field_simp [middleAgainstHigh, hlam]
+  unfold middleAgainstHigh
+  field_simp [hlam]
   <;> ring
 
 theorem middle_boundary_gap (lam a : ℝ) (hlam : lam ≠ 0) :
@@ -146,7 +152,8 @@ theorem middle_boundary_gap (lam a : ℝ) (hlam : lam ≠ 0) :
       ((a * lam + 3 * lam - 1) *
         (9 * a * lam ^ 2 - a * lam - 27 * lam ^ 2 + 6 * lam + 1)) /
         (18 * lam ^ 2) := by
-  field_simp [middleAgainstHigh, hlam]
+  unfold middleAgainstHigh
+  field_simp [hlam]
   <;> ring
 
 theorem middle_high_le_zero {lam a : ℝ}
@@ -188,9 +195,8 @@ theorem middle_high_le_zero {lam a : ℝ}
   have hbase := middle_lower_boundary lam hlamne
   have hbasele : middleAgainstHigh lam (1 / lam - 3) ≤ 0 := by
     rw [hbase]
-    have hq : 0 ≤ (3 * lam - 1) ^ 2 / (2 * lam) :=
-      div_nonneg (sq_nonneg (3 * lam - 1)) (by positivity)
-    linarith
+    exact div_nonpos_of_nonpos_of_nonneg
+      (neg_nonpos.mpr (sq_nonneg (3 * lam - 1))) (by positivity)
   linarith
 
 theorem reverse_high_le_zero {lam a : ℝ} (hlam : 0 < lam) :
@@ -199,7 +205,8 @@ theorem reverse_high_le_zero {lam a : ℝ} (hlam : 0 < lam) :
   have hid :
       0 - reverseAgainstHigh lam a =
         ((a * lam - 1) ^ 2 + 2 * lam + 1) / (2 * lam) := by
-    field_simp [reverseAgainstHigh, hlamne]
+    unfold reverseAgainstHigh
+    field_simp [hlamne]
     <;> ring
   have hnum : 0 < (a * lam - 1) ^ 2 + 2 * lam + 1 := by
     nlinarith [sq_nonneg (a * lam - 1)]
@@ -208,7 +215,7 @@ theorem reverse_high_le_zero {lam a : ℝ} (hlam : 0 < lam) :
   linarith
 
 theorem p3_best_response_to_high {lam a : ℝ}
-    (hlo : 1 / 9 < lam) (hhi : lam < 2 / 9) :
+    (hlo : 1 / 9 < lam) (hhi : lam < 2 / 9) (_ha : 0 ≤ a) :
     payoffAgainstHigh lam a ≤ payoffAgainstHigh lam 0 := by
   have hlam : 0 < lam := by nlinarith
   have hbest : 3 < 1 / lam := by
@@ -216,7 +223,9 @@ theorem p3_best_response_to_high {lam a : ℝ}
     nlinarith
   have hzeroLeft : (0 : ℝ) ≤ 1 / lam - 3 := by linarith
   have hzero : payoffAgainstHigh lam 0 = 0 := by
-    simp [payoffAgainstHigh, hzeroLeft, excludedAgainstHigh]
+    unfold payoffAgainstHigh
+    rw [if_pos hzeroLeft]
+    norm_num [excludedAgainstHigh]
   rw [hzero]
   unfold payoffAgainstHigh
   by_cases hleft : a ≤ 1 / lam - 3
@@ -232,13 +241,13 @@ theorem p3_best_response_to_high {lam a : ℝ}
 
 theorem p3_asymmetric_exclusion_core {lam : ℝ}
     (hlo : 1 / 9 < lam) (hhi : lam < 2 / 9) :
-    (∀ a : ℝ, payoffAgainstZero lam a ≤ payoffAgainstZero lam (1 / lam)) ∧
-    (∀ a : ℝ, payoffAgainstHigh lam a ≤ payoffAgainstHigh lam 0) := by
+    (∀ a : ℝ, 0 ≤ a → payoffAgainstZero lam a ≤ payoffAgainstZero lam (1 / lam)) ∧
+    (∀ a : ℝ, 0 ≤ a → payoffAgainstHigh lam a ≤ payoffAgainstHigh lam 0) := by
   constructor
-  · intro a
-    exact p3_best_response_to_zero hlo hhi
-  · intro a
-    exact p3_best_response_to_high hlo hhi
+  · intro a ha
+    exact p3_best_response_to_zero hlo hhi ha
+  · intro a ha
+    exact p3_best_response_to_high hlo hhi ha
 
 -- W1/W2: named-profile welfare and consumer-surplus identities.
 def welfareS (lam k : ℝ) : ℝ :=
@@ -249,7 +258,8 @@ def welfareE (lam k : ℝ) : ℝ :=
 
 theorem w1_gap_formula (lam k : ℝ) (hlam : lam ≠ 0) :
     welfareE lam k - welfareS lam k = (10 - 9 * lam) / (36 * lam) := by
-  field_simp [welfareE, welfareS, hlam]
+  unfold welfareE welfareS
+  field_simp [hlam]
   <;> ring
 
 theorem w1_exclusion_welfare_higher {lam k : ℝ}
@@ -270,7 +280,8 @@ def consumerSurplusE (_lam k : ℝ) : ℝ :=
 theorem w2_cs_gap_formula (lam k : ℝ) (hlam : lam ≠ 0) :
     consumerSurplusE lam k - consumerSurplusS lam k =
       (21 * lam - 4) / (12 * lam) := by
-  field_simp [consumerSurplusE, consumerSurplusS, hlam]
+  unfold consumerSurplusE consumerSurplusS
+  field_simp [hlam]
   <;> ring
 
 theorem w2_cs_negative_below {lam k : ℝ}
@@ -283,7 +294,8 @@ theorem w2_cs_negative_below {lam k : ℝ}
 
 theorem w2_cs_boundary (k : ℝ) :
     consumerSurplusE (4 / 21 : ℝ) k = consumerSurplusS (4 / 21 : ℝ) k := by
-  norm_num [consumerSurplusE, consumerSurplusS]
+  unfold consumerSurplusE consumerSurplusS
+  ring
 
 theorem w2_cs_positive_above {lam k : ℝ} (hcrit : 4 / 21 < lam) :
     consumerSurplusS lam k < consumerSurplusE lam k := by
@@ -304,7 +316,7 @@ theorem r1_scaled_gain_positive {lam t : ℝ}
   exact div_pos (by nlinarith) (by positivity)
 
 theorem r1_scaled_gain_zero {lam t : ℝ}
-    (hlam : 0 < lam) (ht : 0 < t) (hcrit : lam * t = 4 / 27) :
+    (_hlam : 0 < lam) (_ht : 0 < t) (hcrit : lam * t = 4 / 27) :
     scaledP2Gain lam t = 0 := by
   unfold scaledP2Gain
   rw [hcrit]
