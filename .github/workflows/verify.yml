@@ -26,6 +26,31 @@ jobs:
         run: python scripts/generate_outputs.py
       - name: Check generated outputs are deterministic
         run: test -z "$(git status --porcelain)"
+      - name: Install elan and pinned Lean toolchain
+        shell: bash
+        run: |
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+          "$HOME/.elan/bin/elan" toolchain install "$(cat lean-toolchain)"
+      - name: Reject formal proof placeholders and project axioms
+        shell: bash
+        run: |
+          if grep -nE '\b(sorry|admit)\b' EconomidesFormal.lean; then
+            echo 'Blocking proof placeholder found.'
+            exit 1
+          fi
+          if grep -nE '^[[:space:]]*axiom[[:space:]]' EconomidesFormal.lean; then
+            echo 'Project-specific axiom found.'
+            exit 1
+          fi
+      - name: Resolve and verify pinned Lean dependencies
+        run: |
+          lake update
+          git diff --exit-code -- lean-toolchain lakefile.toml lake-manifest.json
+      - name: Download mathlib build cache
+        run: lake exe cache get
+      - name: Kernel-check formal verification
+        run: lake build --wfail
       - name: Install TeX
         run: sudo apt-get update && sudo apt-get install -y latexmk texlive-latex-base texlive-latex-extra texlive-bibtex-extra poppler-utils
       - name: Build manuscript
