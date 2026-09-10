@@ -314,8 +314,8 @@ theorem high_against_high_nonpos (lam a : ℝ)
     (hlam : 0 < lam) :
     highExclusionProfit lam (exclusionQuality lam) a ≤ 0 := by
   rw [high_against_high_complete_square lam a (ne_of_gt hlam)]
-  have hterm : 0 ≤ (a * lam - 1)^2 / (2 * lam) := by positivity
-  have hinv : 0 < 1 / (2 * lam) := by positivity
+  have hfirst : - (a * lam - 1)^2 / (2 * lam) ≤ 0 := by positivity
+  have hsecond : - 1 / (2 * lam) < 0 := by positivity
   linarith
 
 theorem br_high_global_core (lam a : ℝ)
