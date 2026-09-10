@@ -20,7 +20,6 @@ def test_global_quality_deviation_threshold_and_knife_edge():
 def test_asymmetric_equilibrium_candidate_points_are_in_exclusion_region():
     lam = sp.symbols("lam", positive=True)
     gap = 1 / lam
-    # On the frozen interval lam<2/9, 1/lam>9/2>3.
     assert sp.simplify(gap.subs(lam, sp.Rational(2, 9)) - sp.Rational(9, 2)) == 0
 
 
@@ -35,7 +34,6 @@ def test_consumer_surplus_threshold():
 def test_welfare_dominance_on_equilibrium_coexistence_region():
     lam = sp.symbols("lam", positive=True)
     wdiff = (10 - 9 * lam) / (36 * lam)
-    # Check both certified coexistence boundaries/interior exactly.
     assert wdiff.subs(lam, sp.Rational(4, 27)) > 0
     assert wdiff.subs(lam, sp.Rational(4, 21)) > 0
     assert wdiff.subs(lam, sp.Rational(2, 9)) > 0
@@ -50,13 +48,11 @@ def test_generated_table_marks_cs_equality_at_four_over_twenty_one():
 
 
 def test_linear_transport_rescaling_domain_conditions():
-    # The exclusionary deviation B-A crosses the 3t boundary iff lambda*t <= 2/9.
     lam, t = sp.symbols("lam t", positive=True)
     A = 1 / (3 * lam)
     B = 1 / lam
     rhs = (2 - 9 * lam * t) / (3 * lam)
     assert sp.simplify(((B - A) - 3 * t) - rhs) == 0
-    # Local concavity of the regular quality branch requires lambda*t > 1/9.
     curvature = sp.Rational(1, 9) / t - lam
     assert sp.simplify(curvature * t - (sp.Rational(1, 9) - lam * t)) == 0
 
@@ -81,10 +77,35 @@ def test_stage13_rio_metadata_and_recent_comparison():
     assert r"\input{sections/research_transparency}" in main
 
 
-def test_rio_flat_package_is_flat(tmp_path):
-    output = tmp_path / "rio_submission"
+def test_stage14_rio_declarations_and_title_page():
+    declarations = Path("paper/sections/research_transparency.tex").read_text(encoding="utf-8")
+    title_page = Path("paper/title_page.tex").read_text(encoding="utf-8")
+    bib = Path("references/references.bib").read_text(encoding="utf-8")
+
+    assert r"\section*{Statements and Declarations}" in declarations
+    assert "This research received no external funding." in declarations
+    assert "The author declares no competing interests." in declarations
+    assert "Ryota Matsuki: Conceptualization" in declarations
+    assert "Use of generative AI" in declarations
+    assert "Ryota Matsuki" in title_page
+    assert "Independent Researcher" in title_page
+    assert "ryota.matsuki@gmail.com" in title_page
+    assert "0009-0005-2329-531X" in title_page
+    assert "Acknowledgments" in title_page
+    assert "https://doi.org/10.1007/s11151-024-09989-3" in bib
+    assert "https://doi.org/10.1016/0166-0462(89)90031-8" in bib
+
+
+def _build_package(output: Path, mode: str) -> str:
     subprocess.run(
-        [sys.executable, "scripts/build_rio_flat_package.py", "--output", str(output)],
+        [
+            sys.executable,
+            "scripts/build_rio_flat_package.py",
+            "--mode",
+            mode,
+            "--output",
+            str(output),
+        ],
         check=True,
     )
     assert (output / "main.tex").exists()
@@ -93,3 +114,21 @@ def test_rio_flat_package_is_flat(tmp_path):
     combined = "\n".join(path.read_text(encoding="utf-8") for path in output.glob("*.tex"))
     assert "../" not in combined
     assert "sections/" not in combined
+    return combined
+
+
+def test_rio_anonymous_flat_package_is_flat_and_blinded(tmp_path):
+    combined = _build_package(tmp_path / "rio_anonymous", "anonymous")
+    assert "Ryota Matsuki" not in combined
+    assert "ryota.matsuki@gmail.com" not in combined
+    assert "0009-0005-2329-531X" not in combined
+    assert "github.com/ryotamatsuki" not in combined
+    assert "blinded repository link" in combined
+
+
+def test_rio_identified_flat_package_is_flat_and_identified(tmp_path):
+    combined = _build_package(tmp_path / "rio_identified", "identified")
+    assert "Ryota Matsuki" in combined
+    assert "ryota.matsuki@gmail.com" in combined
+    assert "0009-0005-2329-531X" in combined
+    assert "github.com/ryotamatsuki" in combined
