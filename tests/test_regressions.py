@@ -98,6 +98,17 @@ def test_stage14r_prior_art_claim_is_evidence_bounded():
     assert "is **not** used as the decisive non-overlap test" in ledger
 
 
+def test_stage14r2_bunte_1995_provenance_is_disclosed_in_manuscript():
+    intro = Path("paper/sections/introduction.tex").read_text(encoding="utf-8")
+    literature = Path("paper/sections/related_literature.tex").read_text(encoding="utf-8")
+
+    assert "based on the Chapter 3 discussion in \\citet{Bunte1997}" in intro
+    assert "not independently inspected the full text of the corresponding 1995 discussion paper" in intro
+    assert "based on the Chapter 3 material in \\citet{Bunte1997}" in literature
+    assert "full text of the corresponding 1995 discussion paper has not been independently inspected" in literature
+    assert "In the inspected Chapter 3 material" in literature
+
+
 def test_stage13_rio_metadata_and_recent_comparison():
     main = Path("paper/main.tex").read_text(encoding="utf-8")
     intro = Path("paper/sections/introduction.tex").read_text(encoding="utf-8")
