@@ -318,9 +318,19 @@ theorem high_against_high_nonpos (lam a : ℝ)
   have hden : 0 ≤ 2 * lam := by nlinarith
   have hfirst : - (a * lam - 1)^2 / (2 * lam) ≤ 0 :=
     div_nonpos_of_nonpos_of_nonneg hnum hden
-  have hsecond : -1 / (2 * lam) < 0 :=
-    div_neg_of_neg_of_pos (by norm_num) (by positivity)
-  linarith
+  have hinv : 0 ≤ 1 / (2 * lam) := by positivity
+  have hstep1 :
+      - (a * lam - 1)^2 / (2 * lam) - 1 / (2 * lam) ≤
+        0 - 1 / (2 * lam) :=
+    sub_le_sub_right hfirst _
+  have hstep2 :
+      - (a * lam - 1)^2 / (2 * lam) - 1 / (2 * lam) - 1 ≤
+        (0 - 1 / (2 * lam)) - 1 :=
+    sub_le_sub_right hstep1 1
+  have hzero : 0 - 1 / (2 * lam) ≤ 0 := sub_nonpos.mpr hinv
+  have hstep3 : (0 - 1 / (2 * lam)) - 1 ≤ 0 - 1 :=
+    sub_le_sub_right hzero 1
+  exact hstep2.trans (hstep3.trans (by norm_num))
 
 theorem br_high_global_core (lam a : ℝ)
     (hlower : 1 / 9 < lam) (hupper : lam < 2 / 9)
