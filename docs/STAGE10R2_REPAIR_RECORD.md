@@ -7,18 +7,18 @@
 
 ## 1. Purpose
 
-Stage 10R2 responds only to residual objections from the Stage-11 limited recheck. It does not develop a new model, alter a theorem, change the baseline equilibrium concept, or authorize Lean.
+Stage 10R2 responds only to residual objections from the Stage-11 limited recheck. It does not develop a new model, alter a theorem, change the baseline equilibrium concept, self-certify Stage 11, or authorize Lean.
 
 ## 2. Residual-objection ledger
 
-| # | Residual objection | Stage-10R2 action | Status before final validation |
+| # | Residual objection | Stage-10R2 action | Status |
 |---|---|---|---|
-| 1 | Bunte/Sorenson non-absorption had been asserted beyond primary-source evidence | Performed source-access audit; built model-unit matrix and parameter mapping; downgraded overall classification to `INSUFFICIENT PRIMARY-SOURCE EVIDENCE`; identified exact missing full texts/pages | implemented; external-source blocker remains |
-| 2 | Prior-art ledger/manuscript overstated non-absorption | Marked Stage-10R ledger historical/superseded; revised Introduction and Related Literature to retain firstness concession and avoid absence-based novelty inference | implemented |
-| 3 | Appendix A.2 omitted capture-price feasibility conditions | Added firm-specific nonnegative capture conditions: firm 1 only for `delta>=0`, firm 2 only for `delta<=0`; clarified empty capture sets on the opposite side | implemented |
-| 4 | Generated CSV was malformed because commas in prose were not quoted | Replaced manual string concatenation with Python `csv.writer`; encoded interval openness in the interpretation field; regenerated tracked CSV | implemented |
-| 5 | CSV lacked parser-level regression | Added standard-library `csv.reader` round-trip test requiring exactly three columns and all four boundary labels | implemented |
-| 6 | Stage-10R record claimed closure too broadly | Marked it explicitly as a historical record and routed current status to Stage 10R2 documents | implemented |
+| 1 | Bunte/Sorenson non-absorption had been asserted beyond primary-source evidence | Performed source-access audit; built model-unit matrix and parameter mapping; downgraded overall classification to `INSUFFICIENT PRIMARY-SOURCE EVIDENCE`; identified exact missing full texts/pages | implementation complete; external-source blocker remains |
+| 2 | Prior-art ledger/manuscript overstated non-absorption | Marked Stage-10R ledger historical/superseded; revised Introduction and Related Literature to retain firstness concession and avoid absence-based novelty inference | PASS |
+| 3 | Appendix A.2 omitted capture-price feasibility conditions | Added firm-specific nonnegative capture conditions: firm 1 only for `delta>=0`, firm 2 only for `delta<=0`; clarified empty capture sets on the opposite side | PASS |
+| 4 | Generated CSV was malformed because commas in prose were not quoted | Replaced manual string concatenation with Python `csv.writer`; encoded interval openness in the interpretation field; regenerated tracked CSV | PASS |
+| 5 | CSV lacked parser-level regression | Added standard-library `csv.reader` round-trip test requiring exactly three columns and all four boundary labels | PASS |
+| 6 | Stage-10R record claimed closure too broadly | Marked it explicitly as a historical record and routed current status to Stage 10R2 documents | PASS |
 
 ## 3. Changed files
 
@@ -37,37 +37,65 @@ Stage 10R2 responds only to residual objections from the Stage-11 limited rechec
 
 The Stage-10R2 source audit establishes that Bunte's generic R&D-stability criticism is prior art and cannot be claimed. It also establishes, under the recovered Chapter-3 normalization, that Bunte's stated Hotelling-scenario stability cutoff maps to `theta>2/9`, whereas the present finite-deviation threshold is `theta=4/27`; these documented conditions are not algebraically identical.
 
-However, the audit did not obtain the full Bunte (1995) working paper or the full Sorenson (1995) article. Their unavailable portions therefore cannot be used to certify absence of an equivalent N1–N3 result. The controlling prior-art classification is `D. INSUFFICIENT PRIMARY-SOURCE EVIDENCE`.
+However, the audit did not obtain the full Bunte (1995) working paper or the full Sorenson (1995) article. Their unavailable portions therefore cannot be used to certify absence of an equivalent N1–N3 result. The controlling prior-art classification is:
+
+`D. INSUFFICIENT PRIMARY-SOURCE EVIDENCE`.
+
+The source-access details, model-unit matrix, exact parameter mapping, and itemized N1–N4 judgments are in `docs/STAGE10R2_PRIMARY_SOURCE_AUDIT.md`.
 
 ## 5. Theory integrity
 
-The branch copy of `theory/THEORY_FREEZE.md` still has blob SHA `20b5b177f0e301e33261c2d11ea4403c187e9b97` after the substantive edits. No frozen theorem, baseline domain, `4/27` threshold, asymmetric-equilibrium formula, welfare formula, planner benchmark, or robustness class has been changed.
+The branch copy of `theory/THEORY_FREEZE.md` retained blob SHA `20b5b177f0e301e33261c2d11ea4403c187e9b97` after all substantive Stage-10R2 edits. No frozen theorem, baseline domain, `4/27` threshold, asymmetric-equilibrium formula, welfare formula, planner benchmark, or robustness class was changed.
 
-**Theory drift:** `NO` as of the pre-validation branch state.
+**Theory drift:** `NO`.
 
-## 6. Validation plan / status
+## 6. Validation results
 
-The following must pass on the final branch head before this record is closed:
+Pull-request workflow run `34419717801`, on the complete substantive repair head `808754c26b999c06f4ca20de6403ae3bbb07f052`, completed successfully.
 
-- exact symbolic checks — PENDING;
-- primitive-allocation numerical audit — PENDING;
-- regression tests including CSV round-trip — PENDING;
-- deterministic regeneration — PENDING;
-- LaTeX build — PENDING;
-- generated manuscript PDF artifact — PENDING;
-- render of every PDF page — PENDING;
-- visual QA of Figure 1, Table 1, rescaling section, Appendix A.2, Related Literature, references, and equation/page breaks — PENDING;
-- final Theory-Freeze blob recheck — PENDING.
+- exact symbolic checks — **PASS**;
+- primitive-allocation numerical audit — **PASS**;
+- regression tests, including standard-CSV round trip — **PASS**;
+- deterministic regeneration — **PASS**;
+- generated-output clean-tree check — **PASS**;
+- LaTeX build — **PASS**;
+- manuscript artifact upload — **PASS**.
 
-## 7. Current blocker
+The CI artifact `manuscript-pdf` (artifact id `10130472403`) was downloaded independently after the successful run.
 
-Even if all implementation validation passes, the novelty certification remains blocked by missing primary text:
+### PDF visual QA
 
-1. full Bunte (1995), CRIEFF Discussion Paper 9509;
-2. full Sorenson (1995), *Review of Industrial Organization* 10(3), 373–388.
+The generated `paper/main.pdf` was inspected separately from the CI success signal.
 
-The exact sections needed are recorded in `docs/STAGE10R2_PRIMARY_SOURCE_AUDIT.md`.
+- PDF structure: 17 pages, Letter size, not encrypted;
+- fonts: embedded Type-1 Computer Modern fonts;
+- all 17 pages rendered successfully at 160 dpi;
+- all rendered pages were inspected, first as contact sheets and then at full-page resolution for the repair-sensitive pages;
+- no clipped body text, black boxes, broken glyphs, unresolved-reference markers, or page-level overlaps were observed;
+- Figure 1 remains readable, preserves the actual `36*lambda` horizontal scale, and visibly marks the `4/21` equality point;
+- Table 1 has four distinct regions/points and correctly gives `CS_E=CS_S` at `{4/21}` and `CS_E>CS_S` only on `(4/21,2/9)`;
+- the rescaling section visibly states `theta=lambda t`, the `theta in (1/9,2/9)` domain, and the equilibrium-welfare comparison restriction;
+- Appendix A.2 visibly states that firm 1's nonnegative capture deviation exists only for `delta>=0` and firm 2's only for `delta<=0`, with the opposite-side capture sets empty;
+- Related Literature renders the narrowed Bunte/Sorenson discussion and exact Bunte parameter mapping without layout defects;
+- the reference list is complete across pp. 16–17 and has no observed clipping.
 
-## 8. Handoff rule
+The Stage-10R2 page count is 17 rather than the prior Stage-10R 16 pages because the revised literature/proof exposition changes pagination; this is not treated as a defect.
 
-Stage 10R2 implementation completion is not Stage-11 PASS. The final Stage-10R2 outcome must remain fail-closed if the primary-source blocker persists. Lean formalization remains blocked until an independent Stage-11 limited recheck passes.
+## 7. Remaining blocker
+
+Implementation repairs are closed, but publication-level novelty certification remains blocked by missing primary text:
+
+1. full Bunte (1995), CRIEFF Discussion Paper 9509, especially the model, Hotelling/limit-price quality stages, asymmetry section, and stability appendices;
+2. full Sorenson (1995), *Review of Industrial Organization* 10(3), 373–388, especially the model, R&D strategy/cost, Bertrand continuation, stability derivation, asymmetric-equilibrium propositions, and any appendix.
+
+The CRIEFF series page confirms DP 9509 exists but does not mark it as an electronically downloadable paper, and the Springer page exposes only subscription-preview material for Sorenson. No access restriction was bypassed and no external contact or purchase was undertaken.
+
+## 8. Stage-10R2 status and handoff
+
+The implementation portion of Stage 10R2 is complete and reviewable in Draft PR #3. It is **not** a Stage-11 PASS.
+
+Because the closest-source coverage remains incomplete, the fail-closed Stage-10R2 disposition is:
+
+`BLOCKED — PRIMARY SOURCES REQUIRED`.
+
+If lawful copies of the missing Bunte (1995) and Sorenson (1995) full texts become available, the next action is a narrowly scoped completion of the N1–N4 absorption audit followed by an independent Stage-11 limited recheck. Lean formalization remains blocked until that Stage-11 recheck passes.
