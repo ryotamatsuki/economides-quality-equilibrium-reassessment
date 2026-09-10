@@ -53,10 +53,10 @@ Repair run `34416599764` at head `59b0d6206757e670b751d845f4d6119aa66c4161` pass
 
 ## Recheck contract
 
-The Stage-10R implementation repairs are now closed. Stage 11 should next be re-run as a **limited recheck** against the Astra objections rather than as a new model-development stage. The recheck should verify:
+The Stage-10R implementation repairs are now closed. Stage 11 was to be re-run as a **limited recheck** against the Astra objections rather than as a new model-development stage. The recheck contract was to verify:
 
 1. the eight mandatory repairs above;
 2. whether the Bunte/Sorenson evidence is sufficient to certify `STRUCTURALLY VERY CLOSE BUT NON-ABSORBING` for the narrow claimed contribution;
 3. that no new claim inflation or mathematical problem was introduced by the repairs.
 
-Lean formalization remains blocked until that Stage-11 recheck passes.
+The Formal Verification Gate was subsequently retroactively closed under Stage 7.5A. Accordingly, the completed Stage-11 limited recheck treats the formal certificate and Lean source as additional hostile-audit targets rather than as a blocker. See `docs/STAGE11_LIMITED_RECHECK.md`.
