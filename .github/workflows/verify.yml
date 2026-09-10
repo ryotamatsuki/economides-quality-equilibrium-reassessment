@@ -27,20 +27,51 @@ jobs:
       - name: Check generated outputs are deterministic
         run: test -z "$(git status --porcelain)"
       - name: Install TeX
-        run: sudo apt-get update && sudo apt-get install -y latexmk texlive-latex-base texlive-latex-extra texlive-bibtex-extra
+        run: sudo apt-get update && sudo apt-get install -y latexmk texlive-latex-base texlive-latex-extra texlive-bibtex-extra poppler-utils
       - name: Build manuscript
         run: make paper
-      - name: Build and compile RIO flat package
+      - name: Build and compile RIO submission variants
         run: make rio-package
-      - name: Upload manuscript PDF for visual QA
+      - name: Reject unresolved LaTeX citations or references
+        run: |
+          ! grep -E "Citation .* undefined|Reference .* undefined|There were undefined references" paper/main.log
+          ! grep -E "Citation .* undefined|Reference .* undefined|There were undefined references" build/rio_anonymous_compile/main.log
+          ! grep -E "Citation .* undefined|Reference .* undefined|There were undefined references" build/rio_identified_compile/main.log
+      - name: Confirm clean source packages contain no build debris
+        run: |
+          test -z "$(find build/rio_anonymous -maxdepth 1 -type f \( -name '*.aux' -o -name '*.log' -o -name '*.pdf' -o -name '*.blg' -o -name '*.bbl' -o -name '*.fls' -o -name '*.fdb_latexmk' \) -print)"
+          test -z "$(find build/rio_identified -maxdepth 1 -type f \( -name '*.aux' -o -name '*.log' -o -name '*.pdf' -o -name '*.blg' -o -name '*.bbl' -o -name '*.fls' -o -name '*.fdb_latexmk' \) -print)"
+      - name: Check PDF font embedding
+        run: |
+          pdffonts build/rio_anonymous_compile/main.pdf | tail -n +3 | awk 'NF && ($4 != "yes" || $5 != "yes") {bad=1} END {exit bad}'
+          pdffonts build/rio_identified_compile/main.pdf | tail -n +3 | awk 'NF && ($4 != "yes" || $5 != "yes") {bad=1} END {exit bad}'
+      - name: Upload anonymous manuscript PDF
         uses: actions/upload-artifact@v4
         with:
-          name: manuscript-pdf
-          path: paper/main.pdf
+          name: rio-anonymous-manuscript-pdf
+          path: build/rio_anonymous_compile/main.pdf
           if-no-files-found: error
-      - name: Upload RIO flat source package
+      - name: Upload identified manuscript PDF
         uses: actions/upload-artifact@v4
         with:
-          name: rio-flat-source-package
-          path: build/rio_submission/
+          name: rio-identified-manuscript-pdf
+          path: build/rio_identified_compile/main.pdf
+          if-no-files-found: error
+      - name: Upload RIO title page
+        uses: actions/upload-artifact@v4
+        with:
+          name: rio-title-page
+          path: paper/title_page.pdf
+          if-no-files-found: error
+      - name: Upload anonymous RIO flat source package
+        uses: actions/upload-artifact@v4
+        with:
+          name: rio-anonymous-flat-source
+          path: build/rio_anonymous/
+          if-no-files-found: error
+      - name: Upload identified RIO flat source package
+        uses: actions/upload-artifact@v4
+        with:
+          name: rio-identified-flat-source
+          path: build/rio_identified/
           if-no-files-found: error
