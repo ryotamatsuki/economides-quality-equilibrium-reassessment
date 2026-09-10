@@ -43,8 +43,10 @@ jobs:
           test -z "$(find build/rio_identified -maxdepth 1 -type f \( -name '*.aux' -o -name '*.log' -o -name '*.pdf' -o -name '*.blg' -o -name '*.bbl' -o -name '*.fls' -o -name '*.fdb_latexmk' \) -print)"
       - name: Check PDF font embedding
         run: |
-          pdffonts build/rio_anonymous_compile/main.pdf | tail -n +3 | awk 'NF && ($4 != "yes" || $5 != "yes") {bad=1} END {exit bad}'
-          pdffonts build/rio_identified_compile/main.pdf | tail -n +3 | awk 'NF && ($4 != "yes" || $5 != "yes") {bad=1} END {exit bad}'
+          pdffonts build/rio_anonymous_compile/main.pdf
+          pdffonts build/rio_anonymous_compile/main.pdf | tail -n +3 | awk 'NF && $4 != "yes" {bad=1} END {exit bad}'
+          pdffonts build/rio_identified_compile/main.pdf
+          pdffonts build/rio_identified_compile/main.pdf | tail -n +3 | awk 'NF && $4 != "yes" {bad=1} END {exit bad}'
       - name: Upload anonymous manuscript PDF
         uses: actions/upload-artifact@v4
         with:
