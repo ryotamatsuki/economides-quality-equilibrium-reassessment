@@ -314,11 +314,13 @@ theorem high_against_high_nonpos (lam a : ℝ)
     (hlam : 0 < lam) :
     highExclusionProfit lam (exclusionQuality lam) a ≤ 0 := by
   rw [high_against_high_complete_square lam a (ne_of_gt hlam)]
-  have hden : 0 < 2 * lam := by positivity
-  have hsqdiv : 0 ≤ (a * lam - 1)^2 / (2 * lam) :=
-    div_nonneg (sq_nonneg _) (le_of_lt hden)
-  have hinv : 0 < 1 / (2 * lam) := one_div_pos.mpr hden
-  nlinarith
+  have hnum : - (a * lam - 1)^2 ≤ 0 := neg_nonpos.mpr (sq_nonneg _)
+  have hden : 0 ≤ 2 * lam := by nlinarith
+  have hfirst : - (a * lam - 1)^2 / (2 * lam) ≤ 0 :=
+    div_nonpos_of_nonpos_of_nonneg hnum hden
+  have hsecond : -1 / (2 * lam) < 0 :=
+    div_neg_of_neg_of_pos (by norm_num) (by positivity)
+  linarith
 
 theorem br_high_global_core (lam a : ℝ)
     (hlower : 1 / 9 < lam) (hupper : lam < 2 / 9)
