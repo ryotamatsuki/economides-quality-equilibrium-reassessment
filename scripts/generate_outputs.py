@@ -49,6 +49,13 @@ def dec(x: Fraction) -> str:
 # Each logical region is drawn on its own row. Open/filled endpoint markers and
 # explicit interval notation make boundary membership unambiguous while the
 # x-coordinates retain the true relative spacing of the lambda thresholds.
+labels = [
+    r"$(1/9,4/27)$: symmetric $S$ fails",
+    r"$[4/27,4/21)$: coexistence, $CS_E<CS_S$",
+    r"$\{4/21\}$: coexistence, $CS_E=CS_S$",
+    r"$(4/21,2/9)$: coexistence, $CS_E>CS_S$",
+]
+
 fig_lines = [
     r"\begin{tikzpicture}[x=1.25cm,y=1cm]",
     rf"\draw[->] ({dec(x1-Fraction(1,3))},0) -- ({dec(x4+Fraction(1,3))},0) node[right] {{$\lambda$}};",
@@ -59,17 +66,17 @@ fig_lines = [
     rf"\draw[line width=0.7pt] ({dec(x1)},0.55) -- ({dec(x2)},0.55);",
     rf"\draw[fill=white,line width=0.7pt] ({dec(x1)},0.55) circle (1.4pt);",
     rf"\draw[fill=white,line width=0.7pt] ({dec(x2)},0.55) circle (1.4pt);",
-    rf"\node[align=center,font=\tiny] at ({dec((x1+x2)/2)},0.91) {{$({{1}}/{{9}},{{4}}/{{27}})$: symmetric $S$ fails}};",
+    rf"\node[align=center,font=\tiny] at ({dec((x1+x2)/2)},0.91) {{{labels[0]}}};",
     rf"\draw[line width=0.7pt] ({dec(x2)},1.25) -- ({dec(x3)},1.25);",
     rf"\fill ({dec(x2)},1.25) circle (1.4pt);",
     rf"\draw[fill=white,line width=0.7pt] ({dec(x3)},1.25) circle (1.4pt);",
-    rf"\node[align=center,font=\tiny] at ({dec((x2+x3)/2)},1.61) {{$[{{4}}/{{27}},{{4}}/{{21}})$: coexistence, $CS_E<CS_S$}};",
+    rf"\node[align=center,font=\tiny] at ({dec((x2+x3)/2)},1.61) {{{labels[1]}}};",
     rf"\fill ({dec(x3)},1.95) circle (1.4pt);",
-    rf"\node[align=center,font=\tiny] at ({dec(x3)},2.27) {{$\{{4/21\}}$: coexistence, $CS_E=CS_S$}};",
+    rf"\node[align=center,font=\tiny] at ({dec(x3)},2.27) {{{labels[2]}}};",
     rf"\draw[line width=0.7pt] ({dec(x3)},2.65) -- ({dec(x4)},2.65);",
     rf"\draw[fill=white,line width=0.7pt] ({dec(x3)},2.65) circle (1.4pt);",
     rf"\draw[fill=white,line width=0.7pt] ({dec(x4)},2.65) circle (1.4pt);",
-    rf"\node[align=center,font=\tiny] at ({dec((x3+x4)/2)},3.01) {{$({{4}}/{{21}},{{2}}/{{9}})$: coexistence, $CS_E>CS_S$}};",
+    rf"\node[align=center,font=\tiny] at ({dec((x3+x4)/2)},3.01) {{{labels[3]}}};",
     r"\end{tikzpicture}",
 ]
 FIGURE.write_text("\n".join(fig_lines) + "\n", encoding="utf-8")
