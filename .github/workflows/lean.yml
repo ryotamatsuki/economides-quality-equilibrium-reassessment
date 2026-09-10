@@ -1,0 +1,56 @@
+name: lean-formal-verification
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Economides.lean'
+      - 'lean-toolchain'
+      - 'lakefile.toml'
+      - 'lake-manifest.json'
+      - 'theorem_certificates/STAGE7_5A_FORMAL_VERIFICATION_CERTIFICATE.md'
+      - 'docs/STAGE7_5A_RETROACTIVE_FORMAL_CLOSURE.md'
+      - '.github/workflows/lean.yml'
+  pull_request:
+    paths:
+      - 'Economides.lean'
+      - 'lean-toolchain'
+      - 'lakefile.toml'
+      - 'lake-manifest.json'
+      - 'theorem_certificates/STAGE7_5A_FORMAL_VERIFICATION_CERTIFICATE.md'
+      - 'docs/STAGE7_5A_RETROACTIVE_FORMAL_CLOSURE.md'
+      - '.github/workflows/lean.yml'
+
+jobs:
+  formal-verification:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install elan and pinned Lean toolchain
+        shell: bash
+        run: |
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+          "$HOME/.elan/bin/elan" toolchain install "$(cat lean-toolchain)"
+      - name: Record pinned environment
+        run: |
+          echo "Lean toolchain: $(cat lean-toolchain)"
+          lake --version
+          grep -n 'rev = ' lakefile.toml
+      - name: Reject proof placeholders and project axioms
+        shell: bash
+        run: |
+          if grep -nE '\b(sorry|admit)\b' Economides.lean; then
+            echo 'Blocking proof placeholder found.'
+            exit 1
+          fi
+          if grep -nE '^[[:space:]]*axiom[[:space:]]' Economides.lean; then
+            echo 'Project-specific axiom found.'
+            exit 1
+          fi
+      - name: Resolve locked dependencies
+        run: lake update
+      - name: Download mathlib build cache
+        run: lake exe cache get
+      - name: Kernel-check formal verification
+        run: lake build --wfail
