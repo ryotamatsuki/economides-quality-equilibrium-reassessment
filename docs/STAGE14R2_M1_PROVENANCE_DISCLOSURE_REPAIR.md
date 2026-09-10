@@ -2,7 +2,9 @@
 
 ## Status
 
-Bounded repair responding only to Astra's limited-recheck residual M1 objection. M2 and M3 remain closed and are not reopened.
+`M1 BOUNDED REPAIR COMPLETE — READY FOR INDEPENDENT M1-ONLY LIMITED RECHECK`
+
+This repair responds only to Astra's limited-recheck residual M1 objection. M2 and M3 remain closed and are not reopened.
 
 ## Authority and baseline
 
@@ -11,6 +13,7 @@ Bounded repair responding only to Astra's limited-recheck residual M1 objection.
 - Prior Astra limited-recheck verdict: `B. LIMITED RECHECK FAIL — REMAIN IN STAGE 14R FOR BOUNDED REPAIR`
 - Theory freeze: `ECONOMIDES-THEORY-FREEZE-2026-09-10-v1`
 - Repair branch: `audit/stage14r2-m1-provenance-disclosure`
+- Pull request: `#7 — Stage 14R2: close residual Bunte provenance disclosure`
 
 ## Residual M1 objection
 
@@ -38,10 +41,39 @@ This repair changes only literature-provenance wording and a regression test. It
 
 ## Residual prior-art uncertainty
 
-The full texts of Bunte (1995) and Sorenson (1995) remain independently uninspected. Exact overlap therefore remains unresolved. The manuscript makes no priority claim and does not treat absence of an equivalent result as established.
+The full texts of Bunte (1995) and Sorenson (1995) remain independently uninspected. Exact overlap therefore remains unresolved. The manuscript makes no priority claim and does not treat absence of an equivalent result as established. This remains an unresolved provenance limitation, not a submission blocker created by this bounded repair.
 
-## Verification contract
+## Verification evidence
 
-Before merge, the exact repair head must pass the existing symbolic, numerical, regression, deterministic-output, Lean, LaTeX, RIO-package, citation/reference, package-hygiene, and font-embedding gates. Because this bounded repair does not alter Figure 1 or Table 1, their previously closed M3 content is not reopened.
+The substantive repair head before this closeout-record update was:
 
-Final CI run IDs, PR metadata, merge SHA, and the exact SHA for the next independent M1-only limited recheck will be appended after verification and merge.
+`28cfde46c10419bfc3ef6b92786bd86e37301c8c`
+
+GitHub Actions reproducibility run:
+
+`34478238434` — `SUCCESS`
+
+The run passed all existing gates:
+
+- exact symbolic verification;
+- independent numerical audit;
+- regression tests, including the new Bunte-provenance disclosure guard;
+- deterministic output regeneration and clean-diff check;
+- pinned Lean/mathlib dependency resolution and kernel check;
+- proof-placeholder/project-axiom rejection;
+- canonical LaTeX build;
+- anonymous and identified RIO package builds;
+- unresolved citation/reference rejection;
+- source-package hygiene;
+- PDF font embedding;
+- all configured submission artifact uploads.
+
+Because this repair does not alter Figure 1 or Table 1, the previously closed M3 figure/table content is not reopened.
+
+This closeout-record update is documentation-only. Its exact head must itself pass the same CI before merge.
+
+## Independent recheck scope
+
+After merge, the independent recheck should examine only whether this manuscript-level Bunte provenance disclosure closes the residual M1 objection and whether the bounded wording change introduces any new directly related provenance/claim inconsistency. M2, M3, and the previously passed theory are outside that recheck scope.
+
+The canonical post-merge SHA for that recheck is taken from the merged PR/main and reported in the implementation final report; no post-merge documentation commit is required merely to embed that SHA here.
