@@ -6,432 +6,366 @@ namespace Economides
 # Economides (1989) reassessment — proof-critical formal core
 
 This file formalizes the algebraic and order-theoretic core used by the frozen
-maximal-location correction.  It deliberately does **not** derive the continuum
-demand system, prove that the encoded piecewise price continuation is the Nash
-price correspondence, formalize the complete three-stage game, or formalize the
-modern pure-SPNE nonexistence observation.  Those economic/globality objects are
-certified analytically and independently at Stage 4A.
+maximal-location correction. It does not derive the continuum demand system,
+prove that the encoded piecewise price continuation is the Nash price
+correspondence, formalize the complete three-stage game, or formalize the modern
+pure-SPNE nonexistence observation. Those economic/globality objects remain the
+independently certified Stage-4A inputs.
 
-The formal object below starts from the certified reduced endpoint payoff:
-low-quality exclusion, shared-market pricing, and high-quality exclusion.  Lean
-then checks the threshold algebra, the global quality-deviation inequalities,
-the two asymmetric best-response inequalities over all nonnegative qualities,
-and the welfare/consumer-surplus identities.
+The formal object below starts from the certified reduced endpoint payoff and
+checks the threshold algebra, global quality-deviation inequalities, the two
+asymmetric best-response inequalities over all nonnegative qualities, and the
+welfare/consumer-surplus identities.
 -/
 
-/-- Reported symmetric quality at maximal locations. -/
-noncomputable def symQuality (λ : ℝ) : ℝ := 1 / (3 * λ)
+noncomputable def symQuality (lam : ℝ) : ℝ := 1 / (3 * lam)
+noncomputable def exclusionQuality (lam : ℝ) : ℝ := 1 / lam
 
-/-- Quality selected by the high-quality firm in the certified exclusion equilibrium. -/
-noncomputable def exclusionQuality (λ : ℝ) : ℝ := 1 / λ
+noncomputable def regularProfit (lam rival a : ℝ) : ℝ :=
+  (1 / 2) * (1 + (a - rival) / 3)^2 - lam * a^2 / 2
 
-/-- Reduced profit on the shared-market endpoint-price branch. -/
-noncomputable def regularProfit (λ rival a : ℝ) : ℝ :=
-  (1 / 2) * (1 + (a - rival) / 3)^2 - λ * a^2 / 2
+noncomputable def lowExclusionProfit (lam a : ℝ) : ℝ :=
+  - lam * a^2 / 2
 
-/-- Reduced profit when the firm is excluded by the rival. -/
-noncomputable def lowExclusionProfit (λ a : ℝ) : ℝ :=
-  - λ * a^2 / 2
-
-/-- Reduced profit when the firm excludes its rival. -/
-noncomputable def highExclusionProfit (λ rival a : ℝ) : ℝ :=
-  a - rival - 1 - λ * a^2 / 2
+noncomputable def highExclusionProfit (lam rival a : ℝ) : ℝ :=
+  a - rival - 1 - lam * a^2 / 2
 
 /-- Complete reduced endpoint quality payoff induced by the certified price continuation. -/
-noncomputable def reducedQualityPayoff (λ rival a : ℝ) : ℝ :=
+noncomputable def reducedQualityPayoff (lam rival a : ℝ) : ℝ :=
   if a - rival ≤ -3 then
-    lowExclusionProfit λ a
+    lowExclusionProfit lam a
   else if a - rival ≤ 3 then
-    regularProfit λ rival a
+    regularProfit lam rival a
   else
-    highExclusionProfit λ rival a
+    highExclusionProfit lam rival a
 
-/-! ## Exact quality-gap and candidate/deviation algebra -/
+/-! ## P2: exact global-deviation threshold -/
 
-theorem quality_gap_identity (λ : ℝ) (hλ : λ ≠ 0) :
-    exclusionQuality λ - symQuality λ = 2 / (3 * λ) := by
+theorem quality_gap_identity (lam : ℝ) (hlam : lam ≠ 0) :
+    exclusionQuality lam - symQuality lam = 2 / (3 * lam) := by
   simp [exclusionQuality, symQuality]
-  field_simp [hλ]
+  field_simp [hlam]
   ring
 
-/-- On the original theorem interval the exclusionary action crosses the `+3` price-regime boundary. -/
-theorem quality_gap_gt_three (λ : ℝ)
-    (hλ : 0 < λ) (hupper : λ < 2 / 9) :
-    3 < exclusionQuality λ - symQuality λ := by
-  rw [quality_gap_identity λ (ne_of_gt hλ)]
-  have hden : 0 < 3 * λ := by positivity
+theorem quality_gap_gt_three (lam : ℝ)
+    (hlam : 0 < lam) (hupper : lam < 2 / 9) :
+    3 < exclusionQuality lam - symQuality lam := by
+  rw [quality_gap_identity lam (ne_of_gt hlam)]
+  have hden : 0 < 3 * lam := by positivity
   apply (lt_div_iff₀ hden).2
   nlinarith
 
-/-- The reported quality is below `3` whenever `λ>1/9`; hence a nonnegative deviation cannot enter the low-quality exclusion branch against it. -/
-theorem sym_quality_lt_three (λ : ℝ)
-    (hlower : 1 / 9 < λ) :
-    symQuality λ < 3 := by
-  have hλ : 0 < λ := by nlinarith
+theorem sym_quality_lt_three (lam : ℝ)
+    (hlower : 1 / 9 < lam) :
+    symQuality lam < 3 := by
+  have hlam : 0 < lam := by nlinarith
   simp [symQuality]
-  have hden : 0 < 3 * λ := by positivity
+  have hden : 0 < 3 * lam := by positivity
   apply (div_lt_iff₀ hden).2
   nlinarith
 
-/-- Closed form of the reported symmetric candidate's reduced profit. -/
-theorem candidate_profit_closed (λ : ℝ) (hλ : λ ≠ 0) :
-    regularProfit λ (symQuality λ) (symQuality λ) =
-      1 / 2 - 1 / (18 * λ) := by
+theorem candidate_profit_closed (lam : ℝ) (hlam : lam ≠ 0) :
+    regularProfit lam (symQuality lam) (symQuality lam) =
+      1 / 2 - 1 / (18 * lam) := by
   simp [regularProfit, symQuality]
-  field_simp [hλ]
+  field_simp [hlam]
   ring
 
-/-- Closed form of the exclusionary finite deviation's reduced profit. -/
-theorem exclusion_deviation_profit_closed (λ : ℝ) (hλ : λ ≠ 0) :
-    highExclusionProfit λ (symQuality λ) (exclusionQuality λ) =
-      1 / (6 * λ) - 1 := by
+theorem exclusion_deviation_profit_closed (lam : ℝ) (hlam : lam ≠ 0) :
+    highExclusionProfit lam (symQuality lam) (exclusionQuality lam) =
+      1 / (6 * lam) - 1 := by
   simp [highExclusionProfit, symQuality, exclusionQuality]
-  field_simp [hλ]
+  field_simp [hlam]
   ring
 
-/-- Exact `4/27` gain identity. -/
-theorem p2_deviation_gain_identity (λ : ℝ) (hλ : λ ≠ 0) :
-    highExclusionProfit λ (symQuality λ) (exclusionQuality λ) -
-      regularProfit λ (symQuality λ) (symQuality λ) =
-      (4 - 27 * λ) / (18 * λ) := by
-  rw [candidate_profit_closed λ hλ, exclusion_deviation_profit_closed λ hλ]
-  field_simp [hλ]
+theorem p2_deviation_gain_identity (lam : ℝ) (hlam : lam ≠ 0) :
+    highExclusionProfit lam (symQuality lam) (exclusionQuality lam) -
+      regularProfit lam (symQuality lam) (symQuality lam) =
+      (4 - 27 * lam) / (18 * lam) := by
+  rw [candidate_profit_closed lam hlam, exclusion_deviation_profit_closed lam hlam]
+  field_simp [hlam]
   ring
 
-/-- Below `4/27` the finite exclusionary deviation strictly beats the reported action. -/
-theorem p2_profitable_below_four_over_twenty_seven (λ : ℝ)
-    (hλ : 0 < λ) (hthreshold : λ < 4 / 27) :
-    regularProfit λ (symQuality λ) (symQuality λ) <
-      highExclusionProfit λ (symQuality λ) (exclusionQuality λ) := by
-  have hgain := p2_deviation_gain_identity λ (ne_of_gt hλ)
-  have hden : 0 < 18 * λ := by positivity
-  have hfrac : 0 < (4 - 27 * λ) / (18 * λ) := by
-    apply div_pos
-    · nlinarith
-    · exact hden
+theorem p2_profitable_below_four_over_twenty_seven (lam : ℝ)
+    (hlam : 0 < lam) (hthreshold : lam < 4 / 27) :
+    regularProfit lam (symQuality lam) (symQuality lam) <
+      highExclusionProfit lam (symQuality lam) (exclusionQuality lam) := by
+  have hgain := p2_deviation_gain_identity lam (ne_of_gt hlam)
+  have hden : 0 < 18 * lam := by positivity
+  have hfrac : 0 < (4 - 27 * lam) / (18 * lam) := by
+    exact div_pos (by nlinarith) hden
   nlinarith
 
-/-- At the knife edge `λ=4/27` the reported and exclusionary actions tie. -/
 theorem p2_knife_edge :
-    regularProfit (4 / 27) (symQuality (4 / 27)) (symQuality (4 / 27)) =
+    regularProfit (4 / 27 : ℝ) (symQuality (4 / 27)) (symQuality (4 / 27)) =
       highExclusionProfit (4 / 27) (symQuality (4 / 27)) (exclusionQuality (4 / 27)) := by
-  have hne : (4 / 27 : ℝ) ≠ 0 := by norm_num
-  have hgain := p2_deviation_gain_identity (4 / 27) hne
-  norm_num at hgain ⊢
-  linarith
+  norm_num [regularProfit, highExclusionProfit, symQuality, exclusionQuality]
 
-/-! ## Global bounds behind Proposition P2 -/
-
-/-- Exact regular-branch loss relative to the reported action. -/
-theorem regular_gap_identity (λ a : ℝ) (hλ : λ ≠ 0) :
-    regularProfit λ (symQuality λ) (symQuality λ) -
-      regularProfit λ (symQuality λ) a =
-      (9 * λ - 1) * (3 * a * λ - 1)^2 / (162 * λ^2) := by
+theorem regular_gap_identity (lam a : ℝ) (hlam : lam ≠ 0) :
+    regularProfit lam (symQuality lam) (symQuality lam) -
+      regularProfit lam (symQuality lam) a =
+      (9 * lam - 1) * (3 * a * lam - 1)^2 / (162 * lam^2) := by
   simp [regularProfit, symQuality]
-  field_simp [hλ]
+  field_simp [hlam]
   ring
 
-/-- For `λ>1/9`, no action evaluated on the regular branch beats the reported action. -/
-theorem regular_branch_no_gain (λ a : ℝ)
-    (hlower : 1 / 9 < λ) :
-    regularProfit λ (symQuality λ) a ≤
-      regularProfit λ (symQuality λ) (symQuality λ) := by
-  have hλ : 0 < λ := by nlinarith
-  have hgap := regular_gap_identity λ a (ne_of_gt hλ)
-  have hnum : 0 ≤ (9 * λ - 1) * (3 * a * λ - 1)^2 := by
-    exact mul_nonneg (by nlinarith) (sq_nonneg _)
-  have hden : 0 ≤ 162 * λ^2 := by positivity
-  have hfrac : 0 ≤ (9 * λ - 1) * (3 * a * λ - 1)^2 / (162 * λ^2) :=
-    div_nonneg hnum hden
+theorem regular_branch_no_gain (lam a : ℝ)
+    (hlower : 1 / 9 < lam) :
+    regularProfit lam (symQuality lam) a ≤
+      regularProfit lam (symQuality lam) (symQuality lam) := by
+  have hlam : 0 < lam := by nlinarith
+  have hgap := regular_gap_identity lam a (ne_of_gt hlam)
+  have hnum : 0 ≤ (9 * lam - 1) * (3 * a * lam - 1)^2 :=
+    mul_nonneg (by nlinarith) (sq_nonneg _)
+  have hden : 0 < 162 * lam^2 := by positivity
+  have hfrac : 0 ≤ (9 * lam - 1) * (3 * a * lam - 1)^2 / (162 * lam^2) :=
+    div_nonneg hnum (le_of_lt hden)
   nlinarith
 
-/-- The exclusionary branch is globally maximized at `1/λ`. -/
-theorem high_exclusion_gap_identity (λ rival a : ℝ) (hλ : λ ≠ 0) :
-    highExclusionProfit λ rival (exclusionQuality λ) -
-      highExclusionProfit λ rival a =
-      (a * λ - 1)^2 / (2 * λ) := by
+theorem high_exclusion_gap_identity (lam rival a : ℝ) (hlam : lam ≠ 0) :
+    highExclusionProfit lam rival (exclusionQuality lam) -
+      highExclusionProfit lam rival a =
+      (a * lam - 1)^2 / (2 * lam) := by
   simp [highExclusionProfit, exclusionQuality]
-  field_simp [hλ]
+  field_simp [hlam]
   ring
 
-/-- For positive `λ`, no high-exclusion action beats `1/λ`. -/
-theorem high_exclusion_no_gain (λ rival a : ℝ)
-    (hλ : 0 < λ) :
-    highExclusionProfit λ rival a ≤
-      highExclusionProfit λ rival (exclusionQuality λ) := by
-  have hgap := high_exclusion_gap_identity λ rival a (ne_of_gt hλ)
-  have hfrac : 0 ≤ (a * λ - 1)^2 / (2 * λ) := by positivity
+theorem high_exclusion_no_gain (lam rival a : ℝ)
+    (hlam : 0 < lam) :
+    highExclusionProfit lam rival a ≤
+      highExclusionProfit lam rival (exclusionQuality lam) := by
+  have hgap := high_exclusion_gap_identity lam rival a (ne_of_gt hlam)
+  have hfrac : 0 ≤ (a * lam - 1)^2 / (2 * lam) := by positivity
   nlinarith
 
-/-- At and above `4/27`, the best high-exclusion deviation does not beat the reported action. -/
-theorem best_exclusion_no_gain_above_threshold (λ : ℝ)
-    (hλ : 0 < λ) (hthreshold : 4 / 27 ≤ λ) :
-    highExclusionProfit λ (symQuality λ) (exclusionQuality λ) ≤
-      regularProfit λ (symQuality λ) (symQuality λ) := by
-  have hgain := p2_deviation_gain_identity λ (ne_of_gt hλ)
-  have hden : 0 < 18 * λ := by positivity
-  have hfrac : (4 - 27 * λ) / (18 * λ) ≤ 0 := by
+theorem best_exclusion_no_gain_above_threshold (lam : ℝ)
+    (hlam : 0 < lam) (hthreshold : 4 / 27 ≤ lam) :
+    highExclusionProfit lam (symQuality lam) (exclusionQuality lam) ≤
+      regularProfit lam (symQuality lam) (symQuality lam) := by
+  have hgain := p2_deviation_gain_identity lam (ne_of_gt hlam)
+  have hden : 0 < 18 * lam := by positivity
+  have hfrac : (4 - 27 * lam) / (18 * lam) ≤ 0 := by
     apply (div_le_iff₀ hden).2
     nlinarith
   nlinarith
 
-/-- The reduced endpoint payoff at the reported action is its regular-branch profit. -/
-theorem reduced_payoff_at_sym (λ : ℝ) :
-    reducedQualityPayoff λ (symQuality λ) (symQuality λ) =
-      regularProfit λ (symQuality λ) (symQuality λ) := by
+theorem reduced_payoff_at_sym (lam : ℝ) :
+    reducedQualityPayoff lam (symQuality lam) (symQuality lam) =
+      regularProfit lam (symQuality lam) (symQuality lam) := by
   simp [reducedQualityPayoff]
-  norm_num
 
-/-- Within the coexistence region, the reported action is a global best response in the complete encoded reduced payoff. -/
-theorem p2_global_best_response_core (λ a : ℝ)
-    (hlower : 1 / 9 < λ)
-    (hthreshold : 4 / 27 ≤ λ)
-    (hupper : λ < 2 / 9)
+theorem p2_global_best_response_core (lam a : ℝ)
+    (hlower : 1 / 9 < lam)
+    (hthreshold : 4 / 27 ≤ lam)
+    (hupper : lam < 2 / 9)
     (ha : 0 ≤ a) :
-    reducedQualityPayoff λ (symQuality λ) a ≤
-      reducedQualityPayoff λ (symQuality λ) (symQuality λ) := by
-  have hλ : 0 < λ := by nlinarith
-  have hA3 : symQuality λ < 3 := sym_quality_lt_three λ hlower
+    reducedQualityPayoff lam (symQuality lam) a ≤
+      reducedQualityPayoff lam (symQuality lam) (symQuality lam) := by
+  have hlam : 0 < lam := by nlinarith
+  have hA3 : symQuality lam < 3 := sym_quality_lt_three lam hlower
   rw [reduced_payoff_at_sym]
-  have hlow : ¬ a - symQuality λ ≤ -3 := by
-    linarith
-  by_cases hreg : a - symQuality λ ≤ 3
+  have hlow : ¬ a - symQuality lam ≤ -3 := by linarith
+  by_cases hreg : a - symQuality lam ≤ 3
   · simp [reducedQualityPayoff, hlow, hreg]
-    exact regular_branch_no_gain λ a hlower
-  · have hhigh : 3 < a - symQuality λ := lt_of_not_ge hreg
-    simp [reducedQualityPayoff, hlow, hreg]
-    exact le_trans (high_exclusion_no_gain λ (symQuality λ) a hλ)
-      (best_exclusion_no_gain_above_threshold λ hλ hthreshold)
+    exact regular_branch_no_gain lam a hlower
+  · simp [reducedQualityPayoff, hlow, hreg]
+    exact le_trans (high_exclusion_no_gain lam (symQuality lam) a hlam)
+      (best_exclusion_no_gain_above_threshold lam hlam hthreshold)
 
-/-- The strict sub-threshold deviation is also a strict improvement in the complete encoded reduced payoff. -/
-theorem p2_reduced_payoff_failure_core (λ : ℝ)
-    (hlower : 1 / 9 < λ)
-    (hthreshold : λ < 4 / 27) :
-    reducedQualityPayoff λ (symQuality λ) (symQuality λ) <
-      reducedQualityPayoff λ (symQuality λ) (exclusionQuality λ) := by
-  have hλ : 0 < λ := by nlinarith
-  have hupper : λ < 2 / 9 := by nlinarith
-  have hgap : 3 < exclusionQuality λ - symQuality λ :=
-    quality_gap_gt_three λ hλ hupper
+theorem p2_reduced_payoff_failure_core (lam : ℝ)
+    (hlower : 1 / 9 < lam)
+    (hthreshold : lam < 4 / 27) :
+    reducedQualityPayoff lam (symQuality lam) (symQuality lam) <
+      reducedQualityPayoff lam (symQuality lam) (exclusionQuality lam) := by
+  have hlam : 0 < lam := by nlinarith
+  have hupper : lam < 2 / 9 := by nlinarith
+  have hgap : 3 < exclusionQuality lam - symQuality lam :=
+    quality_gap_gt_three lam hlam hupper
   rw [reduced_payoff_at_sym]
-  have hlow : ¬ exclusionQuality λ - symQuality λ ≤ -3 := by linarith
-  have hreg : ¬ exclusionQuality λ - symQuality λ ≤ 3 := not_le_of_gt hgap
+  have hlow : ¬ exclusionQuality lam - symQuality lam ≤ -3 := by linarith
+  have hreg : ¬ exclusionQuality lam - symQuality lam ≤ 3 := not_le_of_gt hgap
   simp [reducedQualityPayoff, hlow, hreg]
-  exact p2_profitable_below_four_over_twenty_seven λ hλ hthreshold
+  exact p2_profitable_below_four_over_twenty_seven lam hlam hthreshold
 
-/-! ## Global best response to zero: `BR(0)` contains `1/λ` -/
+/-! ## P3: asymmetric exclusion best responses -/
 
-/-- On `[0,3]`, the regular payoff against zero is maximized at the boundary `3` when `λ<2/9`. -/
-theorem regular_zero_le_boundary (λ a : ℝ)
-    (hlower : 1 / 9 < λ) (hupper : λ < 2 / 9)
+theorem regular_zero_le_boundary (lam a : ℝ)
+    (hlower : 1 / 9 < lam) (hupper : lam < 2 / 9)
     (ha0 : 0 ≤ a) (ha3 : a ≤ 3) :
-    regularProfit λ 0 a ≤ regularProfit λ 0 3 := by
-  have hcoef : 0 ≤ 9 * λ - 1 := by nlinarith
-  have habound : a * (9 * λ - 1) ≤ 3 * (9 * λ - 1) :=
+    regularProfit lam 0 a ≤ regularProfit lam 0 3 := by
+  have hcoef : 0 ≤ 9 * lam - 1 := by nlinarith
+  have habound : a * (9 * lam - 1) ≤ 3 * (9 * lam - 1) :=
     mul_le_mul_of_nonneg_right ha3 hcoef
-  have hsecond : 9 * a * λ - a + 27 * λ - 9 ≤ 0 := by
+  have hsecond : 9 * a * lam - a + 27 * lam - 9 ≤ 0 := by
     nlinarith
   have hfirst : a - 3 ≤ 0 := by linarith
-  have hprod : 0 ≤ (a - 3) * (9 * a * λ - a + 27 * λ - 9) :=
+  have hprod : 0 ≤ (a - 3) * (9 * a * lam - a + 27 * lam - 9) :=
     mul_nonneg_of_nonpos_of_nonpos hfirst hsecond
   have hid :
-      regularProfit λ 0 3 - regularProfit λ 0 a =
-        (a - 3) * (9 * a * λ - a + 27 * λ - 9) / 18 := by
+      regularProfit lam 0 3 - regularProfit lam 0 a =
+        (a - 3) * (9 * a * lam - a + 27 * lam - 9) / 18 := by
     simp [regularProfit]
     ring
   rw [hid]
   exact div_nonneg hprod (by norm_num)
 
-/-- The optimal exclusion payoff against zero weakly exceeds the regular payoff at the regime boundary. -/
-theorem exclusion_zero_ge_boundary (λ : ℝ)
-    (hλ : 0 < λ) :
-    regularProfit λ 0 3 ≤
-      highExclusionProfit λ 0 (exclusionQuality λ) := by
+theorem exclusion_zero_ge_boundary (lam : ℝ)
+    (hlam : 0 < lam) :
+    regularProfit lam 0 3 ≤
+      highExclusionProfit lam 0 (exclusionQuality lam) := by
   have hid :
-      highExclusionProfit λ 0 (exclusionQuality λ) - regularProfit λ 0 3 =
-        (3 * λ - 1)^2 / (2 * λ) := by
+      highExclusionProfit lam 0 (exclusionQuality lam) - regularProfit lam 0 3 =
+        (3 * lam - 1)^2 / (2 * lam) := by
     simp [highExclusionProfit, exclusionQuality, regularProfit]
-    field_simp [ne_of_gt hλ]
+    field_simp [ne_of_gt hlam]
     ring
-  have hnonneg : 0 ≤ (3 * λ - 1)^2 / (2 * λ) := by positivity
+  have hnonneg : 0 ≤ (3 * lam - 1)^2 / (2 * lam) := by positivity
   nlinarith
 
-/-- For every nonnegative quality, the complete reduced payoff against zero is maximized by `1/λ`. -/
-theorem br_zero_global_core (λ a : ℝ)
-    (hlower : 1 / 9 < λ) (hupper : λ < 2 / 9)
+theorem br_zero_global_core (lam a : ℝ)
+    (hlower : 1 / 9 < lam) (hupper : lam < 2 / 9)
     (ha : 0 ≤ a) :
-    reducedQualityPayoff λ 0 a ≤
-      reducedQualityPayoff λ 0 (exclusionQuality λ) := by
-  have hλ : 0 < λ := by nlinarith
-  have hB3 : 3 < exclusionQuality λ := by
-    have hgap := quality_gap_gt_three λ hλ hupper
-    have hApos : 0 < symQuality λ := by
-      simp [symQuality]
-      positivity
-    linarith
-  have hB_low : ¬ exclusionQuality λ - 0 ≤ -3 := by linarith
-  have hB_reg : ¬ exclusionQuality λ - 0 ≤ 3 := by linarith
-  simp [reducedQualityPayoff, hB_low, hB_reg]
+    reducedQualityPayoff lam 0 a ≤
+      reducedQualityPayoff lam 0 (exclusionQuality lam) := by
+  have hlam : 0 < lam := by nlinarith
+  have hB3 : 3 < exclusionQuality lam := by
+    simp [exclusionQuality]
+    have hden : 0 < lam := hlam
+    apply (lt_div_iff₀ hden).2
+    nlinarith
+  have hB_low : ¬ exclusionQuality lam - 0 ≤ -3 := by linarith
+  have hB_reg : ¬ exclusionQuality lam - 0 ≤ 3 := by linarith
+  rw [show reducedQualityPayoff lam 0 (exclusionQuality lam) =
+      highExclusionProfit lam 0 (exclusionQuality lam) by
+        simp [reducedQualityPayoff, hB_low, hB_reg]]
   have hlow : ¬ a - 0 ≤ -3 := by linarith
   by_cases hreg : a - 0 ≤ 3
-  · simp [reducedQualityPayoff, hlow, hreg]
-    exact le_trans (regular_zero_le_boundary λ a hlower hupper ha (by linarith))
-      (exclusion_zero_ge_boundary λ hλ)
-  · simp [reducedQualityPayoff, hlow, hreg]
-    exact high_exclusion_no_gain λ 0 a hλ
+  · rw [show reducedQualityPayoff lam 0 a = regularProfit lam 0 a by
+        simp [reducedQualityPayoff, hlow, hreg]]
+    exact le_trans (regular_zero_le_boundary lam a hlower hupper ha (by linarith))
+      (exclusion_zero_ge_boundary lam hlam)
+  · rw [show reducedQualityPayoff lam 0 a = highExclusionProfit lam 0 a by
+        simp [reducedQualityPayoff, hlow, hreg]]
+    exact high_exclusion_no_gain lam 0 a hlam
 
-/-! ## Global best response to `1/λ`: zero quality -/
-
-/-- The left boundary of the regular branch against `1/λ` has the excluded payoff and is nonpositive. -/
-theorem regular_high_rival_left_boundary_nonpos (λ : ℝ)
-    (hλ : 0 < λ) :
-    regularProfit λ (exclusionQuality λ) (exclusionQuality λ - 3) ≤ 0 := by
+theorem regular_high_rival_left_boundary_nonpos (lam : ℝ)
+    (hlam : 0 < lam) :
+    regularProfit lam (exclusionQuality lam) (exclusionQuality lam - 3) ≤ 0 := by
   have hid :
-      regularProfit λ (exclusionQuality λ) (exclusionQuality λ - 3) =
-        - λ * (exclusionQuality λ - 3)^2 / 2 := by
+      regularProfit lam (exclusionQuality lam) (exclusionQuality lam - 3) =
+        - lam * (exclusionQuality lam - 3)^2 / 2 := by
     simp [regularProfit]
     ring
   rw [hid]
-  have hsquare : 0 ≤ (exclusionQuality λ - 3)^2 := sq_nonneg _
+  have hsquare : 0 ≤ (exclusionQuality lam - 3)^2 := sq_nonneg _
   nlinarith
 
-/-- On the regular branch against `1/λ`, profit weakly decreases from the left regime boundary. -/
-theorem regular_high_rival_no_gain_from_left (λ a : ℝ)
-    (hlower : 1 / 9 < λ) (hupper : λ < 2 / 9)
+theorem regular_high_rival_no_gain_from_left (lam a : ℝ)
+    (hlower : 1 / 9 < lam) (hupper : lam < 2 / 9)
     (ha : 0 ≤ a)
-    (hleft : exclusionQuality λ - 3 ≤ a) :
-    regularProfit λ (exclusionQuality λ) a ≤
-      regularProfit λ (exclusionQuality λ) (exclusionQuality λ - 3) := by
-  have hλ : 0 < λ := by nlinarith
-  have hfactor1 : 0 ≤ a * λ + 3 * λ - 1 := by
-    have hmul := mul_le_mul_of_nonneg_right hleft (le_of_lt hλ)
-    have hBid : exclusionQuality λ * λ = 1 := by
-      simp [exclusionQuality, ne_of_gt hλ]
+    (hleft : exclusionQuality lam - 3 ≤ a) :
+    regularProfit lam (exclusionQuality lam) a ≤
+      regularProfit lam (exclusionQuality lam) (exclusionQuality lam - 3) := by
+  have hlam : 0 < lam := by nlinarith
+  have hfactor1 : 0 ≤ a * lam + 3 * lam - 1 := by
+    have hmul := mul_le_mul_of_nonneg_right hleft (le_of_lt hlam)
+    have hBid : exclusionQuality lam * lam = 1 := by
+      simp [exclusionQuality, ne_of_gt hlam]
     nlinarith
-  have hfactor2a : 0 ≤ a * λ * (9 * λ - 1) := by
-    have haλ : 0 ≤ a * λ := mul_nonneg ha (le_of_lt hλ)
-    have hcoef : 0 ≤ 9 * λ - 1 := by nlinarith
-    exact mul_nonneg haλ hcoef
-  have hfactor2b : 0 ≤ (1 - 3 * λ) * (9 * λ + 1) := by
-    have h1 : 0 ≤ 1 - 3 * λ := by nlinarith
-    have h2 : 0 ≤ 9 * λ + 1 := by nlinarith
-    exact mul_nonneg h1 h2
-  have hfactor2 : 0 ≤ 9 * a * λ^2 - a * λ - 27 * λ^2 + 6 * λ + 1 := by
+  have hfactor2a : 0 ≤ a * lam * (9 * lam - 1) := by
+    exact mul_nonneg (mul_nonneg ha (le_of_lt hlam)) (by nlinarith)
+  have hfactor2b : 0 ≤ (1 - 3 * lam) * (9 * lam + 1) := by
+    exact mul_nonneg (by nlinarith) (by nlinarith)
+  have hfactor2 : 0 ≤ 9 * a * lam^2 - a * lam - 27 * lam^2 + 6 * lam + 1 := by
     nlinarith
   have hprod : 0 ≤
-      (a * λ + 3 * λ - 1) *
-        (9 * a * λ^2 - a * λ - 27 * λ^2 + 6 * λ + 1) :=
+      (a * lam + 3 * lam - 1) *
+        (9 * a * lam^2 - a * lam - 27 * lam^2 + 6 * lam + 1) :=
     mul_nonneg hfactor1 hfactor2
   have hid :
-      regularProfit λ (exclusionQuality λ) a -
-        regularProfit λ (exclusionQuality λ) (exclusionQuality λ - 3) =
-        - ((a * λ + 3 * λ - 1) *
-          (9 * a * λ^2 - a * λ - 27 * λ^2 + 6 * λ + 1)) /
-          (18 * λ^2) := by
+      regularProfit lam (exclusionQuality lam) (exclusionQuality lam - 3) -
+        regularProfit lam (exclusionQuality lam) a =
+        ((a * lam + 3 * lam - 1) *
+          (9 * a * lam^2 - a * lam - 27 * lam^2 + 6 * lam + 1)) /
+          (18 * lam^2) := by
     simp [regularProfit, exclusionQuality]
-    field_simp [ne_of_gt hλ]
+    field_simp [ne_of_gt hlam]
     ring
-  have hden : 0 < 18 * λ^2 := by positivity
-  have hnonpos :
-      - ((a * λ + 3 * λ - 1) *
-        (9 * a * λ^2 - a * λ - 27 * λ^2 + 6 * λ + 1)) /
-        (18 * λ^2) ≤ 0 := by
-    apply (div_le_iff₀ hden).2
-    nlinarith
-  nlinarith [hid]
+  have hden : 0 < 18 * lam^2 := by positivity
+  have hfrac : 0 ≤
+      ((a * lam + 3 * lam - 1) *
+        (9 * a * lam^2 - a * lam - 27 * lam^2 + 6 * lam + 1)) /
+        (18 * lam^2) := div_nonneg hprod (le_of_lt hden)
+  nlinarith
 
-/-- The high-exclusion branch against `1/λ` is negative from its entry boundary onward. -/
-theorem high_high_rival_nonpos (λ a : ℝ)
-    (hλ : 0 < λ)
-    (hright : exclusionQuality λ + 3 ≤ a) :
-    highExclusionProfit λ (exclusionQuality λ) a ≤ 0 := by
-  let B := exclusionQuality λ
-  have hfirst : 0 ≤ a * λ - 3 * λ - 1 := by
-    have hmul := mul_le_mul_of_nonneg_right hright (le_of_lt hλ)
-    have hBid : B * λ = 1 := by
-      dsimp [B]
-      simp [exclusionQuality, ne_of_gt hλ]
-    nlinarith
-  have hsecond : 0 ≤ a * λ + 3 * λ - 1 := by
-    nlinarith
-  have hprod : 0 ≤ (a * λ - 3 * λ - 1) * (a * λ + 3 * λ - 1) :=
-    mul_nonneg hfirst hsecond
-  have hgap :
-      highExclusionProfit λ B (B + 3) - highExclusionProfit λ B a =
-        (a * λ - 3 * λ - 1) * (a * λ + 3 * λ - 1) / (2 * λ) := by
-    dsimp [B]
-    simp [highExclusionProfit, exclusionQuality]
-    field_simp [ne_of_gt hλ]
-    ring
-  have hgap_nonneg : 0 ≤
-      (a * λ - 3 * λ - 1) * (a * λ + 3 * λ - 1) / (2 * λ) := by
-    exact div_nonneg hprod (by positivity)
-  have hboundary : highExclusionProfit λ B (B + 3) < 0 := by
-    have hid : highExclusionProfit λ B (B + 3) =
-        - (9 * λ^2 + 2 * λ + 1) / (2 * λ) := by
-      dsimp [B]
-      simp [highExclusionProfit, exclusionQuality]
-      field_simp [ne_of_gt hλ]
-      ring
-    rw [hid]
-    have hnum : 0 < 9 * λ^2 + 2 * λ + 1 := by positivity
-    have hden : 0 < 2 * λ := by positivity
-    have hfrac : 0 < (9 * λ^2 + 2 * λ + 1) / (2 * λ) := div_pos hnum hden
-    linarith
-  nlinarith [hgap]
+/-- A useful completing-square form: against rival `1/lam`, every high-exclusion payoff is strictly negative. -/
+theorem high_against_high_complete_square (lam a : ℝ) (hlam : lam ≠ 0) :
+    highExclusionProfit lam (exclusionQuality lam) a =
+      - (a * lam - 1)^2 / (2 * lam) - 1 / (2 * lam) - 1 := by
+  simp [highExclusionProfit, exclusionQuality]
+  field_simp [hlam]
+  ring
 
-/-- Against the high-quality action `1/λ`, every nonnegative quality yields weakly nonpositive reduced payoff. -/
-theorem br_high_global_core (λ a : ℝ)
-    (hlower : 1 / 9 < λ) (hupper : λ < 2 / 9)
+theorem high_against_high_nonpos (lam a : ℝ)
+    (hlam : 0 < lam) :
+    highExclusionProfit lam (exclusionQuality lam) a ≤ 0 := by
+  rw [high_against_high_complete_square lam a (ne_of_gt hlam)]
+  have hsquare : 0 ≤ (a * lam - 1)^2 := sq_nonneg _
+  have hterm : 0 ≤ (a * lam - 1)^2 / (2 * lam) := by positivity
+  have hinv : 0 < 1 / (2 * lam) := by positivity
+  nlinarith
+
+theorem br_high_global_core (lam a : ℝ)
+    (hlower : 1 / 9 < lam) (hupper : lam < 2 / 9)
     (ha : 0 ≤ a) :
-    reducedQualityPayoff λ (exclusionQuality λ) a ≤ 0 := by
-  have hλ : 0 < λ := by nlinarith
-  by_cases hlow : a - exclusionQuality λ ≤ -3
-  · simp [reducedQualityPayoff, hlow, lowExclusionProfit]
-    have hsquare : 0 ≤ a^2 := sq_nonneg a
-    nlinarith
-  · have hleft : exclusionQuality λ - 3 < a := by linarith
-    by_cases hreg : a - exclusionQuality λ ≤ 3
-    · simp [reducedQualityPayoff, hlow, hreg]
+    reducedQualityPayoff lam (exclusionQuality lam) a ≤ 0 := by
+  have hlam : 0 < lam := by nlinarith
+  by_cases hlow : a - exclusionQuality lam ≤ -3
+  · rw [show reducedQualityPayoff lam (exclusionQuality lam) a = lowExclusionProfit lam a by
+        simp [reducedQualityPayoff, hlow]]
+    simp [lowExclusionProfit]
+    positivity
+  · have hleft : exclusionQuality lam - 3 < a := by linarith
+    by_cases hreg : a - exclusionQuality lam ≤ 3
+    · rw [show reducedQualityPayoff lam (exclusionQuality lam) a =
+          regularProfit lam (exclusionQuality lam) a by
+          simp [reducedQualityPayoff, hlow, hreg]]
       exact le_trans
-        (regular_high_rival_no_gain_from_left λ a hlower hupper ha (le_of_lt hleft))
-        (regular_high_rival_left_boundary_nonpos λ hλ)
-    · have hright : exclusionQuality λ + 3 < a := by linarith
-      simp [reducedQualityPayoff, hlow, hreg]
-      exact high_high_rival_nonpos λ a hλ (le_of_lt hright)
+        (regular_high_rival_no_gain_from_left lam a hlower hupper ha (le_of_lt hleft))
+        (regular_high_rival_left_boundary_nonpos lam hlam)
+    · rw [show reducedQualityPayoff lam (exclusionQuality lam) a =
+          highExclusionProfit lam (exclusionQuality lam) a by
+          simp [reducedQualityPayoff, hlow, hreg]]
+      exact high_against_high_nonpos lam a hlam
 
-/-- Zero quality earns exactly zero against `1/λ` on the low-quality exclusion branch. -/
-theorem reduced_payoff_zero_against_high (λ : ℝ)
-    (hλ : 0 < λ) (hupper : λ < 2 / 9) :
-    reducedQualityPayoff λ (exclusionQuality λ) 0 = 0 := by
-  have hB3 : 3 < exclusionQuality λ := by
-    have hgap := quality_gap_gt_three λ hλ hupper
-    have hApos : 0 < symQuality λ := by
-      simp [symQuality]
-      positivity
-    linarith
-  have hlow : 0 - exclusionQuality λ ≤ -3 := by linarith
+theorem reduced_payoff_zero_against_high (lam : ℝ)
+    (hlam : 0 < lam) (hupper : lam < 2 / 9) :
+    reducedQualityPayoff lam (exclusionQuality lam) 0 = 0 := by
+  have hB3 : 3 < exclusionQuality lam := by
+    simp [exclusionQuality]
+    apply (lt_div_iff₀ hlam).2
+    nlinarith
+  have hlow : 0 - exclusionQuality lam ≤ -3 := by linarith
   simp [reducedQualityPayoff, hlow, lowExclusionProfit]
 
-/-- Formal best-response core for the asymmetric exclusion equilibrium. -/
-theorem asymmetric_best_response_core (λ a : ℝ)
-    (hlower : 1 / 9 < λ) (hupper : λ < 2 / 9)
+theorem asymmetric_best_response_core (lam a : ℝ)
+    (hlower : 1 / 9 < lam) (hupper : lam < 2 / 9)
     (ha : 0 ≤ a) :
-    reducedQualityPayoff λ 0 a ≤
-        reducedQualityPayoff λ 0 (exclusionQuality λ) ∧
-      reducedQualityPayoff λ (exclusionQuality λ) a ≤
-        reducedQualityPayoff λ (exclusionQuality λ) 0 := by
+    reducedQualityPayoff lam 0 a ≤
+        reducedQualityPayoff lam 0 (exclusionQuality lam) ∧
+      reducedQualityPayoff lam (exclusionQuality lam) a ≤
+        reducedQualityPayoff lam (exclusionQuality lam) 0 := by
   constructor
-  · exact br_zero_global_core λ a hlower hupper ha
-  · rw [reduced_payoff_zero_against_high λ (by nlinarith) hupper]
-    exact br_high_global_core λ a hlower hupper ha
+  · exact br_zero_global_core lam a hlower hupper ha
+  · rw [reduced_payoff_zero_against_high lam (by nlinarith) hupper]
+    exact br_high_global_core lam a hlower hupper ha
 
-/-! ## Price-branch boundary consistency -/
+/-! ## Endpoint price-branch boundary consistency -/
 
-noncomputable def regularPrice1 (δ : ℝ) : ℝ := 1 + δ / 3
-noncomputable def regularPrice2 (δ : ℝ) : ℝ := 1 - δ / 3
-noncomputable def highExclusionPrice1 (δ : ℝ) : ℝ := δ - 1
-noncomputable def lowExclusionPrice2 (δ : ℝ) : ℝ := -δ - 1
+noncomputable def regularPrice1 (delta : ℝ) : ℝ := 1 + delta / 3
+noncomputable def regularPrice2 (delta : ℝ) : ℝ := 1 - delta / 3
+noncomputable def highExclusionPrice1 (delta : ℝ) : ℝ := delta - 1
+noncomputable def lowExclusionPrice2 (delta : ℝ) : ℝ := -delta - 1
 
 theorem price_branches_match_at_plus_three :
     regularPrice1 3 = highExclusionPrice1 3 ∧ regularPrice2 3 = 0 := by
@@ -441,64 +375,59 @@ theorem price_branches_match_at_minus_three :
     regularPrice1 (-3) = 0 ∧ regularPrice2 (-3) = lowExclusionPrice2 (-3) := by
   constructor <;> norm_num [regularPrice1, regularPrice2, lowExclusionPrice2]
 
-/-! ## Welfare / consumer-surplus proof-critical algebra -/
+/-! ## Welfare and surplus algebra -/
 
-noncomputable def welfareSym (λ k : ℝ) : ℝ := k - 1 / 4 + 2 / (9 * λ)
-noncomputable def welfareExclusion (λ k : ℝ) : ℝ := k - 1 / 2 + 1 / (2 * λ)
-noncomputable def consumerSurplusSym (λ k : ℝ) : ℝ := k + 1 / (3 * λ) - 5 / 4
+noncomputable def welfareSym (lam k : ℝ) : ℝ := k - 1 / 4 + 2 / (9 * lam)
+noncomputable def welfareExclusion (lam k : ℝ) : ℝ := k - 1 / 2 + 1 / (2 * lam)
+noncomputable def consumerSurplusSym (lam k : ℝ) : ℝ := k + 1 / (3 * lam) - 5 / 4
 noncomputable def consumerSurplusExclusion (k : ℝ) : ℝ := k + 1 / 2
-noncomputable def producerSurplusSym (λ : ℝ) : ℝ := 1 - 1 / (9 * λ)
-noncomputable def producerSurplusExclusion (λ : ℝ) : ℝ := 1 / (2 * λ) - 1
+noncomputable def producerSurplusSym (lam : ℝ) : ℝ := 1 - 1 / (9 * lam)
+noncomputable def producerSurplusExclusion (lam : ℝ) : ℝ := 1 / (2 * lam) - 1
 
-theorem welfare_gap_identity (λ k : ℝ) (hλ : λ ≠ 0) :
-    welfareExclusion λ k - welfareSym λ k = (10 - 9 * λ) / (36 * λ) := by
+theorem welfare_gap_identity (lam k : ℝ) (hlam : lam ≠ 0) :
+    welfareExclusion lam k - welfareSym lam k = (10 - 9 * lam) / (36 * lam) := by
   simp [welfareExclusion, welfareSym]
-  field_simp [hλ]
+  field_simp [hlam]
   ring
 
-theorem cs_gap_identity (λ k : ℝ) (hλ : λ ≠ 0) :
-    consumerSurplusExclusion k - consumerSurplusSym λ k =
-      (21 * λ - 4) / (12 * λ) := by
+theorem cs_gap_identity (lam k : ℝ) (hlam : lam ≠ 0) :
+    consumerSurplusExclusion k - consumerSurplusSym lam k =
+      (21 * lam - 4) / (12 * lam) := by
   simp [consumerSurplusExclusion, consumerSurplusSym]
-  field_simp [hλ]
+  field_simp [hlam]
   ring
 
-theorem ps_gap_identity (λ : ℝ) (hλ : λ ≠ 0) :
-    producerSurplusExclusion λ - producerSurplusSym λ =
-      (11 - 36 * λ) / (18 * λ) := by
+theorem ps_gap_identity (lam : ℝ) (hlam : lam ≠ 0) :
+    producerSurplusExclusion lam - producerSurplusSym lam =
+      (11 - 36 * lam) / (18 * lam) := by
   simp [producerSurplusExclusion, producerSurplusSym]
-  field_simp [hλ]
+  field_simp [hlam]
   ring
 
 theorem cs_equal_at_four_over_twenty_one (k : ℝ) :
     consumerSurplusExclusion k = consumerSurplusSym (4 / 21) k := by
-  have hne : (4 / 21 : ℝ) ≠ 0 := by norm_num
-  have hgap := cs_gap_identity (4 / 21) k hne
-  norm_num at hgap ⊢
-  linarith
+  norm_num [consumerSurplusExclusion, consumerSurplusSym]
 
-theorem cs_lower_below_four_over_twenty_one (λ k : ℝ)
-    (hλ : 0 < λ) (hthreshold : λ < 4 / 21) :
-    consumerSurplusExclusion k < consumerSurplusSym λ k := by
-  have hgap := cs_gap_identity λ k (ne_of_gt hλ)
-  have hden : 0 < 12 * λ := by positivity
-  have hfrac : (21 * λ - 4) / (12 * λ) < 0 := by
-    apply (div_neg_iff).2
-    exact Or.inl ⟨by nlinarith, hden⟩
+theorem cs_lower_below_four_over_twenty_one (lam k : ℝ)
+    (hlam : 0 < lam) (hthreshold : lam < 4 / 21) :
+    consumerSurplusExclusion k < consumerSurplusSym lam k := by
+  have hgap := cs_gap_identity lam k (ne_of_gt hlam)
+  have hden : 0 < 12 * lam := by positivity
+  have hfrac : (21 * lam - 4) / (12 * lam) < 0 := by
+    exact div_neg_of_neg_of_pos (by nlinarith) hden
   nlinarith
 
-theorem cs_higher_above_four_over_twenty_one (λ k : ℝ)
-    (hλ : 0 < λ) (hthreshold : 4 / 21 < λ) :
-    consumerSurplusSym λ k < consumerSurplusExclusion k := by
-  have hgap := cs_gap_identity λ k (ne_of_gt hλ)
-  have hden : 0 < 12 * λ := by positivity
-  have hfrac : 0 < (21 * λ - 4) / (12 * λ) := by
-    exact div_pos (by nlinarith) hden
+theorem cs_higher_above_four_over_twenty_one (lam k : ℝ)
+    (hlam : 0 < lam) (hthreshold : 4 / 21 < lam) :
+    consumerSurplusSym lam k < consumerSurplusExclusion k := by
+  have hgap := cs_gap_identity lam k (ne_of_gt hlam)
+  have hden : 0 < 12 * lam := by positivity
+  have hfrac : 0 < (21 * lam - 4) / (12 * lam) :=
+    div_pos (by nlinarith) hden
   nlinarith
 
-/-- Exact frozen numerical counterexample at `λ=1/8`. -/
 theorem exact_counterexample_one_eighth :
-    regularProfit (1 / 8) (symQuality (1 / 8)) (symQuality (1 / 8)) = 1 / 18 ∧
+    regularProfit (1 / 8 : ℝ) (symQuality (1 / 8)) (symQuality (1 / 8)) = 1 / 18 ∧
     highExclusionProfit (1 / 8) (symQuality (1 / 8)) (exclusionQuality (1 / 8)) = 1 / 3 ∧
     highExclusionProfit (1 / 8) (symQuality (1 / 8)) (exclusionQuality (1 / 8)) -
       regularProfit (1 / 8) (symQuality (1 / 8)) (symQuality (1 / 8)) = 5 / 18 := by
