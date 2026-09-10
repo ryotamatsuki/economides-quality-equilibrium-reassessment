@@ -1,3 +1,4 @@
+import csv
 from pathlib import Path
 import sympy as sp
 
@@ -56,3 +57,18 @@ def test_linear_transport_rescaling_domain_conditions():
     # Local concavity of the regular quality branch requires lambda*t > 1/9.
     curvature = sp.Rational(1, 9) / t - lam
     assert sp.simplify(curvature * t - (sp.Rational(1, 9) - lam * t)) == 0
+
+
+def test_generated_csv_round_trip_has_three_columns_and_boundary_labels():
+    with Path("figures/parameter_regions.csv").open(newline="", encoding="utf-8") as handle:
+        rows = list(csv.reader(handle))
+
+    assert rows[0] == ["lower", "upper", "interpretation"]
+    assert len(rows) == 5
+    assert all(len(row) == 3 for row in rows)
+    assert "(1/9,4/27)" in rows[1][2]
+    assert "[4/27,4/21)" in rows[2][2]
+    assert "{4/21}" in rows[3][2]
+    assert "equal CS" in rows[3][2]
+    assert "(4/21,2/9)" in rows[4][2]
+    assert "higher W, PS, and CS" in rows[4][2]
