@@ -44,9 +44,9 @@ jobs:
       - name: Check PDF font embedding
         run: |
           pdffonts build/rio_anonymous_compile/main.pdf | tee /tmp/anonymous-fonts.txt
-          ! awk '$4 == "no" {print "UNEMBEDDED FONT:", $0; bad=1} END {exit bad}' /tmp/anonymous-fonts.txt
+          awk '$4 == "no" {print "UNEMBEDDED FONT:", $0; bad=1} END {exit bad}' /tmp/anonymous-fonts.txt
           pdffonts build/rio_identified_compile/main.pdf | tee /tmp/identified-fonts.txt
-          ! awk '$4 == "no" {print "UNEMBEDDED FONT:", $0; bad=1} END {exit bad}' /tmp/identified-fonts.txt
+          awk '$4 == "no" {print "UNEMBEDDED FONT:", $0; bad=1} END {exit bad}' /tmp/identified-fonts.txt
       - name: Upload anonymous manuscript PDF
         uses: actions/upload-artifact@v4
         with:
