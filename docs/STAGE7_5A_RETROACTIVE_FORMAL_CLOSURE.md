@@ -8,7 +8,7 @@ The governing scope authority remains:
 
 - `theorem_certificates/STAGE7_5A_SCOPE_CERTIFICATE.md`.
 
-The new formal-proof authority is:
+The formal-proof authority is:
 
 - `theorem_certificates/STAGE7_5A_FORMAL_VERIFICATION_CERTIFICATE.md`;
 - `EconomidesFormal.lean`;
@@ -48,14 +48,23 @@ The following are not reclassified as formally proved:
 
 These remain covered only to the extent established by the frozen manuscript, prior clean-room derivations, reproducibility artifacts, and adversarial audits.
 
-## CI evidence
+## CI and merge evidence
 
 Before certificate-only documentation commits, head `e6fcb4621e4439d3d2b69506da17b2986bc135f9` passed:
 
 - Lean formal verification: GitHub Actions run `34430633600` — **SUCCESS**;
 - existing reproducibility gate: GitHub Actions run `34430633612` — **SUCCESS**.
 
-The final PR head must also be green before merge. The merge itself is the final operational act that turns this record from a proposed retroactive closure into the canonical repository state.
+The dedicated Stage 7.5A PR was subsequently merged into `main` at merge commit:
+
+`4e97da488f13cbea75160e3561e25f2a8140a798`.
+
+The canonical post-merge `main` state then passed both configured gates:
+
+- reproducibility run `34432142425` — **SUCCESS**;
+- lean-formal-verification run `34432142410` — **SUCCESS**.
+
+The retroactive formal closure is therefore operationally complete, not merely authorized.
 
 ## Theory-drift audit
 
@@ -65,6 +74,4 @@ No frozen economic proposition, quantifier, threshold interpretation, welfare st
 
 ## Stage decision
 
-Subject only to final-head CI success and merge of the dedicated Stage 7.5A PR:
-
-`FORMAL VERIFICATION COMPLETE — RETROACTIVE STAGE 7.5A CLOSURE AUTHORIZED`.
+`FORMAL VERIFICATION PASS — RETROACTIVE STAGE 7.5A CLOSURE COMPLETE`.
