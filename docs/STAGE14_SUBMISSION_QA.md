@@ -107,7 +107,7 @@ The unavailable full texts of Bunte (1995) and Sorenson (1995) remain a document
 
 ## 8. Authenticated-portal carry-forward
 
-The following items cannot be authoritatively resolved from the public RIO instructions and are therefore carried forward to the live Springer Nature portal preflight:
+The following items cannot be authoritatively resolved from the public RIO instructions and are carried forward to the live Springer Nature portal preflight immediately before Stage 15 submission freeze:
 
 - current RIO review/anonymity model;
 - exact article-type label available in the portal;
@@ -117,20 +117,22 @@ The following items cannot be authoritatively resolved from the public RIO instr
 - exact portal metadata duplication for JEL, declarations, Funding, Competing Interests and author contribution;
 - the portal-generated review PDF after upload/compilation.
 
-These are **external operational properties of the authenticated submission workflow**, not unresolved defects in the manuscript or repository package.
+These are **external operational properties of the authenticated submission workflow**, not unresolved defects in the manuscript or repository package. They are not prerequisites for an independent hostile review of the paper's scientific content.
 
 ## 9. Stage-14 verdict
 
-`CONDITIONAL PASS — AUTHENTICATED PORTAL PREFLIGHT REQUIRED`
+`CONDITIONAL PASS — AUTHENTICATED PORTAL PREFLIGHT REQUIRED BEFORE STAGE 15 FREEZE`
 
-This is the strongest defensible Stage-14 verdict under the fail-closed workflow because all locally/publicly verifiable submission QA has passed, while the remaining items can only be determined inside the authenticated live portal.
+All locally/publicly verifiable manuscript and package QA has passed. The remaining portal-only items must be resolved before final submission freeze, but they do not block an intervening manuscript-content hostile referee audit.
 
 **STAGE 14 CLOSED.**
 
 ## 10. Next gate
 
-The required sequence is:
+The required sequence for the present project is:
 
-`Authenticated RIO portal preflight -> Astra Independent Final Submission-Package Hostile Gate -> Stage 15 Submission Freeze`
+`Astra Independent Final Manuscript Hostile Referee Gate -> Authenticated RIO portal preflight -> Stage 15 Submission Freeze`
 
-Astra is not a substitute for Stage 14. It is the independent final adversarial audit of the actual RIO submission package after the portal-specific configuration has been resolved.
+The Astra gate is explicitly **content-first**. Its object is the completed manuscript and its scientific claims: mathematical correctness, equilibrium logic, global deviations, boundary cases, welfare statements, prior-art positioning, claim scope, referee attack surface, and consistency with the certified formal-verification map. It should not spend its audit budget on portal mechanics, upload-field requirements, anonymity configuration, fees, or the portal-generated PDF.
+
+Portal preflight remains a separate operational check immediately before Stage 15 and is not a prerequisite for the Astra manuscript audit.
