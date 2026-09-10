@@ -45,7 +45,7 @@ The subsequent CI artifact built from repair head `a656aedf45d3fa3811ef21ee09111
 
 The admissible manuscript claim is narrower than “first correction.” Bunte (1995/1997) already directly criticizes the R&D stability step in Economides, and Bunte attributes the same stability condition to Sorenson (1995). That firstness claim is permanently killed.
 
-The surviving distinction is the equilibrium object: retain the original noncooperative price game, solve the maximal-location price continuation over the full quality-gap domain, and derive the regime-changing global quality deviation, exact `4/27` threshold, and explicit asymmetric exclusion quality equilibria. The evidence and access limitations are recorded in `docs/PRIOR_ART_COMPARISON_STAGE10R.md`.
+The surviving distinction recorded at Stage 10R was the equilibrium object: retain the original noncooperative price game, solve the maximal-location price continuation over the full quality-gap domain, and derive the regime-changing global quality deviation, exact `4/27` threshold, and explicit asymmetric exclusion quality equilibria. The evidence and access limitations are recorded in `docs/PRIOR_ART_COMPARISON_STAGE10R.md`.
 
 ## CI record
 
@@ -60,3 +60,13 @@ The Stage-10R implementation repairs are now closed. Stage 11 was to be re-run a
 3. that no new claim inflation or mathematical problem was introduced by the repairs.
 
 The Formal Verification Gate was subsequently retroactively closed under Stage 7.5A. Accordingly, the completed Stage-11 limited recheck treats the formal certificate and Lean source as additional hostile-audit targets rather than as a blocker. See `docs/STAGE11_LIMITED_RECHECK.md`.
+
+## Stage 14R superseding limitation — 2026-09-10
+
+A later independent final hostile audit correctly identified that item 2 of the historical recheck contract and the resulting `STRUCTURALLY VERY CLOSE BUT NON-ABSORBING` classification exceeded the evidence available for Bunte (1995) and Sorenson (1995). Full text of those two items had not been independently inspected, and Sorenson's omission of endogenous variety choice does not rule out overlap with a quality game conditioned on maximal locations.
+
+The historical Stage-10R record above is preserved for provenance, but its prior-art classification is no longer operative. The current authority is `docs/PRIOR_ART_COMPARISON_STAGE10R.md` as revised in Stage 14R:
+
+`STRUCTURALLY VERY CLOSE; EXACT OVERLAP UNRESOLVED FOR UNAVAILABLE FULL TEXTS`.
+
+The manuscript makes no priority claim. It states only the original-game results that it derives and proves itself. The generic R&D-stability criticism remains prior art and is not claimed as a contribution.

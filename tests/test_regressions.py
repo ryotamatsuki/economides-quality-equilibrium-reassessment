@@ -47,6 +47,21 @@ def test_generated_table_marks_cs_equality_at_four_over_twenty_one():
     assert r"$(4/21,2/9)$" in text
 
 
+def test_generated_figure_makes_endpoint_membership_explicit():
+    figure = Path("figures/parameter_regions.tex").read_text(encoding="utf-8")
+    results = Path("paper/sections/results.tex").read_text(encoding="utf-8")
+
+    assert r"$(1/9,4/27)$: symmetric $S$ fails" in figure
+    assert r"$[4/27,4/21)$: coexistence, $CS_E<CS_S$" in figure
+    assert r"$\{4/21\}$: coexistence, $CS_E=CS_S$" in figure
+    assert r"$(4/21,2/9)$: coexistence, $CS_E>CS_S$" in figure
+    assert figure.count(r"fill=white") >= 5
+    assert r"\fill (5.333333,1.25) circle" in figure
+    assert r"\fill (6.857143,1.95) circle" in figure
+    assert "Open circles exclude and filled circles include" in results
+    assert "The domain endpoints $1/9$ and $2/9$ are excluded" in results
+
+
 def test_linear_transport_rescaling_domain_conditions():
     lam, t = sp.symbols("lam t", positive=True)
     A = 1 / (3 * lam)
@@ -55,6 +70,32 @@ def test_linear_transport_rescaling_domain_conditions():
     assert sp.simplify(((B - A) - 3 * t) - rhs) == 0
     curvature = sp.Rational(1, 9) / t - lam
     assert sp.simplify(curvature * t - (sp.Rational(1, 9) - lam * t)) == 0
+
+
+def test_stage14r_rescaling_unit_mapping_is_explicit():
+    lean = Path("EconomidesFormal.lean").read_text(encoding="utf-8")
+    cert = Path("theorem_certificates/STAGE7_5A_FORMAL_VERIFICATION_CERTIFICATE.md").read_text(encoding="utf-8")
+    robustness = Path("paper/sections/robustness.tex").read_text(encoding="utf-8")
+
+    assert "scaledP2Gain lam t is the dimensionless gain Δπ/(μ t)" in lean
+    assert "Δπ/μ = t * scaledP2Gain lam t" in lean
+    assert "scaledP2Gain = Δπ/(μt)" in cert
+    assert "Δπ/μ = t × scaledP2Gain" in cert
+    assert r"\frac{4-27\lambda t}{18\lambda}" in robustness
+    assert r"\frac{4-27\lambda t}{18\lambda t}" not in robustness
+
+
+def test_stage14r_prior_art_claim_is_evidence_bounded():
+    intro = Path("paper/sections/introduction.tex").read_text(encoding="utf-8")
+    literature = Path("paper/sections/related_literature.tex").read_text(encoding="utf-8")
+    ledger = Path("docs/PRIOR_ART_COMPARISON_STAGE10R.md").read_text(encoding="utf-8")
+
+    assert "exact overlap remains unresolved" in intro
+    assert "we make no priority claim" in intro
+    assert "exact overlap remains unresolved" in literature
+    assert "We make no priority claim" in literature
+    assert "EXACT OVERLAP UNRESOLVED FOR UNAVAILABLE FULL TEXTS" in ledger
+    assert "is **not** used as the decisive non-overlap test" in ledger
 
 
 def test_stage13_rio_metadata_and_recent_comparison():
@@ -92,9 +133,9 @@ def test_stage14_rio_declarations_and_title_page():
     assert "ryota.matsuki@gmail.com" in title_page
     assert "0009-0005-2329-531X" in title_page
     assert "Acknowledgments" in title_page
-    assert "Hiroshi Kinokuni" in title_page
-    assert "Takao Ohkawa" in title_page
-    assert "guidance during his undergraduate studies" in title_page
+    assert "None." in title_page
+    assert "Hiroshi Kinokuni" not in title_page
+    assert "Takao Ohkawa" not in title_page
     assert "https://doi.org/10.1007/s11151-024-09989-3" in bib
     assert "https://doi.org/10.1016/0166-0462(89)90031-8" in bib
 
