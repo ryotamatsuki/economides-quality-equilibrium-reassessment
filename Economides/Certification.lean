@@ -59,10 +59,9 @@ theorem sym_quality_lt_three (lam : ℝ)
     (hlower : 1 / 9 < lam) :
     symQuality lam < 3 := by
   have hlam : 0 < lam := by nlinarith
-  simp [symQuality]
+  change 1 / (3 * lam) < 3
   have hden : 0 < 3 * lam := by positivity
-  apply (div_lt_iff₀ hden).2
-  nlinarith
+  exact (div_lt_iff₀ hden).2 (by nlinarith)
 
 theorem candidate_profit_closed (lam : ℝ) (hlam : lam ≠ 0) :
     regularProfit lam (symQuality lam) (symQuality lam) =
@@ -206,8 +205,9 @@ theorem regular_zero_le_boundary (lam a : ℝ)
         (a - 3) * (9 * a * lam - a + 27 * lam - 9) / 18 := by
     simp [regularProfit]
     ring
-  rw [hid]
-  exact div_nonneg hprod (by norm_num)
+  have hdiv : 0 ≤ (a - 3) * (9 * a * lam - a + 27 * lam - 9) / 18 :=
+    div_nonneg hprod (by norm_num)
+  nlinarith [hid]
 
 theorem exclusion_zero_ge_boundary (lam : ℝ)
     (hlam : 0 < lam) :
@@ -229,23 +229,27 @@ theorem br_zero_global_core (lam a : ℝ)
       reducedQualityPayoff lam 0 (exclusionQuality lam) := by
   have hlam : 0 < lam := by nlinarith
   have hB3 : 3 < exclusionQuality lam := by
-    simp [exclusionQuality]
-    have hden : 0 < lam := hlam
-    apply (lt_div_iff₀ hden).2
-    nlinarith
+    change 3 < 1 / lam
+    exact (lt_div_iff₀ hlam).2 (by nlinarith)
   have hB_low : ¬ exclusionQuality lam - 0 ≤ -3 := by linarith
   have hB_reg : ¬ exclusionQuality lam - 0 ≤ 3 := by linarith
-  rw [show reducedQualityPayoff lam 0 (exclusionQuality lam) =
-      highExclusionProfit lam 0 (exclusionQuality lam) by
-        simp [reducedQualityPayoff, hB_low, hB_reg]]
+  have hBpay : reducedQualityPayoff lam 0 (exclusionQuality lam) =
+      highExclusionProfit lam 0 (exclusionQuality lam) := by
+    unfold reducedQualityPayoff
+    rw [if_neg hB_low, if_neg hB_reg]
+  rw [hBpay]
   have hlow : ¬ a - 0 ≤ -3 := by linarith
   by_cases hreg : a - 0 ≤ 3
-  · rw [show reducedQualityPayoff lam 0 a = regularProfit lam 0 a by
-        simp [reducedQualityPayoff, hlow, hreg]]
+  · have hpay : reducedQualityPayoff lam 0 a = regularProfit lam 0 a := by
+      unfold reducedQualityPayoff
+      rw [if_neg hlow, if_pos hreg]
+    rw [hpay]
     exact le_trans (regular_zero_le_boundary lam a hlower hupper ha (by linarith))
       (exclusion_zero_ge_boundary lam hlam)
-  · rw [show reducedQualityPayoff lam 0 a = highExclusionProfit lam 0 a by
-        simp [reducedQualityPayoff, hlow, hreg]]
+  · have hpay : reducedQualityPayoff lam 0 a = highExclusionProfit lam 0 a := by
+      unfold reducedQualityPayoff
+      rw [if_neg hlow, if_neg hreg]
+    rw [hpay]
     exact high_exclusion_no_gain lam 0 a hlam
 
 theorem regular_high_rival_left_boundary_nonpos (lam : ℝ)
@@ -298,7 +302,7 @@ theorem regular_high_rival_no_gain_from_left (lam a : ℝ)
         (18 * lam^2) := div_nonneg hprod (le_of_lt hden)
   nlinarith
 
-/-- A useful completing-square form: against rival `1/lam`, every high-exclusion payoff is strictly negative. -/
+/-- Completing-square form for the high-exclusion payoff against rival `1/lam`. -/
 theorem high_against_high_complete_square (lam a : ℝ) (hlam : lam ≠ 0) :
     highExclusionProfit lam (exclusionQuality lam) a =
       - (a * lam - 1)^2 / (2 * lam) - 1 / (2 * lam) - 1 := by
@@ -310,10 +314,9 @@ theorem high_against_high_nonpos (lam a : ℝ)
     (hlam : 0 < lam) :
     highExclusionProfit lam (exclusionQuality lam) a ≤ 0 := by
   rw [high_against_high_complete_square lam a (ne_of_gt hlam)]
-  have hsquare : 0 ≤ (a * lam - 1)^2 := sq_nonneg _
   have hterm : 0 ≤ (a * lam - 1)^2 / (2 * lam) := by positivity
   have hinv : 0 < 1 / (2 * lam) := by positivity
-  nlinarith
+  linarith
 
 theorem br_high_global_core (lam a : ℝ)
     (hlower : 1 / 9 < lam) (hupper : lam < 2 / 9)
@@ -321,32 +324,41 @@ theorem br_high_global_core (lam a : ℝ)
     reducedQualityPayoff lam (exclusionQuality lam) a ≤ 0 := by
   have hlam : 0 < lam := by nlinarith
   by_cases hlow : a - exclusionQuality lam ≤ -3
-  · rw [show reducedQualityPayoff lam (exclusionQuality lam) a = lowExclusionProfit lam a by
-        simp [reducedQualityPayoff, hlow]]
-    simp [lowExclusionProfit]
-    positivity
+  · have hpay : reducedQualityPayoff lam (exclusionQuality lam) a =
+        lowExclusionProfit lam a := by
+      unfold reducedQualityPayoff
+      rw [if_pos hlow]
+    rw [hpay]
+    unfold lowExclusionProfit
+    have hsquare : 0 ≤ a^2 := sq_nonneg a
+    nlinarith
   · have hleft : exclusionQuality lam - 3 < a := by linarith
     by_cases hreg : a - exclusionQuality lam ≤ 3
-    · rw [show reducedQualityPayoff lam (exclusionQuality lam) a =
-          regularProfit lam (exclusionQuality lam) a by
-          simp [reducedQualityPayoff, hlow, hreg]]
+    · have hpay : reducedQualityPayoff lam (exclusionQuality lam) a =
+          regularProfit lam (exclusionQuality lam) a := by
+        unfold reducedQualityPayoff
+        rw [if_neg hlow, if_pos hreg]
+      rw [hpay]
       exact le_trans
         (regular_high_rival_no_gain_from_left lam a hlower hupper ha (le_of_lt hleft))
         (regular_high_rival_left_boundary_nonpos lam hlam)
-    · rw [show reducedQualityPayoff lam (exclusionQuality lam) a =
-          highExclusionProfit lam (exclusionQuality lam) a by
-          simp [reducedQualityPayoff, hlow, hreg]]
+    · have hpay : reducedQualityPayoff lam (exclusionQuality lam) a =
+          highExclusionProfit lam (exclusionQuality lam) a := by
+        unfold reducedQualityPayoff
+        rw [if_neg hlow, if_neg hreg]
+      rw [hpay]
       exact high_against_high_nonpos lam a hlam
 
 theorem reduced_payoff_zero_against_high (lam : ℝ)
     (hlam : 0 < lam) (hupper : lam < 2 / 9) :
     reducedQualityPayoff lam (exclusionQuality lam) 0 = 0 := by
   have hB3 : 3 < exclusionQuality lam := by
-    simp [exclusionQuality]
-    apply (lt_div_iff₀ hlam).2
-    nlinarith
+    change 3 < 1 / lam
+    exact (lt_div_iff₀ hlam).2 (by nlinarith)
   have hlow : 0 - exclusionQuality lam ≤ -3 := by linarith
-  simp [reducedQualityPayoff, hlow, lowExclusionProfit]
+  unfold reducedQualityPayoff
+  rw [if_pos hlow]
+  norm_num [lowExclusionProfit]
 
 theorem asymmetric_best_response_core (lam a : ℝ)
     (hlower : 1 / 9 < lam) (hupper : lam < 2 / 9)
@@ -407,6 +419,7 @@ theorem ps_gap_identity (lam : ℝ) (hlam : lam ≠ 0) :
 theorem cs_equal_at_four_over_twenty_one (k : ℝ) :
     consumerSurplusExclusion k = consumerSurplusSym (4 / 21) k := by
   norm_num [consumerSurplusExclusion, consumerSurplusSym]
+  ring
 
 theorem cs_lower_below_four_over_twenty_one (lam k : ℝ)
     (hlam : 0 < lam) (hthreshold : lam < 4 / 21) :
