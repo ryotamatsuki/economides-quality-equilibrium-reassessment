@@ -297,6 +297,11 @@ theorem w2_cs_positive_above {lam k : ℝ} (hcrit : 4 / 21 < lam) :
   linarith
 
 -- R1: exact linear-transport rescaling of the P2 threshold core.
+-- Unit convention: scaledP2Gain lam t is the dimensionless gain Δπ/(μ t),
+-- not the manuscript's Δπ/μ. The manuscript quantity satisfies
+-- Δπ/μ = t * scaledP2Gain lam t = (4 - 27 * lam * t) / (18 * lam).
+-- Because t > 0 in the rescaling exercise, multiplication by t changes
+-- neither the sign nor the zero set, so the threshold remains lam*t = 4/27.
 def scaledP2Gain (lam t : ℝ) : ℝ :=
   (4 - 27 * (lam * t)) / (18 * (lam * t))
 
