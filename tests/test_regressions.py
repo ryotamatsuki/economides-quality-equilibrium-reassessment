@@ -92,6 +92,9 @@ def test_stage14_rio_declarations_and_title_page():
     assert "ryota.matsuki@gmail.com" in title_page
     assert "0009-0005-2329-531X" in title_page
     assert "Acknowledgments" in title_page
+    assert "Hiroshi Kinokuni" in title_page
+    assert "Takao Okawa" in title_page
+    assert "guidance during his undergraduate studies" in title_page
     assert "https://doi.org/10.1007/s11151-024-09989-3" in bib
     assert "https://doi.org/10.1016/0166-0462(89)90031-8" in bib
 
