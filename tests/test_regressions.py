@@ -1,4 +1,7 @@
 from pathlib import Path
+import re
+import subprocess
+import sys
 import sympy as sp
 
 
@@ -56,3 +59,37 @@ def test_linear_transport_rescaling_domain_conditions():
     # Local concavity of the regular quality branch requires lambda*t > 1/9.
     curvature = sp.Rational(1, 9) / t - lam
     assert sp.simplify(curvature * t - (sp.Rational(1, 9) - lam * t)) == 0
+
+
+def test_stage13_rio_metadata_and_recent_comparison():
+    main = Path("paper/main.tex").read_text(encoding="utf-8")
+    intro = Path("paper/sections/introduction.tex").read_text(encoding="utf-8")
+    literature = Path("paper/sections/related_literature.tex").read_text(encoding="utf-8")
+    bib = Path("references/references.bib").read_text(encoding="utf-8")
+
+    abstract = re.search(r"\\begin\{abstract\}(.*?)\\end\{abstract\}", main, re.S)
+    assert abstract is not None
+    plain = re.sub(r"\\[A-Za-z]+(?:\{[^}]*\})?", " ", abstract.group(1))
+    words = re.findall(r"[A-Za-z0-9]+(?:[-'][A-Za-z0-9]+)*", plain)
+    assert 150 <= len(words) <= 250
+
+    assert r"\textbf{Keywords:}" in main
+    assert r"\textbf{JEL Classification:}" in main
+    assert "CohenHeifetz2024" in intro
+    assert "CohenHeifetz2024" in literature
+    assert "@article{CohenHeifetz2024" in bib
+    assert r"\input{sections/research_transparency}" in main
+
+
+def test_rio_flat_package_is_flat(tmp_path):
+    output = tmp_path / "rio_submission"
+    subprocess.run(
+        [sys.executable, "scripts/build_rio_flat_package.py", "--output", str(output)],
+        check=True,
+    )
+    assert (output / "main.tex").exists()
+    assert (output / "references.bib").exists()
+    assert not any(path.is_dir() for path in output.iterdir())
+    combined = "\n".join(path.read_text(encoding="utf-8") for path in output.glob("*.tex"))
+    assert "../" not in combined
+    assert "sections/" not in combined
