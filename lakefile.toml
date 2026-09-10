@@ -1,0 +1,11 @@
+name = "economides_reassessment"
+version = "0.1.0"
+defaultTargets = ["Economides"]
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4.git"
+rev = "74828d59824ed9c1e3002f796aaf53cec5ffb47c"
+
+[[lean_lib]]
+name = "Economides"
