@@ -23,7 +23,7 @@ theorem p2_gain_formula (lam : ℝ) (hlam : lam ≠ 0) :
     exclusionBestProfit lam - symmetricProfit lam =
       (4 - 27 * lam) / (18 * lam) := by
   unfold exclusionBestProfit symmetricProfit
-  field_simp [hlam] <;> ring
+  (field_simp [hlam]; ring)
 
 theorem p2_profitable_deviation {lam : ℝ}
     (hlam : 0 < lam) (hcrit : lam < 4 / 27) :
@@ -60,7 +60,7 @@ theorem exclusion_zero_gap (lam a : ℝ) (hlam : lam ≠ 0) :
     exclusionAgainstZero lam (1 / lam) - exclusionAgainstZero lam a =
       (a * lam - 1) ^ 2 / (2 * lam) := by
   unfold exclusionAgainstZero
-  field_simp [hlam] <;> ring
+  (field_simp [hlam]; ring)
 
 theorem exclusion_zero_le_best {lam a : ℝ} (hlam : 0 < lam) :
     exclusionAgainstZero lam a ≤ exclusionAgainstZero lam (1 / lam) := by
@@ -74,7 +74,7 @@ theorem interior_zero_gap (lam a : ℝ) (hlam : lam ≠ 0) :
       (lam * (a - 3) * (a * (9 * lam - 1) + 27 * lam - 9) +
         9 * (3 * lam - 1) ^ 2) / (18 * lam) := by
   unfold exclusionAgainstZero interiorAgainstZero
-  field_simp [hlam] <;> ring
+  (field_simp [hlam]; ring)
 
 theorem interior_zero_le_best {lam a : ℝ}
     (hlo : 1 / 9 < lam) (hhi : lam < 2 / 9) (ha3 : a ≤ 3) :
@@ -141,7 +141,7 @@ theorem middle_lower_boundary (lam : ℝ) (hlam : lam ≠ 0) :
     middleAgainstHigh lam (1 / lam - 3) =
       -(3 * lam - 1) ^ 2 / (2 * lam) := by
   unfold middleAgainstHigh
-  field_simp [hlam] <;> ring
+  (field_simp [hlam]; ring)
 
 theorem middle_boundary_gap (lam a : ℝ) (hlam : lam ≠ 0) :
     middleAgainstHigh lam (1 / lam - 3) - middleAgainstHigh lam a =
@@ -149,7 +149,7 @@ theorem middle_boundary_gap (lam a : ℝ) (hlam : lam ≠ 0) :
         (9 * a * lam ^ 2 - a * lam - 27 * lam ^ 2 + 6 * lam + 1)) /
         (18 * lam ^ 2) := by
   unfold middleAgainstHigh
-  field_simp [hlam] <;> ring
+  (field_simp [hlam]; ring)
 
 theorem middle_high_le_zero {lam a : ℝ}
     (hlo : 1 / 9 < lam) (hhi : lam < 2 / 9)
@@ -200,7 +200,7 @@ theorem reverse_high_le_zero {lam a : ℝ} (hlam : 0 < lam) :
       0 - reverseAgainstHigh lam a =
         ((a * lam - 1) ^ 2 + 2 * lam + 1) / (2 * lam) := by
     unfold reverseAgainstHigh
-    field_simp [hlamne] <;> ring
+    (field_simp [hlamne]; ring)
   have hnum : 0 < (a * lam - 1) ^ 2 + 2 * lam + 1 := by
     nlinarith [sq_nonneg (a * lam - 1)]
   have hfrac : 0 < ((a * lam - 1) ^ 2 + 2 * lam + 1) / (2 * lam) :=
@@ -252,7 +252,7 @@ def welfareE (lam k : ℝ) : ℝ :=
 theorem w1_gap_formula (lam k : ℝ) (hlam : lam ≠ 0) :
     welfareE lam k - welfareS lam k = (10 - 9 * lam) / (36 * lam) := by
   unfold welfareE welfareS
-  field_simp [hlam] <;> ring
+  (field_simp [hlam]; ring)
 
 theorem w1_exclusion_welfare_higher {lam k : ℝ}
     (hlo : 1 / 9 < lam) (hhi : lam < 2 / 9) :
@@ -273,7 +273,7 @@ theorem w2_cs_gap_formula (lam k : ℝ) (hlam : lam ≠ 0) :
     consumerSurplusE lam k - consumerSurplusS lam k =
       (21 * lam - 4) / (12 * lam) := by
   unfold consumerSurplusE consumerSurplusS
-  field_simp [hlam] <;> ring
+  (field_simp [hlam]; ring)
 
 theorem w2_cs_negative_below {lam k : ℝ}
     (hlam : 0 < lam) (hcrit : lam < 4 / 21) :
