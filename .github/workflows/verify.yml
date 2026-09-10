@@ -30,9 +30,17 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y latexmk texlive-latex-base texlive-latex-extra texlive-bibtex-extra
       - name: Build manuscript
         run: make paper
+      - name: Build and compile RIO flat package
+        run: make rio-package
       - name: Upload manuscript PDF for visual QA
         uses: actions/upload-artifact@v4
         with:
           name: manuscript-pdf
           path: paper/main.pdf
+          if-no-files-found: error
+      - name: Upload RIO flat source package
+        uses: actions/upload-artifact@v4
+        with:
+          name: rio-flat-source-package
+          path: build/rio_submission/
           if-no-files-found: error
