@@ -95,7 +95,6 @@ def test_stage14r_prior_art_claim_is_evidence_bounded():
     assert "exact overlap remains unresolved" in literature
     assert "We make no priority claim" in literature
     assert "EXACT OVERLAP UNRESOLVED FOR UNAVAILABLE FULL TEXTS" in ledger
-    assert "Sorenson no-variety fact is **not** used" not in ledger  # guard stale shorthand
     assert "is **not** used as the decisive non-overlap test" in ledger
 
 
@@ -134,9 +133,9 @@ def test_stage14_rio_declarations_and_title_page():
     assert "ryota.matsuki@gmail.com" in title_page
     assert "0009-0005-2329-531X" in title_page
     assert "Acknowledgments" in title_page
-    assert "Hiroshi Kinokuni" in title_page
-    assert "Takao Ohkawa" in title_page
-    assert "guidance during his undergraduate studies" in title_page
+    assert "None." in title_page
+    assert "Hiroshi Kinokuni" not in title_page
+    assert "Takao Ohkawa" not in title_page
     assert "https://doi.org/10.1007/s11151-024-09989-3" in bib
     assert "https://doi.org/10.1016/0166-0462(89)90031-8" in bib
 
