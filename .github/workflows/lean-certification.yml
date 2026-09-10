@@ -1,0 +1,52 @@
+name: Lean formal certification
+
+on:
+  pull_request:
+    paths:
+      - '**/*.lean'
+      - 'formal/**'
+      - 'lean-toolchain'
+      - 'lakefile.toml'
+      - 'lake-manifest.json'
+      - '.github/workflows/lean-certification.yml'
+  push:
+    branches:
+      - 'formal/**'
+    paths:
+      - '**/*.lean'
+      - 'formal/**'
+      - 'lean-toolchain'
+      - 'lakefile.toml'
+      - 'lake-manifest.json'
+      - '.github/workflows/lean-certification.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lean:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Build proof-critical core with pinned Lean/mathlib
+        uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
+        with:
+          auto-config: false
+          build: true
+          build-args: Economides
+          test: false
+          lint: false
+          use-mathlib-cache: true
+          leanchecker: false
+
+      - name: Reject admitted proofs and project-specific axioms
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -R -nE '(^|[^A-Za-z])(sorry|admit|axiom)([^A-Za-z]|$)' Economides.lean Economides/; then
+            echo 'Forbidden proof escape hatch or project-specific axiom token found.' >&2
+            exit 1
+          fi
