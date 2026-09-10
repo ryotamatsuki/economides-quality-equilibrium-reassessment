@@ -24,13 +24,13 @@ This is a limited Stage-11 recheck, not a new model-development stage. It tests 
 
 The manuscript states the three cases strictly below, exactly at, and strictly above `4/21`. The generated table retains a separate `{4/21}` equality row, and the regression test rejects accidental use of `[4/21,2/9)` for the strict positive-CS region.
 
-### 3. Bunte/Sorenson positioning — PASS WITH RECORDED SOURCE-ACCESS LIMITATION
+### 3. Bunte/Sorenson positioning — HISTORICAL PASS, LATER QUALIFIED IN STAGE 14R
 
-The manuscript no longer claims first discovery of a stability problem in Economides (1989). Bunte (1995/1997) is treated as the closest prior critique and is credited with the R&D-stability objection. Sorenson (1995) is treated as directly relevant to R&D stability before differentiated Bertrand competition.
+At this recheck, the manuscript no longer claimed first discovery of a stability problem in Economides (1989). Bunte (1995/1997) was treated as the closest prior critique and credited with the R&D-stability objection. Sorenson (1995) was treated as directly relevant to R&D stability before differentiated Bertrand competition.
 
-The surviving claim is narrower: retain the original noncooperative price game, derive the maximal-location price continuation over the full quality-gap domain, and establish the model-specific `4/27` global-deviation threshold and explicit asymmetric exclusion quality equilibria.
+The surviving manuscript claim was narrower: retain the original noncooperative price game, derive the maximal-location price continuation over the full quality-gap domain, and establish the model-specific `4/27` global-deviation threshold and explicit asymmetric exclusion quality equilibria.
 
-Available source evidence supports the classification `STRUCTURALLY VERY CLOSE BUT NON-ABSORBING` for that narrow claim. The Bunte 1997 thesis is an official full-text source and the checked Chapter-3 comparison directly discusses Economides; the Bunte 1995 abstract confirms the alternative Hotelling/limit-price scenarios; the Sorenson publisher record confirms product-improving R&D before differentiated Bertrand competition. Full text of Bunte (1995) and Sorenson (1995) was not independently available to this recheck. This is retained as a provenance limitation, not converted into a firstness or exhaustive-prior-art claim. If accessible copies become available before submission, they should be checked as an additional Stage-14 provenance step.
+This recheck classified the available evidence as supporting `STRUCTURALLY VERY CLOSE BUT NON-ABSORBING`. That classification is preserved here as the historical Stage-11 conclusion, but a later independent final hostile audit found the non-absorption part too strong because the full texts of Bunte (1995) and Sorenson (1995) had not been independently inspected. Stage 14R therefore supersedes this evidentiary conclusion with: `STRUCTURALLY VERY CLOSE; EXACT OVERLAP UNRESOLVED FOR UNAVAILABLE FULL TEXTS`. See the Stage-14R note at the end of this record and the revised `docs/PRIOR_ART_COMPARISON_STAGE10R.md`.
 
 ### 4. Uniqueness scope — PASS
 
@@ -56,7 +56,7 @@ Stage 10R records page-by-page visual inspection of the repaired 16-page PDF aft
 
 ## Formal-verification hostile check
 
-### Paper claim -> formal theorem map — PASS
+### Paper claim -> formal theorem map — PASS AT STAGE 11, COVERAGE CLARIFIED IN STAGE 14R
 
 The formal certificate and `EconomidesFormal.lean` cover a deliberately reduced proof-critical core:
 
@@ -69,7 +69,7 @@ The formal certificate and `EconomidesFormal.lean` cover a deliberately reduced 
 
 The manuscript does not state or imply that the complete consumer continuum, full three-stage game, P1 full-history SPNE nonexistence result, exhaustive equilibrium correspondence, general convex quality costs, or arbitrary transportation technologies have been formally proved.
 
-No proof-assistant scope inflation or paper/formal statement drift was found.
+Stage 14R later makes the R1 units and the formal/non-formal boundary more explicit; it does not alter any Lean-checked mathematical result.
 
 ### Formal artifact integrity — PASS
 
@@ -84,7 +84,7 @@ The Lean gate rejects `sorry`, `admit`, and project-specific `axiom` declaration
 
 No new mathematical contradiction, parameter-domain drift, benchmark-label drift, claim inflation, or stale formal theorem was identified in the Stage-10R manuscript plus retroactive formal-verification integration.
 
-The only residual item is the already-recorded inability to independently inspect the full texts of Bunte (1995) and Sorenson (1995). Because the manuscript concedes the generic stability critique, makes no firstness claim, and limits its contribution to the original-game results actually proved, this limitation is not a Stage-11 blocker. It remains a submission-provenance item to revisit if access becomes available.
+The source-access limitation for Bunte (1995) and Sorenson (1995) remained. Stage 14R subsequently tightened the inference drawn from that limitation; it remains nonblocking only because the manuscript now makes no priority or exact-non-overlap claim.
 
 ## Theory drift
 
@@ -92,16 +92,30 @@ The only residual item is the already-recorded inability to independently inspec
 
 No theorem, equilibrium set claim, threshold interpretation, welfare claim, robustness statement, planner benchmark, or equilibrium concept is altered by this recheck.
 
-## Attack classification
+## Attack classification at the time of Stage 11
 
 - `FATAL`: none.
 - `MAJOR BUT FIXABLE`: none.
 - `MINOR`: one documentation/provenance item — full-text Bunte (1995)/Sorenson (1995) recheck if access becomes available before submission.
 
-## Canonical Stage-11 verdict
+## Canonical Stage-11 verdict at the time
 
 `GO — ROBUSTNESS / REFEREE ATTACK PASS`
 
-## Routing
+## Routing at the time
 
 `GO TO STAGE 12 — JOURNAL POSITIONING`
+
+## Stage 14R superseding evidence note — 2026-09-10
+
+The later final hostile audit did not overturn any mathematical Stage-11 pass. It identified a narrower evidence-scope defect: absence of full-text inspection cannot support a definitive claim that Bunte (1995) or Sorenson (1995) does not contain an equivalent fixed-maximal-location result.
+
+Accordingly:
+
+- the historical `STRUCTURALLY VERY CLOSE BUT NON-ABSORBING` classification is no longer operative;
+- Sorenson's reported omission of variety choice is not used to prove non-overlap with the fixed-location quality result;
+- the operative statement is: **No equivalent result has been identified in the materials examined; exact overlap remains unresolved**;
+- no priority claim is made;
+- the generic R&D-stability objection remains acknowledged prior art.
+
+This is an evidentiary narrowing only. It does not change the Stage-11 mathematical conclusions or the frozen model.
