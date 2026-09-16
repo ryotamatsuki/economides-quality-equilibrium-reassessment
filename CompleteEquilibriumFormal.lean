@@ -313,19 +313,27 @@ theorem regular_linear_transport_rescale {lam t qi qj : ℝ} (ht : t ≠ 0) :
       regularBase (lam * t) qi qj := by
   unfold regularWithT regularBase
   field_simp [ht]
-  ring
 
 theorem excluded_linear_transport_rescale {lam t qi : ℝ} (ht : t ≠ 0) :
     excludedWithT lam (t * qi) / t = excludedBase (lam * t) qi := by
   unfold excludedWithT excludedBase
   field_simp [ht]
-  ring
 
 theorem high_linear_transport_rescale {lam t qi qj : ℝ} (ht : t ≠ 0) :
     highWithT lam t (t * qi) (t * qj) / t =
       highBase (lam * t) qi qj := by
   unfold highWithT highBase
   field_simp [ht]
-  ring
+
+#print axioms lambdaE_polynomial_root
+#print axioms upper_threshold_value_tie
+#print axioms mutual_regular_symmetry
+#print axioms mutual_regular_at_lambdaM_iff
+#print axioms excluded_positive_quality_strictly_worse_than_zero
+#print axioms exclusion_welfare_higher_through_lambdaE
+#print axioms exclusion_welfare_dominates_continuum
+#print axioms fixed_location_coefficient_sign
+#print axioms first_best_coefficient_sign
+#print axioms regular_linear_transport_rescale
 
 end CompleteEquilibriumFormal
