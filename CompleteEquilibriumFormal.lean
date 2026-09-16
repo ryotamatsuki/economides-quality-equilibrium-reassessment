@@ -74,6 +74,27 @@ theorem core_threshold_order :
   · nlinarith
   · nlinarith
 
+-- Value comparison that defines the upper disappearance threshold at b=0.
+def regularBestValueZero (lam : ℝ) : ℝ := 9 * lam / (2 * (9 * lam - 1))
+def exclusionBestValueZero (lam : ℝ) : ℝ := 1 / (2 * lam) - 1
+
+theorem upper_threshold_value_tie :
+    regularBestValueZero lambdaE = exclusionBestValueZero lambdaE := by
+  have hord := core_threshold_order
+  have hMpos : (0 : ℝ) < lambdaM := by
+    unfold lambdaM
+    norm_num
+  have hEpos : 0 < lambdaE := lt_trans hMpos hord.2.2.1
+  have hEne : lambdaE ≠ 0 := ne_of_gt hEpos
+  have hden : 9 * lambdaE - 1 ≠ 0 := by
+    have hM : lambdaM < lambdaE := hord.2.2.1
+    unfold lambdaM at hM
+    nlinarith
+  have hpoly := lambdaE_polynomial_root
+  unfold regularBestValueZero exclusionBestValueZero
+  field_simp [hEne, hden]
+  nlinarith
+
 -- Mutual regular-branch first-order conditions.
 theorem mutual_regular_difference_identity (lam a₁ a₂ : ℝ) :
     ((9 * lam - 1) * a₁ + a₂ - 3) -
@@ -102,6 +123,10 @@ theorem mutual_regular_at_lambdaM_iff (a₁ a₂ : ℝ) :
       a₁ + a₂ = 3 := by
   unfold lambdaM
   norm_num
+
+theorem beta_dmax_identity : 3 - 2 * beta = continuumDmax := by
+  unfold beta continuumDmax
+  ring
 
 -- A firm that is excluded and chooses strictly positive quality pays a real cost.
 def excludedQualityPayoff (lam a : ℝ) : ℝ := -lam * a ^ 2 / 2
@@ -230,38 +255,61 @@ theorem fixed_location_coefficient_sign {lam : ℝ} (hlam : 0 < lam) :
     (0 < 1 / lam - 1 ↔ lam < 1) := by
   constructor
   · intro h
-    have := (lt_div_iff₀ hlam).mpr (show lam < 1 from by nlinarith)
-    nlinarith
+    have hinv : 1 < 1 / lam := by linarith
+    have hmul : 1 * lam < 1 := (lt_div_iff₀ hlam).1 hinv
+    simpa using hmul
   · intro h
-    have hinv : 1 < 1 / lam := by
-      exact (lt_div_iff₀ hlam).2 h
+    have hmul : 1 * lam < 1 := by simpa using h
+    have hinv : 1 < 1 / lam := (lt_div_iff₀ hlam).2 hmul
     linarith
 
 theorem first_best_coefficient_sign {lam : ℝ} (hlam : 0 < lam) :
     (0 < 1 / (2 * lam) - 1 / 4 ↔ lam < 2) := by
+  have h2 : 0 < 2 * lam := by positivity
   constructor
   · intro h
-    have h2 : 0 < 2 * lam := by positivity
-    have hineq : lam < 2 := by
-      have hpos : 0 < 1 / (2 * lam) - 1 / 4 := h
-      field_simp [ne_of_gt hlam] at hpos
-      nlinarith
-    exact hineq
+    have hfrac : (1 / 4 : ℝ) < 1 / (2 * lam) := by linarith
+    have hmul : (1 / 4 : ℝ) * (2 * lam) < 1 := (lt_div_iff₀ h2).1 hfrac
+    nlinarith
   · intro h
-    have h2 : 0 < 2 * lam := by positivity
-    have hpos : 0 < 1 / (2 * lam) - 1 / 4 := by
-      apply sub_pos.mpr
-      rw [lt_div_iff₀ h2]
-      nlinarith
-    exact hpos
+    have hmul : (1 / 4 : ℝ) * (2 * lam) < 1 := by nlinarith
+    have hfrac : (1 / 4 : ℝ) < 1 / (2 * lam) := (lt_div_iff₀ h2).2 hmul
+    linarith
 
--- Exact t>0 dimensionless rescaling identities for threshold statements.
-theorem linear_transport_threshold_rescaling {lam t theta : ℝ}
-    (ht : 0 < t) (hdef : theta = lam * t) :
-    (theta < lambdaC ↔ lam * t < lambdaC) ∧
-    (theta = lambdaM ↔ lam * t = lambdaM) ∧
-    (theta ≤ lambdaE ↔ lam * t ≤ lambdaE) := by
-  subst theta
-  simp
+-- Exact t>0 payoff rescaling inside each frozen continuation branch.
+def regularBase (theta qi qj : ℝ) : ℝ :=
+  (1 / 2 : ℝ) * (1 + (qi - qj) / 3) ^ 2 - theta * qi ^ 2 / 2
+
+def excludedBase (theta qi : ℝ) : ℝ := -theta * qi ^ 2 / 2
+
+def highBase (theta qi qj : ℝ) : ℝ := qi - qj - 1 - theta * qi ^ 2 / 2
+
+def regularWithT (lam t ai aj : ℝ) : ℝ :=
+  t / 2 * (1 + (ai - aj) / (3 * t)) ^ 2 - lam * ai ^ 2 / 2
+
+def excludedWithT (lam ai : ℝ) : ℝ := -lam * ai ^ 2 / 2
+
+def highWithT (lam t ai aj : ℝ) : ℝ :=
+  ai - aj - t - lam * ai ^ 2 / 2
+
+theorem regular_linear_transport_rescale {lam t qi qj : ℝ} (ht : t ≠ 0) :
+    regularWithT lam t (t * qi) (t * qj) / t =
+      regularBase (lam * t) qi qj := by
+  unfold regularWithT regularBase
+  field_simp [ht]
+  ring
+
+theorem excluded_linear_transport_rescale {lam t qi : ℝ} (ht : t ≠ 0) :
+    excludedWithT lam (t * qi) / t = excludedBase (lam * t) qi := by
+  unfold excludedWithT excludedBase
+  field_simp [ht]
+  ring
+
+theorem high_linear_transport_rescale {lam t qi qj : ℝ} (ht : t ≠ 0) :
+    highWithT lam t (t * qi) (t * qj) / t =
+      highBase (lam * t) qi qj := by
+  unfold highWithT highBase
+  field_simp [ht]
+  ring
 
 end CompleteEquilibriumFormal
