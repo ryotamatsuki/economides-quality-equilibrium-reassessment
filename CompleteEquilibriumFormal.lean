@@ -26,12 +26,10 @@ def beta : ℝ := (3 / 2 : ℝ) * (Real.sqrt 2 - 1)
 def continuumDmax : ℝ := 6 - 3 * Real.sqrt 2
 
 lemma sqrt13_sq : (Real.sqrt 13 : ℝ) ^ 2 = 13 := by
-  have h : (0 : ℝ) ≤ 13 := by norm_num
-  simpa using Real.sq_sqrt h
+  exact Real.sq_sqrt (show (0 : ℝ) ≤ 13 by norm_num)
 
 lemma sqrt2_sq : (Real.sqrt 2 : ℝ) ^ 2 = 2 := by
-  have h : (0 : ℝ) ≤ 2 := by norm_num
-  simpa using Real.sq_sqrt h
+  exact Real.sq_sqrt (show (0 : ℝ) ≤ 2 by norm_num)
 
 lemma sqrt13_lt_four : (Real.sqrt 13 : ℝ) < 4 := by
   have hs := sqrt13_sq
@@ -205,6 +203,12 @@ theorem continuumDmax_sq_lt_twelve : continuumDmax ^ 2 < 12 := by
   unfold continuumDmax
   nlinarith
 
+theorem continuumDmax_sq_lt_nine : continuumDmax ^ 2 < 9 := by
+  have hs := sqrt2_sq
+  have hb := sqrt2_bounds
+  unfold continuumDmax
+  nlinarith
+
 theorem continuumDmax_nonneg : 0 ≤ continuumDmax := by
   have hb := sqrt2_bounds
   unfold continuumDmax
@@ -222,6 +226,18 @@ theorem continuum_abs_bound_implies_sq_lt_twelve {d : ℝ}
   have hD := continuumDmax_sq_lt_twelve
   linarith
 
+theorem continuum_abs_bound_implies_sq_lt_nine {d : ℝ}
+    (hd : |d| ≤ continuumDmax) : d ^ 2 < 9 := by
+  have hD0 := continuumDmax_nonneg
+  have habs0 : 0 ≤ |d| := abs_nonneg d
+  have hsq : |d| ^ 2 ≤ continuumDmax ^ 2 := by
+    nlinarith
+  have hdabs : d ^ 2 = |d| ^ 2 := by
+    rw [sq_abs]
+  rw [hdabs]
+  have hD := continuumDmax_sq_lt_nine
+  linarith
+
 theorem exclusion_welfare_dominates_continuum {k d : ℝ}
     (hd : |d| ≤ continuumDmax) :
     continuumW k d < exclusionWAtM k := by
@@ -232,7 +248,7 @@ theorem exclusion_welfare_dominates_continuum {k d : ℝ}
 theorem exclusion_cs_dominates_continuum {k d : ℝ}
     (hd : |d| ≤ continuumDmax) :
     continuumCS k d < exclusionCSAtM k := by
-  have hd2 := continuum_abs_bound_implies_sq_lt_twelve hd
+  have hd2 := continuum_abs_bound_implies_sq_lt_nine hd
   unfold continuumCS exclusionCSAtM
   nlinarith
 
