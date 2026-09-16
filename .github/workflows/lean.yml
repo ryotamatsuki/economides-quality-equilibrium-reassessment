@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'EconomidesFormal.lean'
+      - 'CompleteEquilibriumFormal.lean'
       - 'lean-toolchain'
       - 'lakefile.toml'
       - 'lake-manifest.json'
@@ -15,6 +16,7 @@ on:
   pull_request:
     paths:
       - 'EconomidesFormal.lean'
+      - 'CompleteEquilibriumFormal.lean'
       - 'lean-toolchain'
       - 'lakefile.toml'
       - 'lake-manifest.json'
@@ -42,14 +44,16 @@ jobs:
       - name: Reject proof placeholders and project axioms
         shell: bash
         run: |
-          if grep -nE '\b(sorry|admit)\b' EconomidesFormal.lean; then
-            echo 'Blocking proof placeholder found.'
-            exit 1
-          fi
-          if grep -nE '^[[:space:]]*axiom[[:space:]]' EconomidesFormal.lean; then
-            echo 'Project-specific axiom found.'
-            exit 1
-          fi
+          for f in EconomidesFormal.lean CompleteEquilibriumFormal.lean; do
+            if grep -nE '\b(sorry|admit)\b' "$f"; then
+              echo "Blocking proof placeholder found in $f."
+              exit 1
+            fi
+            if grep -nE '^[[:space:]]*axiom[[:space:]]' "$f"; then
+              echo "Project-specific axiom found in $f."
+              exit 1
+            fi
+          done
       - name: Resolve locked dependencies
         run: lake update
       - name: Verify dependency lock is current
