@@ -279,7 +279,6 @@ theorem fixed_location_coefficient_sign {lam : ℝ} (hlam : 0 < lam) :
     have hprod : 0 < lam * (1 / lam - 1) := mul_pos hlam h
     have hid : lam * (1 / lam - 1) = 1 - lam := by
       field_simp [hne]
-      ring
     rw [hid] at hprod
     linarith
   · intro h
@@ -287,7 +286,6 @@ theorem fixed_location_coefficient_sign {lam : ℝ} (hlam : 0 < lam) :
     have hfrac : 0 < (1 - lam) / lam := div_pos hnum hlam
     have hid : (1 - lam) / lam = 1 / lam - 1 := by
       field_simp [hne]
-      ring
     rw [hid] at hfrac
     exact hfrac
 
