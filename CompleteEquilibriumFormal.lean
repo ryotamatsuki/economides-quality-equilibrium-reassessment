@@ -12,6 +12,7 @@ analytically at Stages 4/4A and remain outside this formal core.
 -/
 
 noncomputable section
+set_option linter.unnecessarySimpa false
 
 namespace CompleteEquilibriumFormal
 
@@ -249,8 +250,11 @@ theorem exclusion_cs_dominates_continuum {k d : ℝ}
     (hd : |d| ≤ continuumDmax) :
     continuumCS k d < exclusionCSAtM k := by
   have hd2 := continuum_abs_bound_implies_sq_lt_nine hd
+  have hquarter : d ^ 2 / 36 < (1 / 4 : ℝ) := by
+    apply (div_lt_iff₀ (show (0 : ℝ) < 36 by norm_num)).2
+    nlinarith
   unfold continuumCS exclusionCSAtM
-  nlinarith
+  linarith
 
 theorem exclusion_ps_dominates_continuum {d : ℝ}
     (hd : |d| ≤ continuumDmax) :
@@ -269,15 +273,23 @@ def firstBestReduced (lam x : ℝ) : ℝ :=
 
 theorem fixed_location_coefficient_sign {lam : ℝ} (hlam : 0 < lam) :
     (0 < 1 / lam - 1 ↔ lam < 1) := by
+  have hne : lam ≠ 0 := ne_of_gt hlam
   constructor
   · intro h
-    have hinv : 1 < 1 / lam := by linarith
-    have hmul : 1 * lam < 1 := (lt_div_iff₀ hlam).1 hinv
-    simpa using hmul
-  · intro h
-    have hmul : 1 * lam < 1 := by simpa using h
-    have hinv : 1 < 1 / lam := (lt_div_iff₀ hlam).2 hmul
+    have hprod : 0 < lam * (1 / lam - 1) := mul_pos hlam h
+    have hid : lam * (1 / lam - 1) = 1 - lam := by
+      field_simp [hne]
+      ring
+    rw [hid] at hprod
     linarith
+  · intro h
+    have hnum : 0 < 1 - lam := by linarith
+    have hfrac : 0 < (1 - lam) / lam := div_pos hnum hlam
+    have hid : (1 - lam) / lam = 1 / lam - 1 := by
+      field_simp [hne]
+      ring
+    rw [hid] at hfrac
+    exact hfrac
 
 theorem first_best_coefficient_sign {lam : ℝ} (hlam : 0 < lam) :
     (0 < 1 / (2 * lam) - 1 / 4 ↔ lam < 2) := by
@@ -314,10 +326,10 @@ theorem regular_linear_transport_rescale {lam t qi qj : ℝ} (ht : t ≠ 0) :
   unfold regularWithT regularBase
   field_simp [ht]
 
-theorem excluded_linear_transport_rescale {lam t qi : ℝ} (ht : t ≠ 0) :
+theorem excluded_linear_transport_rescale {lam t qi : ℝ} (_ht : t ≠ 0) :
     excludedWithT lam (t * qi) / t = excludedBase (lam * t) qi := by
   unfold excludedWithT excludedBase
-  field_simp [ht]
+  field_simp [_ht]
 
 theorem high_linear_transport_rescale {lam t qi qj : ℝ} (ht : t ≠ 0) :
     highWithT lam t (t * qi) (t * qj) / t =
