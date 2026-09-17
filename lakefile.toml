@@ -1,6 +1,6 @@
 name = "economides_reassessment"
 version = "0.1.0"
-defaultTargets = ["EconomidesFormal"]
+defaultTargets = ["EconomidesFormal", "CompleteEquilibriumFormal"]
 
 [[require]]
 name = "mathlib"
@@ -9,3 +9,6 @@ rev = "v4.33.1"
 
 [[lean_lib]]
 name = "EconomidesFormal"
+
+[[lean_lib]]
+name = "CompleteEquilibriumFormal"
