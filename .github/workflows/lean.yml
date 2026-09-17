@@ -12,6 +12,9 @@ on:
       - 'theorem_certificates/STAGE7_5A_FORMAL_VERIFICATION_CERTIFICATE.md'
       - 'theorem_certificates/STAGE7_5A_SCOPE_CERTIFICATE.md'
       - 'docs/STAGE7_5A_RETROACTIVE_FORMAL_CLOSURE.md'
+      - 'docs/STAGE75A_GENERALITY_QUANTIFIER_CERTIFICATE.md'
+      - 'theorem_certificates/STAGE75A_FORMAL_VERIFICATION_CERTIFICATE.md'
+      - 'docs/STAGE75A_CLAIM_SCOPE_LEDGER.md'
       - '.github/workflows/lean.yml'
   pull_request:
     paths:
@@ -23,6 +26,9 @@ on:
       - 'theorem_certificates/STAGE7_5A_FORMAL_VERIFICATION_CERTIFICATE.md'
       - 'theorem_certificates/STAGE7_5A_SCOPE_CERTIFICATE.md'
       - 'docs/STAGE7_5A_RETROACTIVE_FORMAL_CLOSURE.md'
+      - 'docs/STAGE75A_GENERALITY_QUANTIFIER_CERTIFICATE.md'
+      - 'theorem_certificates/STAGE75A_FORMAL_VERIFICATION_CERTIFICATE.md'
+      - 'docs/STAGE75A_CLAIM_SCOPE_LEDGER.md'
       - '.github/workflows/lean.yml'
 
 jobs:
