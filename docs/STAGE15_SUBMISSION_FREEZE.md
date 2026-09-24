@@ -8,6 +8,12 @@ Current Stage-15 verdict: `FREEZE BLOCKED` until the authenticated Review of Ind
 
 This is not a scientific or manuscript blocker. It is the fail-closed portal gate required by the canonical Stage-15 workflow.
 
+## v2.5 exposition-retrofit addendum — 2026-09-24
+
+The manuscript/exposition lifecycle has been retro-audited under `research-paper-workflow` v2.5 @ `46d17bc4c1036955103224a5c0358a70edd2cb90`. Evidence: `docs/EXPOSITION_STREAMLINING_V2_5_RETROFIT.md`.
+
+Verdict: **PASS — no submission-manuscript content change required**. The content candidate recorded below remains unchanged; this documentation-only retrofit does not reopen theory or alter submission files. Stage 15 remains blocked only by authenticated portal preflight.
+
 ## Authority
 
 Workflow hierarchy:
