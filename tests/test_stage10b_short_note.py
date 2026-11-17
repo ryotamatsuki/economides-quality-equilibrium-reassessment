@@ -10,7 +10,7 @@ def test_editorial_and_theorem_scope_guards():
     for s in ["There are no other pure quality equilibria.",
               "fixed endpoint locations", "no claim of historical",
               "not a full three-stage", "not a claim",
-              "full-text theorem-level equivalence"]:
+              "precise theorem-level overlap"]:
         assert s.lower() in SRC.lower(),s
     assert r"\bibliography{../../references/references}" in SRC
 def test_latex_main_environment_pairs():
