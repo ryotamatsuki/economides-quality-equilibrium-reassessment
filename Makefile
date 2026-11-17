@@ -1,6 +1,6 @@
 PYTHON ?= python
 
-.PHONY: verify symbolic numerical test p4-audit outputs paper short-note rio-package title-page clean
+.PHONY: verify symbolic numerical test p4-audit outputs paper short-note ber-package rio-package title-page clean
 
 verify: symbolic numerical test p4-audit outputs
 
@@ -24,6 +24,12 @@ paper:
 
 short-note:
 	cd paper/short_note && latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
+
+ber-package:
+	$(PYTHON) scripts/build_ber_flat_package.py
+	rm -rf build/ber_compile
+	cp -a build/ber_source build/ber_compile
+	cd build/ber_compile && latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
 
 title-page:
 	cd paper && latexmk -pdf -interaction=nonstopmode -halt-on-error title_page.tex

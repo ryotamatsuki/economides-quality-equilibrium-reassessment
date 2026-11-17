@@ -57,12 +57,15 @@ jobs:
         run: make paper
       - name: Build provisional Stage10B short note
         run: make short-note
+      - name: Build independent BER flat-source and peer-review PDF package
+        run: make ber-package
       - name: Build and compile RIO submission variants
         run: make rio-package
       - name: Reject unresolved LaTeX citations or references
         run: |
           ! grep -E "Citation .* undefined|Reference .* undefined|There were undefined references" paper/main.log
           ! grep -E "Citation .* undefined|Reference .* undefined|There were undefined references" paper/short_note/main.log
+          ! grep -E "Citation .* undefined|Reference .* undefined|There were undefined references" build/ber_compile/main.log
           ! grep -E "Citation .* undefined|Reference .* undefined|There were undefined references" build/rio_anonymous_compile/main.log
           ! grep -E "Citation .* undefined|Reference .* undefined|There were undefined references" build/rio_identified_compile/main.log
       - name: Confirm clean source packages contain no build debris
@@ -75,11 +78,35 @@ jobs:
           awk '$4 == "no" {print "UNEMBEDDED FONT:", $0; bad=1} END {exit bad}' /tmp/anonymous-fonts.txt
           pdffonts build/rio_identified_compile/main.pdf | tee /tmp/identified-fonts.txt
           awk '$4 == "no" {print "UNEMBEDDED FONT:", $0; bad=1} END {exit bad}' /tmp/identified-fonts.txt
+      - name: Confirm clean BER source package
+        run: |
+          test -f build/ber_source/main.tex
+          test -f build/ber_source/references.bib
+          test "$(find build/ber_source -maxdepth 1 -type f | wc -l)" -eq 2
+          ! grep -q '../../references/references' build/ber_source/main.tex
+          test -z "$(find build/ber_source -maxdepth 1 -type f \( -name '*.aux' -o -name '*.log' -o -name '*.pdf' \) -print)"
+      - name: Inspect BER flat PDF and embedded fonts
+        run: |
+          pdfinfo build/ber_compile/main.pdf | tee /tmp/stage14-ber-pdfinfo.txt
+          pdffonts build/ber_compile/main.pdf | tee /tmp/stage14-ber-fonts.txt
+          awk '$4 == "no" {print "UNEMBEDDED FONT:", $0; bad=1} END {exit bad}' /tmp/stage14-ber-fonts.txt
       - name: Inspect Stage13 BER note PDF metadata and font embedding
         run: |
           pdfinfo paper/short_note/main.pdf | tee /tmp/stage13-ber-pdfinfo.txt
           pdffonts paper/short_note/main.pdf | tee /tmp/stage13-ber-fonts.txt
           awk '$4 == "no" {print "UNEMBEDDED FONT:", $0; bad=1} END {exit bad}' /tmp/stage13-ber-fonts.txt
+      - name: Upload Stage14 BER flat source bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage14-ber-flat-source-provisional
+          path: build/ber_source/
+          if-no-files-found: error
+      - name: Upload Stage14 BER review PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage14-ber-flat-review-pdf-provisional
+          path: build/ber_compile/main.pdf
+          if-no-files-found: error
       - name: Upload Stage13 BER provisional note PDF
         uses: actions/upload-artifact@v4
         with:
