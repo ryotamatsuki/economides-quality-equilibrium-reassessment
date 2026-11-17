@@ -59,6 +59,8 @@ jobs:
         run: make short-note
       - name: Build independent BER flat-source and peer-review PDF package
         run: make ber-package
+      - name: Build Stage16 ETB editable sources and review PDF
+        run: make etb-package
       - name: Build and compile RIO submission variants
         run: make rio-package
       - name: Reject unresolved LaTeX citations or references
@@ -66,6 +68,7 @@ jobs:
           ! grep -E "Citation .* undefined|Reference .* undefined|There were undefined references" paper/main.log
           ! grep -E "Citation .* undefined|Reference .* undefined|There were undefined references" paper/short_note/main.log
           ! grep -E "Citation .* undefined|Reference .* undefined|There were undefined references" build/ber_compile/main.log
+          ! grep -E "Citation .* undefined|Reference .* undefined|There were undefined references" build/etb_compile/main.log
           ! grep -E "Citation .* undefined|Reference .* undefined|There were undefined references" build/rio_anonymous_compile/main.log
           ! grep -E "Citation .* undefined|Reference .* undefined|There were undefined references" build/rio_identified_compile/main.log
       - name: Confirm clean source packages contain no build debris
@@ -90,11 +93,33 @@ jobs:
           pdfinfo build/ber_compile/main.pdf | tee /tmp/stage14-ber-pdfinfo.txt
           pdffonts build/ber_compile/main.pdf | tee /tmp/stage14-ber-fonts.txt
           awk '$4 == "no" {print "UNEMBEDDED FONT:", $0; bad=1} END {exit bad}' /tmp/stage14-ber-fonts.txt
+      - name: Inspect Stage16 ETB source package and PDF
+        run: |
+          test -f build/etb_source/main.tex
+          test -f build/etb_source/references.bib
+          test "$(find build/etb_source -maxdepth 1 -type f | wc -l)" -eq 2
+          test -z "$(find build/etb_source -maxdepth 1 -type f \( -name '*.aux' -o -name '*.log' -o -name '*.pdf' \) -print)"
+          ! grep -q '../../references/references' build/etb_source/main.tex
+          pdfinfo build/etb_compile/main.pdf | tee /tmp/stage16-etb-pdfinfo.txt
+          pdffonts build/etb_compile/main.pdf | tee /tmp/stage16-etb-fonts.txt
+          awk '$4 == "no" {print "UNEMBEDDED FONT:", $0; bad=1} END {exit bad}' /tmp/stage16-etb-fonts.txt
       - name: Inspect Stage13 BER note PDF metadata and font embedding
         run: |
           pdfinfo paper/short_note/main.pdf | tee /tmp/stage13-ber-pdfinfo.txt
           pdffonts paper/short_note/main.pdf | tee /tmp/stage13-ber-fonts.txt
           awk '$4 == "no" {print "UNEMBEDDED FONT:", $0; bad=1} END {exit bad}' /tmp/stage13-ber-fonts.txt
+      - name: Upload Stage16 ETB source package
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage16-etb-flat-source-provisional
+          path: build/etb_source/
+          if-no-files-found: error
+      - name: Upload Stage16 ETB review PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage16-etb-review-pdf-provisional
+          path: build/etb_compile/main.pdf
+          if-no-files-found: error
       - name: Upload Stage14 BER flat source bundle
         uses: actions/upload-artifact@v4
         with:
