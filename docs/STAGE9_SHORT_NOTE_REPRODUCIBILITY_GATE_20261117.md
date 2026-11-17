@@ -34,7 +34,7 @@ Existing production `main` was checked, not reset; historical 2026-09-10 v1 free
 
 ## Mandatory Stage9 final GO prerequisites
 
-1. Author-authenticated intellectual-contribution record for new P4, publication-unit choice and available/uncertain priority accepted.
+1. Author-authenticated intellectual-contribution record for new P4, publication-unit choice, knowledge of the now-closed original RIO consideration (private editorial records retained outside the public repository), status of any later submission and available/uncertain priority accepted.
 2. Stage8 **THEORY FROZEN** with valid source freeze SHA and compatible Stage4A/7.5A/full-claim evidence. Any discovery of a substantive defect reopens exact affected scientific gate.
 3. Confirm newest remote branch state, and run CI on the exact production freeze branch/head; reconcile generated files and scripts, formal theorem mapping, reproducibility and provenance against new freeze.
 4. Stage9 issued `REPRODUCIBILITY BASELINE READY` only after 1–3, then approve Stage10A source register/blueprint anew. Stage10B remains unauthorized until Stage10A GO.

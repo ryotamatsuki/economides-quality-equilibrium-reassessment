@@ -48,7 +48,7 @@ Inherited diagnostic counterexamples: quartic quality cost and bounded quality <
 - Stage6 literature novelty: **strong priority NOT certified** (Bunte/Sorenson source limits; internal paper overlap). Honest descriptive correction positioning only.
 - `AUTHOR_INTELLECTUAL_CONTRIBUTION_RECORD`: **MISSING**.
 - Existing Stage7.5 contribution-completeness / editorial-value decision for P4 short-note as a distinct paper: **not signed by author**.
-- Formal Stage8: **FREEZE BLOCKED** pending author substantive reasoning/selection and resolution of material overlapping-publication treatment and any Stage6 hard novelty risk. No `THEORY FROZEN` verdict.
+- Formal Stage8: **FREEZE BLOCKED** pending author substantive reasoning/selection and resolution of material paper redundancy and any Stage6 hard novelty risk (old RIO consideration no longer active as of 2026-11-17, but later transfer/submission not verified). No `THEORY FROZEN` verdict.
 
 ## Change control and next-stage linkage
 

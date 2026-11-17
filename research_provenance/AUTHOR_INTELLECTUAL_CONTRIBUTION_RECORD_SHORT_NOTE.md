@@ -10,7 +10,7 @@ Source and claims to inspect: `theorem_certificates/SHORT_NOTE_STAGE4A_COMPLETE_
    - AUTHOR entry: **NOT PROVIDED**.
 2. **Proof understanding / global vs local:** Explain why, on the original 1/9<λ<2/9 interval, `BR(0)=1/λ`, `BR(1/λ)=0`, and the only two-positive-quality candidate must solve `(9λ−2)(a1−a2)=0`. Explain why switching to the full-capture price regime defeats symmetric stationary quality below λ=4/27 and why equality is included.
    - AUTHOR entry: **NOT PROVIDED**.
-3. **Scope / caveats / literature judgment:** State the strongest claim you personally accept, distinguish quality NE from three-stage SPNE/mixed equilibrium, and explicitly judge how Bunte/Sorenson incomplete access and possible parallel RIO/sibling-P R#10 overlap constrain novelty or the intended publication.
+3. **Scope / caveats / literature judgment:** State the strongest claim you personally accept, distinguish quality NE from three-stage SPNE/mixed equilibrium, and explicitly judge how Bunte/Sorenson incomplete access and historical RIO decision, any later transfer/re-submission, and sibling PR #10 overlap constrain novelty or the intended publication.
    - AUTHOR entry: **NOT PROVIDED**.
 
 Author's own checks, corrections, rejections, signatures/dated notes and any proof annotation should be recorded **verbatim in substance** when supplied. Repeating an AI-produced checklist or merely saying 'CI passed' is insufficient. Neither AI nor an automatic tool may fill these fields as AUTHOR.
