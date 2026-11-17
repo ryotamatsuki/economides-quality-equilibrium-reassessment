@@ -60,7 +60,7 @@ def test_internal_refs_and_citation_keys_resolve_in_sources():
     assert not cited_labels - source_labels, sorted(cited_labels - source_labels)
 
     bib_text = (Path(__file__).resolve().parents[1] / "references" / "references.bib").read_text(encoding="utf-8")
-    known_bib_keys = set(re.findall(r"@\\w+\\s*\{\s*([^,]+)", bib_text))
+    known_bib_keys = set(re.findall(r"@\w+\s*\{\s*([^,]+)", bib_text))
     cited_bib_keys = set()
     for match in re.finditer(r"\\cite(?:t|p)?(?:\[[^\]]*\])?\{([^{}]+)\}", SRC):
         cited_bib_keys.update(k.strip() for k in match.group(1).split(","))
