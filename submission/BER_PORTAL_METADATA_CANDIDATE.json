@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0",
+  "status": "STAGE15_TECHNICAL_FREEZE_CANDIDATE_NOT_SUBMITTED",
+  "journal": "Bulletin of Economic Research",
+  "publisher": "Wiley",
+  "article_type_preference": "Note or Comment (portal-specific option unverified)",
+  "title": "Quality Differentiation and Market Exclusion: A Note on Economides (1989)",
+  "author": [
+    {
+      "given_name": "Ryota",
+      "family_name": "Matsuki",
+      "full_name": "Ryota Matsuki",
+      "author_order": 1,
+      "corresponding_author": true,
+      "affiliation": "Independent Researcher",
+      "city": "Matsuyama",
+      "prefecture": "Ehime",
+      "country": "Japan",
+      "email": "ryota.matsuki@gmail.com",
+      "orcid": "0009-0005-2329-531X",
+      "postal_address": null,
+      "postal_address_status": "Not on file; do not infer a personal address"
+    }
+  ],
+  "jel": [
+    "C72",
+    "D43",
+    "L13",
+    "R32"
+  ],
+  "keywords": [
+    "spatial competition",
+    "quality differentiation",
+    "Hotelling",
+    "market exclusion",
+    "equilibrium multiplicity"
+  ],
+  "funding_statement": "This research received no external funding.",
+  "competing_interests_statement": "The author declares no competing interests.",
+  "acknowledgements": "None.",
+  "author_contributions": "Ryota Matsuki is the sole author; case-wise theorem proof reviewed by author; original derivation not claimed entirely independent of AI.",
+  "empirical_data": "None (theoretical analysis)",
+  "code_availability": "https://github.com/ryotamatsuki/economides-quality-equilibrium-reassessment",
+  "public_disclosure": "Research source and prior working manuscripts available publicly on GitHub; not represented as a formally registered preprint",
+  "prior_submission": {
+    "journal": "Review of Industrial Organization",
+    "manuscript_title": "Global Quality Deviations and Equilibrium Multiplicity in Spatial Competition: Revisiting Economides (1989)",
+    "decision": "Rejected",
+    "decision_date": "2026-11-17",
+    "current_active_at_that_journal": false,
+    "subsequent_transfer": "NOT CONFIRMED; searches yielded no distinct transfer notification"
+  },
+  "other_active_submissions": "NOT INDEPENDENTLY CONFIRMED; must affirm at portal, do not infer from unrelated JICT manuscript",
+  "language": "English",
+  "ai_use": {
+    "tool": "OpenAI ChatGPT",
+    "use_year": "2026",
+    "purposes": [
+      "theoretical exploration",
+      "algebraic verification assistance",
+      "Python numerical and symbolic-check support",
+      "Lean proof formalization support",
+      "literature discovery",
+      "manuscript drafting"
+    ],
+    "author_proof_review": "confirmed for case-wise complete P4 reduced quality-game correspondence",
+    "exact_model_versions": "UNKNOWN (not recoverable for every research step)",
+    "cannot_certify": "primitive consumer price model and full location-price-quality SPNE"
+  },
+  "publication_route": "Traditional / subscription (non-open-access) only; no paid OA selection permitted",
+  "fee_information": "No mandatory BER submission/non-OA fee confirmed from accessible public guidance; hold payment authorization",
+  "scientific_claim_scope": "pure reduced quality-game Nash equilibria at fixed endpoints, 1/9<lambda<2/9, not full SPNE",
+  "older_exact_theorem_overlap": "Bunte (1995) and Sorenson (1995): undecided / material originality blocker",
+  "submission_authorization": false
+}
