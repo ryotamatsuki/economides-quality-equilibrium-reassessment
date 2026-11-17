@@ -58,13 +58,18 @@ theorem local_increment (l x y h : ℝ) :
   ring
 
 lemma payoff_low {l x y : ℝ} (h : x-y ≤ -3*l) :
-    payoff l x y = low l x := by simp [payoff,h]
+    payoff l x y = low l x := by
+  unfold payoff
+  rw [if_pos h]
 lemma payoff_mid {l x y : ℝ} (h1 : -3*l < x-y) (h2 : x-y ≤ 3*l) :
-    payoff l x y = mid l x y := by simp [payoff,not_le.mpr h1,h2]
+    payoff l x y = mid l x y := by
+  unfold payoff
+  rw [if_neg (not_le.mpr h1), if_pos h2]
 lemma payoff_high {l x y : ℝ} (hl : 0 < l) (h : 3*l < x-y) :
     payoff l x y = high l x y := by
   have hn : ¬ x-y ≤ -3*l := by linarith
-  simp [payoff,hn,not_le.mpr h]
+  unfold payoff
+  rw [if_neg hn, if_neg (not_le.mpr h)]
 
 lemma high_strict {l x y : ℝ} (hl : 0 < l) (hx : x ≠ 1) :
     high l x y < high l 1 y := by
