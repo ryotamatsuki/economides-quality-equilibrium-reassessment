@@ -9,7 +9,7 @@
 \newtheorem{theorem}{Theorem}
 \title{Quality Differentiation and Market Exclusion:\\A Note on Economides (1989)}
 \author{Ryota Matsuki\\Independent Researcher\\Matsuyama, Ehime, Japan\\\href{mailto:ryota.matsuki@gmail.com}{ryota.matsuki@gmail.com}\\ORCID: \href{https://orcid.org/0009-0005-2329-531X}{0009-0005-2329-531X}}
-\date{Provisional manuscript --- 17 November 2026\\[2pt]\small Not approved for submission}
+\date{}
 
 \begin{document}
 \maketitle
@@ -75,10 +75,11 @@ with the stability of quality choices in this model
 \citep{Bunte1995,Bunte1997,Sorenson1995}. We provide a
 self-contained, model-specific correspondence and make
 no claim to have been the first to identify this issue.
-Whether the exact correspondence is already contained
-in \citet{Bunte1995} or \citet{Sorenson1995} remains
-unresolved; this manuscript must not be submitted
-without a defensible editorial assessment of that overlap.
+The full theorem-level relation of the present
+correspondence to \citet{Bunte1995} and
+\citet{Sorenson1995} is not established here.
+We claim neither historical priority nor a
+new theorem about endogenous location choices.
 
 \section{Model and equilibrium object}\label{sec:model}
 There are two firms at fixed locations $\ell_1=0$ and
@@ -442,37 +443,51 @@ the three-branch price equilibrium from
 primitive preferences, and does not
 prove equilibrium of the full
 location--quality--price game.
-The code and exact-rational regression
-checks are available in the linked
-research repository with the
-corresponding formal certificates.
-
-The human-review and generative-AI
-declaration is provided separately below.
-The mathematical theorem is a working
-pre-freeze candidate: current project
-governance has not issued canonical
-theory-freeze or submission approval.
+The code, exact-rational regression checks,
+and formal certificates are available at
+\url{https://github.com/ryotamatsuki/economides-quality-equilibrium-reassessment}.
+The distinction between the Lean-verified
+reduced payoff and the analytically
+derived price continuation is essential.
 
 \section*{Declaration of generative-AI assistance}
-OpenAI's ChatGPT was used during 2026 to assist
+OpenAI's ChatGPT was used in 2026 to assist
 theoretical exploration, algebraic and
-computational checking, proof formalization,
-literature discovery and organization, and
-manuscript drafting. The author reviewed the
-model-specific equilibrium classification and
-its case-by-case proof, and remains responsible
-for the mathematical claims, references,
-originality assessment and final text.
-The Lean formalization checks the encoded
-reduced-payoff Nash correspondence; it
-does not independently establish the
-primitive price game or the original
-three-stage equilibrium.
-Complete version-level AI-use details and
-the author's final publication declaration
-must be reconciled with the research log
-and Wiley's current policy before submission.
+computational checking, Lean proof
+formalization, literature discovery and
+organization, and manuscript drafting.
+The exact underlying model versions were not
+consistently preserved across the historical
+research workflow. AI assistance materially
+informed the formulation and presentation of
+the reduced-game equilibrium classification.
+The author reviewed its case-by-case proof and
+cutoff logic. The analytical argument, Python
+exact-rational and numerical checks, and Lean
+verification of the encoded reduced-payoff
+game serve distinct validation roles.
+The Lean results do not establish the primitive
+consumer-demand and price model or
+full three-stage subgame perfection.
+The author takes responsibility for the
+mathematical arguments, source attributions,
+interpretation, and final manuscript.
+
+\section*{Declarations}
+\noindent\textbf{Funding.} This research received no external funding.
+
+\noindent\textbf{Competing interests.} The author declares no competing interests.
+
+\noindent\textbf{Author contributions.} Ryota Matsuki is the sole author and
+accepts responsibility for the study design, interpretation of the
+results, verification decisions, and manuscript.
+
+\noindent\textbf{Data and code availability.} No empirical data were
+collected or analysed. Reproducibility code, formal proof sources,
+and the research history are publicly available at
+\url{https://github.com/ryotamatsuki/economides-quality-equilibrium-reassessment}.
+
+\noindent\textbf{Acknowledgments.} None.
 
 \bibliographystyle{apalike}
 \bibliography{../../references/references}
