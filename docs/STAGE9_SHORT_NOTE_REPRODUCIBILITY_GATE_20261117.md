@@ -1,6 +1,6 @@
 # Stage 9 — restricted P4 repository/reproducibility audit (2026-11-17)
 
-**Verdict: REPRODUCIBILITY BASELINE TECHNICALLY PASS / FORMAL STAGE 9 GO BLOCKED BY STAGE 8.** Author has attested verification on 2026-11-17, and author reasoning on existence vs completeness has now been recorded, but full necessity proof review and scoped paper-contribution judgment remain undocumented.
+**Verdict: REPRODUCIBILITY BASELINE TECHNICALLY PASS / FORMAL STAGE 9 GO BLOCKED BY STAGE 8.** Author directly confirmed the complete three-case P4 proof explanation on 2026-11-17, so proof-understanding verification is recorded. Literature priority and editorial-nonredundancy remain unresolved; Stage8 entry therefore still blocks formal Stage9 GO.
 The canonical Stage9 entry contract requires an actual approved Stage8 theory freeze; the short-note freeze remains CANDIDATE. A green CI is not authorization to certify Stage9 before Stage8.
 
 ## Actual repository / reference snapshot
@@ -28,13 +28,13 @@ Existing production `main` was checked, not reset; historical 2026-09-10 v1 free
 | Reduced Nash iff Lean code | ShortNoteFormal.lean, exact SHA/CI above |
 | Independent math/program check | verification/short_note_independent_audit.py |
 | Prior-literature and sibling-claim boundary | docs/SHORT_NOTE_PRIOR_ART_AND_INTERNAL_OVERLAP_20261117.md |
-| Missing human responsibility | research_provenance/AUTHOR_INTELLECTUAL_CONTRIBUTION_RECORD_SHORT_NOTE.md |
+| Author proof review and separate unresolved novelty/editorial judgment | research_provenance/AUTHOR_INTELLECTUAL_CONTRIBUTION_RECORD_SHORT_NOTE.md |
 | Candidate theory specification (not frozen) | theory/SHORT_NOTE_REFREEZE_CANDIDATE_20261117.md |
 | Exemplar benchmark and writing blueprint | docs/stage10a/ (PR #13 child branch) |
 
 ## Mandatory Stage9 final GO prerequisites
 
-1. Author-authenticated intellectual-contribution record for new P4, publication-unit choice, knowledge of the now-closed original RIO consideration (private editorial records retained outside the public repository), status of any later submission and available/uncertain priority accepted.
+1. Author's substantive P4 proof review: **DONE** (contextual verification recorded). The selected paper form is the short correction note. Still required: reasoned closest-paper distinction / editorial contribution case that does not assume unseen Bunte/Sorenson results or duplicate PR #10, plus verified disposition of any later transfer/submission. Private editorial correspondence is retained outside this public repository.
 2. Stage8 **THEORY FROZEN** with valid source freeze SHA and compatible Stage4A/7.5A/full-claim evidence. Any discovery of a substantive defect reopens exact affected scientific gate.
 3. Confirm newest remote branch state, and run CI on the exact production freeze branch/head; reconcile generated files and scripts, formal theorem mapping, reproducibility and provenance against new freeze.
 4. Stage9 issued `REPRODUCIBILITY BASELINE READY` only after 1–3, then approve Stage10A source register/blueprint anew. Stage10B remains unauthorized until Stage10A GO.
