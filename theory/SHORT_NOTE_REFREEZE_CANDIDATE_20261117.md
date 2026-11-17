@@ -46,7 +46,7 @@ Inherited diagnostic counterexamples: quartic quality cost and bounded quality <
 - Scoped P4 Stage7.5A: **GO** for model-specific quantifier and Lean reduced-payoff full iff. Requires previous analytic price continuation bridge.
 - Formal Verification Gate: **PASS** at 742726... under exact encoded reduced game.
 - Stage6 literature novelty: **strong priority NOT certified** (Bunte/Sorenson source limits; internal paper overlap). Honest descriptive correction positioning only.
-- `AUTHOR_INTELLECTUAL_CONTRIBUTION_RECORD`: **MISSING**.
+- `AUTHOR_INTELLECTUAL_CONTRIBUTION_RECORD`: **AUTHOR ATTESTATION RECEIVED** 2026-11-17 ("著者による検証OKです。"); **AUTHOR-AUTHORED SUBSTANTIVE EXPLANATION NOT YET DOCUMENTED**. Treat these separately per governance.
 - Existing Stage7.5 contribution-completeness / editorial-value decision for P4 short-note as a distinct paper: **not signed by author**.
 - Formal Stage8: **FREEZE BLOCKED** pending author substantive reasoning/selection and resolution of material paper redundancy and any Stage6 hard novelty risk (old RIO consideration no longer active as of 2026-11-17, but later transfer/submission not verified). No `THEORY FROZEN` verdict.
 

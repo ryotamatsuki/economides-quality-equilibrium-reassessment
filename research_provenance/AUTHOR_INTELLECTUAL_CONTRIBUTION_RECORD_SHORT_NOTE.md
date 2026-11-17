@@ -1,6 +1,9 @@
 # AUTHOR_INTELLECTUAL_CONTRIBUTION_RECORD — NEW P4 (2026-11-17)
 
-**Status: AWAITING ACTUAL AUTHOR EVIDENCE. This document is an unsigned review template, NOT a sign-off.**
+**Status: AUTHOR ATTESTATION RECEIVED 2026-11-17; SUBSTANTIVE AUTHOR REASONING STILL NOT RECORDED — FORMAL STAGE 8 SIGN-OFF NOT COMPLETED.**
+The author directly stated in the active research conversation on 2026-11-17: **「著者による検証OKです。」** This is faithfully logged as the author's claim that their verification is satisfactory, referring to the new P4 audit and Draft PR #14 source at `2664ec331f0a7de25acb41c7a26cf36aca9dc4ce`. This line was supplied by the AUTHOR; no derivation or paper-level novelty determination was supplied with it. The assertion is **not** reclassified as a detailed AUTHOR proof or an EXTERNAL HUMAN review.
+
+Earlier conversation records support the author's choice of a **short research note**, rather than combining all-λ results into a full paper, but do not provide the author's own proof of why all other equilibria are excluded. Preserve that distinction; neither AI explanations nor the source code may fill the AUTHOR-only fields.
 
 Source and claims to inspect: `theorem_certificates/SHORT_NOTE_STAGE4A_COMPLETE_PURE_NE.md`, `ShortNoteFormal.lean` at SHA 7427264..., `theorem_certificates/SHORT_NOTE_STAGE75A_COMPLETE_PURE_NE.md`, and `docs/SHORT_NOTE_PRIOR_ART_AND_INTERNAL_OVERLAP_20261117.md`.
 
