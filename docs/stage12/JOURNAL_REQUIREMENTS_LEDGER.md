@@ -1,4 +1,6 @@
-# Stage12 — Initial Journal Requirements Ledger: Economics Bulletin
+# Stage12 — Historical venue requirements (Economics Bulletin; NOT a current target)
+
+> **Superseded 2026-11-17.** The author explicitly excluded Economics Bulletin from the short-note submission ladder. This file is retained as an audit trail only. The controlling current venue ledger is [BER_REQUIREMENTS_LEDGER.md](BER_REQUIREMENTS_LEDGER.md). Do not use EB-only format (no title/abstract, 7-page cap) for Stage13.
 
 Target: Economics Bulletin (AccessEcon, ISSN 1545-2921), refereed `Note` (the portal also offers `Comment`). Checked 2026-11-17 JST. Preflight, NOT submission certified. Portal page `https://www.accessecon.com/Pubs/EB/default.aspx?page=Newsubmission` is live journal-hosted official instruction [P=level3 journal/unauthenticated portal page]. Journal mission `https://www.accessecon.com/pubs/EB/default.aspx?linkID=763&menu=2&page=content` [M=level3]. Current authenticated uploader fields NOT inspected [A=level2 unavailable]. Publisher PDFs should not override direct submission instructions.
 
