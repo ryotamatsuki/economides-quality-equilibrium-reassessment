@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'EconomidesFormal.lean'
+      - 'ShortNoteFormal.lean'
       - 'lean-toolchain'
       - 'lakefile.toml'
       - 'lake-manifest.json'
@@ -15,6 +16,7 @@ on:
   pull_request:
     paths:
       - 'EconomidesFormal.lean'
+      - 'ShortNoteFormal.lean'
       - 'lean-toolchain'
       - 'lakefile.toml'
       - 'lake-manifest.json'
@@ -42,11 +44,11 @@ jobs:
       - name: Reject proof placeholders and project axioms
         shell: bash
         run: |
-          if grep -nE '\b(sorry|admit)\b' EconomidesFormal.lean; then
+          if grep -nE '\b(sorry|admit)\b' EconomidesFormal.lean ShortNoteFormal.lean; then
             echo 'Blocking proof placeholder found.'
             exit 1
           fi
-          if grep -nE '^[[:space:]]*axiom[[:space:]]' EconomidesFormal.lean; then
+          if grep -nE '^[[:space:]]*axiom[[:space:]]' EconomidesFormal.lean ShortNoteFormal.lean; then
             echo 'Project-specific axiom found.'
             exit 1
           fi
