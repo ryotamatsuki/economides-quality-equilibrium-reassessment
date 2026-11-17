@@ -14,7 +14,8 @@ Existing production `main` was checked, not reset; historical 2026-09-10 v1 free
 - CI run 44004302052 at exact P4 formal SHA: SUCCESS incl placeholder/axiom rejection, pinned-dependency check and kernel build.
 - CI run 44004302061 at same SHA: SUCCESS incl Python regression tests, reproducibility, manuscript build, and prior RIO variant builds.
 - A **new separate exact-rational source-based check** `verification/short_note_independent_audit.py` was run locally on 2026-11-17: PASS, 294 rational opponent-grid audit cases plus six parameter samples and exact symbolic identities.
-- CI success on old source does not imply CI at this newly committed documentation/code HEAD; check new PR runs before a later formal GO.
+- CI reproducibility now runs the new P4 test via `tests/test_short_note_p4.py`; Makefile `p4-audit` independently executes it; `verify.yml` placeholder/axiom guard explicitly covers both EconomidesFormal and ShortNoteFormal (repairing an inherited coverage gap). Check latest exact-HEAD PR run status before later GO.
+- CI success on old source does not imply CI at this new HEAD until the new run actually passes.
 - The previously compiled LaTeX manuscript corresponds to the OLD longer RIO version, not the new Stage10B short note; don't claim the new note's final manuscript exists or has passed build.
 
 ## Traceability matrix
