@@ -39,4 +39,6 @@ Existing production `main` was checked, not reset; historical 2026-09-10 v1 free
 3. Confirm newest remote branch state, and run CI on the exact production freeze branch/head; reconcile generated files and scripts, formal theorem mapping, reproducibility and provenance against new freeze.
 4. Stage9 issued `REPRODUCIBILITY BASELINE READY` only after 1–3, then approve Stage10A source register/blueprint anew. Stage10B remains unauthorized until Stage10A GO.
 
+Stage7.5's editor-facing decision is documented in `docs/SHORT_NOTE_STAGE75_EDITORIAL_NOVELTY_GATE_20261117.md` as a CONDITIONAL GO pending one material published-prior-art equivalence test; this is **not** author research-priority certification.
+
 **No Stage9 GO is represented or issued in this document.**

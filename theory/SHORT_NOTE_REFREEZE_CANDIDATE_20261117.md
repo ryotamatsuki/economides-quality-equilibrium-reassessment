@@ -47,7 +47,7 @@ Inherited diagnostic counterexamples: quartic quality cost and bounded quality <
 - Formal Verification Gate: **PASS** at 742726... under exact encoded reduced game.
 - Stage6 literature novelty: **strong priority NOT certified** (Bunte/Sorenson source limits; internal paper overlap). Honest descriptive correction positioning only.
 - `AUTHOR_INTELLECTUAL_CONTRIBUTION_RECORD`: **AUTHOR ATTESTATION RECEIVED** 2026-11-17 ("著者による検証OKです。"); **AUTHOR COMPLETE-P4 PROOF REVIEW CONFIRMED 2026-11-17** (direct author response to full three-case proof; not independent author rederivation); publication/priority clearance remains unverified. Treat these separately per governance.
-- Existing Stage7.5 contribution-completeness / editorial-value decision for P4 short-note as a distinct paper: **not signed by author**.
+- Stage7.5 contribution-completeness / editorial-value audit: **AI CONDITIONAL GO — exactly one essential published-prior-art equivalence blocker**; record in `docs/SHORT_NOTE_STAGE75_EDITORIAL_NOVELTY_GATE_20261117.md`. Not an author novelty sign-off.
 - Formal Stage8: **FREEZE BLOCKED** pending resolution of material closest-paper novelty / editorial nonredundancy risk; author proof review is now confirmed (old RIO consideration no longer active as of 2026-11-17, but later transfer/submission not verified). No `THEORY FROZEN` verdict.
 
 ## Change control and next-stage linkage
