@@ -19,11 +19,17 @@ an invalid proposed symmetric continuation from the absence of all pure
 quality equilibrium; it does not solve the endogenous-location
 subgame-perfect equilibrium problem.
 
-Earlier literature discussed instability of quality choice in the same
-research tradition, particularly Bunte (1995, 1997) and Sorenson (1995).
-This note makes no claim to priority for that critique. The precise
-overlap of its complete fixed-location classification with those
-earlier studies remains a critical editorial issue.
+Earlier scholarship has already identified the need to check
+quality-investment stability, notably Bunte (1997), who also discusses
+related research by Sorenson (1995); Bunte (1995) examines variety and
+quality competition. The note does not claim priority for this
+stability criticism. Its specific subject is a full, model-specific
+pure-quality Nash equilibrium correspondence, with a necessity proof
+that excludes all other pure profiles. The result separates the
+loss of the symmetric continuation from the survival of asymmetric
+exclusion equilibria, without claiming an endogenous-location
+subgame-perfect equilibrium or a first discovery relative to all
+prior work.
 
 A broader version, titled *Global Quality Deviations and Equilibrium
 Multiplicity in Spatial Competition: Revisiting Economides (1989)*,
