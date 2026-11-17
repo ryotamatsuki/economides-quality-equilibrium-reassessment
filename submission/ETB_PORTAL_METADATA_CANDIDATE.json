@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0",
+  "status": "STAGE16_ETB_TECHNICAL_PRE-SUBMISSION_CANDIDATE_NOT_SUBMITTED",
+  "journal": "Economic Theory Bulletin",
+  "publisher": "Springer Nature",
+  "journal_issn_electronic": "2196-1093",
+  "submission_guidelines": "https://link.springer.com/journal/40505/submission-guidelines",
+  "journal_scope": "https://link.springer.com/journal/40505/aims-and-scope",
+  "submission_portal": "https://www.editorialmanager.com/etbu/",
+  "preferred_article_type": "Short paper / note; portal-specific selection requires verification",
+  "title": "Quality Differentiation and Market Exclusion: A Note on Economides (1989)",
+  "authors": [
+    {
+      "given_name": "Ryota",
+      "family_name": "Matsuki",
+      "full_name": "Ryota Matsuki",
+      "corresponding_author": true,
+      "affiliation": "Independent Researcher",
+      "city": "Matsuyama",
+      "prefecture": "Ehime",
+      "country": "Japan",
+      "email": "ryota.matsuki@gmail.com",
+      "orcid": "0009-0005-2329-531X",
+      "street_address": null,
+      "postal_code": null,
+      "street_address_approved_for_publication": false
+    }
+  ],
+  "abstract": "Use verbatim from paper/etb/main.tex (150–250 words, mathematical symbols retained)",
+  "keywords": [
+    "spatial competition",
+    "quality differentiation",
+    "Hotelling",
+    "market exclusion",
+    "equilibrium multiplicity"
+  ],
+  "jel": [
+    "C72",
+    "D43",
+    "L13",
+    "R32"
+  ],
+  "funding": "This research received no external funding.",
+  "competing_interests": "The author declares no competing interests.",
+  "acknowledgments": "None.",
+  "author_contribution": "Single author: Ryota Matsuki. Mathematical core reviewed by author; AI-assisted analysis disclosed.",
+  "data_and_code": "https://github.com/ryotamatsuki/economides-quality-equilibrium-reassessment",
+  "publication_type": "Subscription publishing, no APC; no paid open access authorized",
+  "submission_fee": "Not independently shown in official ETB fee text; check authenticated portal for any unexpected charge",
+  "prior_public_version": "Research project and prior manuscript drafts available in public GitHub repository; disclose faithfully when form asks",
+  "earlier_journal": {
+    "name": "Review of Industrial Organization",
+    "decision": "Rejected",
+    "decision_date": "2026-11-17",
+    "current_active": "No; rejection received"
+  },
+  "other_active_submissions": "UNCONFIRMED beyond rejected RIO submission; author must certify exclusive submission",
+  "ai_use": "OpenAI ChatGPT used substantively in theoretical exploration, coding/formalization, literature checks and writing in 2026; full model version history not preserved.",
+  "equilibrium_scope": "pure reduced quality Nash equilibria at fixed endpoints, 1/9<lambda<2/9; full sequential SPNE NOT established",
+  "historical_priority": "Not claimed. Exact theorem absorption by Bunte (1995)/Sorenson (1995) remains unresolved.",
+  "rights_and_authorship_authorization": "Not signed or asserted; final author acceptance needed",
+  "novelty_gate": "HOLD_UNRESOLVED_PRIOR_ART",
+  "submission_authorized": false
+}

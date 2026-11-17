@@ -1,0 +1,505 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[round,authoryear]{natbib}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\title{Quality Differentiation and Market Exclusion:\\A Note on Economides (1989)}
+\author{Ryota Matsuki\\Independent Researcher\\Matsuyama, Ehime, Japan\\\href{mailto:ryota.matsuki@gmail.com}{ryota.matsuki@gmail.com}\\ORCID: \href{https://orcid.org/0009-0005-2329-531X}{0009-0005-2329-531X}}
+\date{}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+Local first-order conditions for quality choice can
+mischaracterize equilibrium when a finite quality
+deviation changes the ensuing price game from market
+sharing to market exclusion. We examine this issue in
+a covered, linear Hotelling duopoly with firms held
+at opposite endpoints and simultaneous quality
+choices followed by price competition. Quality
+investments are nonnegative and unbounded, with
+quadratic sunk costs. Let the normalized quality-cost
+parameter denote the ratio of the cost coefficient
+to consumer density. In the parameter interval
+$1/9<\lambda<2/9$, we first derive the global
+piecewise pure-strategy price continuation and then
+characterize every pure Nash equilibrium of the
+resulting reduced quality game. Two asymmetric
+market-exclusion equilibria exist throughout the
+interval: one firm chooses positive quality and
+captures the market, while its rival chooses zero
+quality. A symmetric equilibrium exists in addition
+if and only if $\lambda\geq4/27$, including
+equality. Below that threshold, a finite
+exclusion-inducing deviation defeats the symmetric
+candidate without eliminating pure quality
+equilibria. The analysis identifies a necessary
+failure of a proposed equilibrium path, not a
+replacement equilibrium of the full
+location--quality--price game. We distinguish
+mathematical deductions from computer-assisted
+and formal verification.
+\end{abstract}
+\noindent\textbf{Keywords:} spatial competition; quality differentiation; Hotelling;
+market exclusion; equilibrium multiplicity
+
+\medskip
+\noindent\textbf{JEL:} C72; D43; L13; R32
+
+\section{Introduction}\label{sec:intro}
+\citet[pp.~27--28, eqs.~(8)--(9) and Theorem~2]{Economides1989}
+reports a unique outcome combining maximal horizontal
+differentiation with symmetric quality in a sequential
+location--quality--price game. The calculation leading to the
+symmetric quality candidate uses the local optimality
+conditions for the market-sharing price regime. Such
+conditions are necessary but need not suffice when a
+finite quality deviation changes the subsequent price
+equilibrium to market exclusion.
+
+The logical target is the \emph{proposed equilibrium path},
+not a newly solved location game. If a three-stage
+equilibrium has endpoint locations and symmetric quality,
+then, after those locations are chosen, each firm's
+quality must be a global best response when subsequent
+prices are re-optimized. A profitable quality deviation
+at those same locations therefore invalidates that
+proposed path. It does \emph{not} establish a replacement
+subgame-perfect equilibrium of the three-stage game.
+
+We solve the narrower question exactly. At fixed
+locations $(0,1)$, for $1/9<\lambda<2/9$ the reduced
+quality game has two asymmetric exclusion equilibria
+throughout; the symmetric profile is a third equilibrium
+if and only if $\lambda\geq4/27$. Below this cutoff, a
+firm at the symmetric candidate profits by increasing
+quality enough to exclude its rival. The conclusion is
+not that pure quality equilibrium disappears, but that
+its \emph{composition} differs from the proposed
+symmetric continuation.
+
+Earlier scholarship identified quality-stability
+difficulties in this model
+\citep{Bunte1995,Bunte1997,Sorenson1995}.
+The contribution of this note is a self-contained
+necessary-and-sufficient characterization of pure
+quality equilibria in the fixed-endpoint reduced
+game. We make no claim to historical priority
+over those critiques or to an endogenous-location
+equilibrium theorem.
+
+\section{Model and equilibrium object}\label{sec:model}
+There are two firms at fixed locations $\ell_1=0$ and
+$\ell_2=1$ on the unit interval. Consumers $z\in[0,1]$
+have uniform density $\mu>0$. The market is fully
+covered: each consumer purchases from one firm,
+and there is no outside option. Utility from firm $i$
+at nonnegative price $p_i$ and nonnegative quality
+$a_i$ is
+\begin{equation}\label{eq:utility}
+u_i(z)=k+a_i-p_i-|z-\ell_i|.
+\end{equation}
+Quality is not bounded above; zero marginal production
+cost and a quadratic sunk quality cost
+$ca_i^2/2$ are maintained, where $c>0$.
+Write $\lambda=c/\mu$, with the parameter domain
+\begin{equation}\label{eq:domain}
+\frac19<\lambda<\frac29.
+\end{equation}
+Neither endpoint is included in our theorem.
+
+With these locations fixed, firms first choose qualities
+simultaneously, observe both qualities, and then choose
+prices simultaneously. We seek pure Nash equilibria of
+the reduced quality game after substituting a global
+pure price equilibrium for every quality pair.
+We do not optimize locations or analyze mixed strategies.
+
+Let $\delta=a_1-a_2$. The clipped demand shares are
+\begin{equation}\label{eq:demand}
+s_1(p_1,p_2;\delta)=
+\max\left\{0,\min\left\{1,
+\frac{1+\delta-p_1+p_2}{2}\right\}\right\},
+\qquad s_2=1-s_1.
+\end{equation}
+Dividing profit by $\mu$, firm $i$ earns
+$p_i s_i-\lambda a_i^2/2$. Retaining the clipping
+in \eqref{eq:demand} matters: an interior indifferent-
+consumer formula cannot be used after the quality
+difference makes a firm's share zero or one.
+
+\section{Global price continuation}\label{sec:price}
+\begin{lemma}[Global pure price continuation]\label{lem:price}
+At fixed endpoint locations, the price equilibrium for
+every pair of nonnegative qualities is
+\begin{equation}\label{eq:prices}
+(p_1^*,p_2^*)=
+\begin{cases}
+(0,-\delta-1),&\delta\leq-3,\\
+(1+\delta/3,\ 1-\delta/3),&-3\leq\delta\leq3,\\
+(\delta-1,0),&\delta\geq3.
+\end{cases}
+\end{equation}
+The formulas coincide at $\delta=\pm3$.
+\end{lemma}
+When both firms serve positive shares, price
+first-order conditions give the middle branch.
+At this candidate, a full-market capture deviation
+is not profitable: relative to the feasible
+capture-price boundary, the normalized revenue
+differences are $(\delta-3)^2/18$ for firm 1 and
+$(\delta+3)^2/18$ for firm 2. For $|\delta|>3$,
+the firm with higher quality instead sets the
+highest price consistent with excluding its rival.
+Appendix~\ref{app:priceproof} supplies the
+global branch checks.
+
+After substitution, normalized quality-stage profit
+for own quality $a$ against rival quality $b$ is
+\begin{equation}\label{eq:payoff}
+v_\lambda(a,b)=
+\begin{cases}
+-\dfrac{\lambda a^2}{2},&a-b\leq-3,\\[4pt]
+\dfrac12\left(1+\dfrac{a-b}{3}\right)^2
+-\dfrac{\lambda a^2}{2},&-3\leq a-b\leq3,\\[6pt]
+a-b-1-\dfrac{\lambda a^2}{2},&a-b\geq3.
+\end{cases}
+\end{equation}
+All three branches have matching values at
+their boundaries. Define the \emph{global}
+quality best-response set as
+$BR_\lambda(b)=\arg\max_{a\geq0}v_\lambda(a,b)$.
+
+\section{Complete quality-equilibrium classification}
+\label{sec:results}
+Let $A=1/(3\lambda)$ and $B=1/\lambda$.
+The first is the stationary symmetric-quality
+candidate; the latter is the profit-maximizing
+quality for a firm that captures the whole market.
+
+\begin{theorem}[Pure quality-equilibrium correspondence]
+\label{thm:complete}
+For each $\lambda\in(1/9,2/9)$, the complete set
+of pure Nash equilibria in the reduced quality game is
+\begin{equation}\label{eq:NE}
+NE(\lambda)=
+\begin{cases}
+\{(B,0),(0,B)\},&
+  \dfrac19<\lambda<\dfrac4{27},\\[5pt]
+\{(B,0),(0,B),(A,A)\},&
+  \dfrac4{27}\leq\lambda<\dfrac29.
+\end{cases}
+\end{equation}
+In particular, there are exactly two
+asymmetric exclusion equilibria throughout
+the interval, and an additional symmetric
+equilibrium precisely when $\lambda\geq4/27$.
+There are no other pure quality equilibria.
+\end{theorem}
+
+\begin{proof}[Proof outline]
+Direct maximization across all three pieces
+of \eqref{eq:payoff} gives
+\begin{equation}\label{eq:cornerBR}
+BR_\lambda(0)=\{B\},\qquad
+BR_\lambda(B)=\{0\}.
+\end{equation}
+Thus $(B,0)$ and $(0,B)$ are equilibria,
+and these exhaust equilibria containing
+a zero-quality firm.
+
+Now suppose both qualities are strictly positive
+at an equilibrium. If one firm were excluded,
+it would earn $-\lambda a_i^2/2<0$ and could
+lower its quality to zero, remain excluded
+and earn zero. This is impossible in equilibrium.
+Therefore both firms sell positive shares,
+their own quality choices are interior,
+and the differentiable shared-market first-order
+conditions require
+\begin{equation}\label{eq:FOC}
+(9\lambda-1)a_1+a_2=3,\qquad
+a_1+(9\lambda-1)a_2=3.
+\end{equation}
+Subtracting gives
+$(9\lambda-2)(a_1-a_2)=0$. Since
+$\lambda<2/9$, any remaining equilibrium
+must have $a_1=a_2=A$.
+
+Against $A$, the sharing branch is strictly
+concave and uniquely maximized at $A$,
+whereas the high-quality capture branch
+is uniquely maximized at the feasible $B$.
+Their profit difference is
+\begin{equation}\label{eq:gain}
+v_\lambda(B,A)-v_\lambda(A,A)
+=\frac{4-27\lambda}{18\lambda}.
+\end{equation}
+Consequently, $A$ is a global best response
+to itself iff $\lambda\geq4/27$; equality
+gives indifference and includes the symmetric
+profile. Appendix~\ref{app:qualityproof}
+provides the full boundary and corner checks.
+\end{proof}
+
+The economically relevant comparison is between
+a locally attractive market-sharing choice and
+a finite switch to exclusion. At $a-b=3$,
+gross revenue is continuous, but its slope
+rises from $2/3$ on the sharing side to $1$
+on the exclusion side, while marginal quality
+cost varies smoothly. The global deviation
+gain in \eqref{eq:gain} is positive precisely
+below $\lambda=4/27$. Thus lower normalized
+quality cost eliminates the symmetric equilibrium
+without eliminating pure equilibrium altogether;
+higher cost permits the symmetric profile
+without removing the exclusion equilibria.
+
+\section{Interpretation and limitations}\label{sec:discussion}
+The correction has two logically distinct parts.
+First, for $\lambda<4/27$ the finite, exclusion-inducing
+quality deviation is profitable against the symmetric
+candidate. Because the claimed full-game path in
+\citet[Theorem~2]{Economides1989} requires that
+quality choice to survive optimization at its
+reported endpoint locations, the proposed
+symmetric path fails this necessary condition.
+Second, the reduced quality game nevertheless
+has two corner equilibria, $(B,0)$ and $(0,B)$;
+Theorem~\ref{thm:complete} rules out additional
+pure profiles by combining the two corner
+best-response identities with the shared-market
+first-order conditions. The new correspondence
+therefore concerns quality choices \emph{conditional
+on fixed endpoints}; the corner pairs are not
+claims about endogenous location equilibrium.
+
+The exclusion outcome is an equilibrium
+statement about firm strategies and downstream
+sales, not a welfare comparison, an empirical
+prediction, or proof of a new three-stage
+subgame-perfect equilibrium. Results depend on
+full coverage, linear distance, quadratic
+quality costs, nonnegative unbounded qualities,
+nonnegative prices, and the open parameter
+interval $(1/9,2/9)$. Mixed strategies,
+location deviations, alternative transportation
+costs and the boundary parameters are not
+characterized.
+
+The earlier general quality-stability concern
+is explicitly credited to \citet{Bunte1997}.
+The exact theorem-level relation to
+\citet{Bunte1995} and \citet{Sorenson1995}
+remains unknown because complete primary-text
+comparisons are unavailable. This note neither
+asserts historical priority nor treats the
+absence of a priority claim as a substitute
+for establishing independent publication value.
+
+\appendix
+\section{Price-stage branch verification}
+\label{app:priceproof}
+For $|\delta|<3$, positive-share own-price
+first-order conditions yield
+$(p_1,p_2)=(1+\delta/3,1-\delta/3)$;
+both prices and market shares are positive.
+Firm 1's candidate normalized revenue is
+$\frac12(1+\delta/3)^2$. Holding $p_2$
+at its candidate value, the highest
+capture price is $p_2+\delta-1=2\delta/3$,
+which is feasible only when nonnegative.
+When feasible, the candidate-minus-capture
+revenue is
+\[
+\frac12(1+\delta/3)^2-\frac{2\delta}{3}
+=\frac{(\delta-3)^2}{18}\geq0.
+\]
+The symmetric comparison gives
+$(\delta+3)^2/18\geq0$ for firm 2.
+Other interior-price deviations cannot
+beat the concave stationary revenue.
+If a candidate capture price is negative,
+it is not an admissible nonnegative price.
+This proves global price best responses on
+the central interval, including boundaries.
+
+For $\delta>3$, take
+$(p_1,p_2)=(\delta-1,0)$.
+Firm 1 captures the market. Lowering
+$p_1$ lowers full-market revenue, while
+raising it enters the sharing region with
+revenue $p_1(1+\delta-p_1)/2$,
+whose unconstrained maximizer
+$(1+\delta)/2$ lies below the feasible
+sharing-region boundary $\delta-1$.
+Thus it decreases beyond that boundary.
+Firm 2, charging zero, cannot earn
+positive revenue by choosing a nonnegative
+price against the capture price.
+A positive-share pair would require
+the infeasible stationary
+$p_2=1-\delta/3<0$; a priced-out firm
+charging a positive price can undercut
+into positive sales. Hence the stated
+corner is the price equilibrium.
+Interchanging the firms establishes
+the branch $\delta<-3$.
+At $\delta=\pm3$ the formulas
+agree with the central branch.
+
+\section{Global quality best responses}
+\label{app:qualityproof}
+Throughout assume $1/9<\lambda<2/9$,
+so $A<3<B$.
+
+\paragraph{The reply to zero.}
+Against $b=0$, the central piece for
+$0\leq a\leq3$ is
+$\frac12(1+a/3)^2-\lambda a^2/2$.
+Its derivative is
+$1/3+(1/9-\lambda)a$,
+which is decreasing but still equals
+$(2-9\lambda)/3>0$ at $a=3$.
+Hence that entire segment is increasing.
+On $a\geq3$, the exclusive-revenue
+payoff $a-1-\lambda a^2/2$
+is strictly concave with unique maximum
+at $B>3$. Moreover,
+\[
+v_\lambda(B,0)-v_\lambda(3,0)
+=\frac{(1-3\lambda)^2}{2\lambda}>0.
+\]
+Therefore $BR_\lambda(0)=\{B\}$.
+
+\paragraph{The reply to $B$.}
+Against $b=B$, any $0<a\leq B-3$
+is excluded, earns $-\lambda a^2/2<0$,
+and is inferior to $a=0$ with payoff zero.
+On $a\in[B-3,B+3]$, the sharing-branch
+profit is strictly negative at the left
+endpoint, with value
+$-\lambda(B-3)^2/2$.
+Its first derivative there is
+$-\lambda(B-3)<0$, and the second
+derivative is $1/9-\lambda<0$;
+it therefore decreases throughout.
+On $a\geq B+3$, the reverse-exclusion
+payoff $a-B-1-\lambda a^2/2$
+is decreasing, as its unconstrained
+maximizer $B$ lies below the branch,
+and its boundary value is already
+negative. Thus every positive own
+quality loses to zero and
+$BR_\lambda(B)=\{0\}$.
+
+\paragraph{The reply to $A$.}
+Since $A<3$, the low-exclusion branch
+against $A$ cannot occur at $a\geq0$.
+The strictly concave central branch
+on $[0,A+3]$ is maximized at $A$.
+The high-exclusion branch on
+$[A+3,\infty)$ is maximized at
+$B$, which is feasible because
+$B-A=2/(3\lambda)>3$.
+The two candidate payoffs are
+\[
+v_\lambda(A,A)=\frac12-\frac{1}{18\lambda},
+\qquad
+v_\lambda(B,A)=\frac{1}{6\lambda}-1.
+\]
+The difference is exactly
+\eqref{eq:gain}. For $\lambda=4/27$,
+both $A$ and $B$ best respond to $A$,
+but $(B,A)$ cannot be an equilibrium
+because the sole best response to
+$B$ is zero.
+
+\paragraph{Exhaustive necessity.}
+If both qualities are positive,
+a firm with zero sales can decrease
+its quality to zero without obtaining
+negative sales, saving a positive
+sunk cost. Thus both firms must
+sell positive shares; the interior
+quality FOCs \eqref{eq:FOC}
+then force $a_1=a_2=A$.
+All remaining cases contain
+a zero-quality choice and are
+fully covered by the two corner
+best-response identities. This
+establishes necessity and sufficiency.
+
+\section{Formal scope and research transparency}
+\label{app:transparency}
+For $\lambda>0$, the normalization
+$x=\lambda a$, $y=\lambda b$ is
+a bijection on nonnegative qualities.
+The strictly positive payoff scaling
+$18\lambda^2v_\lambda(x/\lambda,y/\lambda)$
+preserves all global best responses.
+The Lean theorem
+\texttt{ShortNoteFormal.complete\_pure\_quality\_NE}
+certifies an if-and-only-if Nash
+classification for that \emph{encoded
+reduced quality payoff}, over all
+nonnegative deviations. It does not
+derive clipped consumer demand or
+the three-branch price equilibrium from
+primitive preferences, and does not
+prove equilibrium of the full
+location--quality--price game.
+The code, exact-rational regression checks,
+and formal certificates are available at
+\url{https://github.com/ryotamatsuki/economides-quality-equilibrium-reassessment}.
+The distinction between the Lean-verified
+reduced payoff and the analytically
+derived price continuation is essential.
+
+\section*{Generative-AI assistance and verification}
+OpenAI's ChatGPT was used in 2026 to assist
+theoretical exploration, algebraic and
+computational checking, Lean proof
+formalization, literature discovery and
+organization, and manuscript drafting.
+The exact underlying model versions were not
+consistently preserved across the historical
+research workflow. AI assistance materially
+informed the formulation and presentation of
+the reduced-game equilibrium classification.
+The author reviewed its case-by-case proof and
+cutoff logic. The analytical argument, Python
+exact-rational and numerical checks, and Lean
+verification of the encoded reduced-payoff
+game serve distinct validation roles.
+The Lean results do not establish the primitive
+consumer-demand and price model or
+full three-stage subgame perfection.
+The author takes responsibility for the
+mathematical arguments, source attributions,
+interpretation, and final manuscript.
+
+\section*{Statements and Declarations}
+\noindent\textbf{Funding.} This research received no external funding.
+
+\noindent\textbf{Competing interests.} The author declares no competing interests.
+
+\noindent\textbf{Author contributions.} Ryota Matsuki is the sole author and
+accepts responsibility for the study design, interpretation of the
+results, verification decisions, and manuscript.
+
+\noindent\textbf{Data and code availability.} No empirical data were
+collected or analysed. Reproducibility code, formal proof sources,
+and the research history are publicly available at
+\url{https://github.com/ryotamatsuki/economides-quality-equilibrium-reassessment}.
+
+\noindent\textbf{Acknowledgments.} None.
+
+\bibliographystyle{apalike}
+\bibliography{../../references/references}
+\end{document}
