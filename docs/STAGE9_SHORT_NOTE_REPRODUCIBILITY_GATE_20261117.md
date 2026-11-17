@@ -1,5 +1,7 @@
 # Stage 9 — restricted P4 repository/reproducibility audit (2026-11-17)
 
+> **Stage 9 re-evaluation (2026-11-17):** Full reproducibility workflow [44016980404](https://github.com/ryotamatsuki/economides-quality-equilibrium-reassessment/actions/runs/44016980404) completed **SUCCESS** at `ce34f2152691fae04d1d8f3bc122263967a73b04`. New Stage6/7.5 reappraisal adds prose only, not theorem/formal code/CI configuration. Thus the source & reproducibility baseline has a verified **TECHNICAL PASS**, including P4 independent exact-rational tests and the pinned Lean build. **Formal `REPRODUCIBILITY BASELINE READY` is still NOT issued** because there is no authorized Stage8 freeze; the source problem is scientific novelty, not an external CI/tooling failure. Old RIO PDF build success is not a new short-note manuscript build.
+
 **Verdict: REPRODUCIBILITY BASELINE TECHNICALLY PASS / FORMAL STAGE 9 GO BLOCKED BY STAGE 8.** Author directly confirmed the complete three-case P4 proof explanation on 2026-11-17, so proof-understanding verification is recorded. Literature priority and editorial-nonredundancy remain unresolved; Stage8 entry therefore still blocks formal Stage9 GO.
 The canonical Stage9 entry contract requires an actual approved Stage8 theory freeze; the short-note freeze remains CANDIDATE. A green CI is not authorization to certify Stage9 before Stage8.
 

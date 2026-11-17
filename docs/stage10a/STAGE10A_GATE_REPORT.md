@@ -1,5 +1,7 @@
 # Stage 10A — Gate, provenance and coherence report
 
+> **Final re-entry assessment 2026-11-17:** all three eligible exemplary-paper *full-text writing comparisons*, seven-dimensional scores, role-selection synthesis and `MANUSCRIPT_BLUEPRINT.md` are **CONTENT COMPLETE / PREPARATORY VERIFIED**. Evidence: register, role map, blueprint and coherence notes. This is **not canonical Stage10A GO**: the mandatory Stage8 freeze ID and Stage9 formal GO do not exist because Stage6/7.5 source-theorem absorption is unresolved. No new exemplary source acquisition is required. Preserve the entire package unchanged for immediate formal review when the entry contract is eventually satisfied.
+
 Date: 2026-11-17 JST
 Project: Economides (1989) short correction note
 Entry baseline: `7427264fa83280256f188045670d171ae0667d69`, Lean CI [44004302052](https://github.com/ryotamatsuki/economides-quality-equilibrium-reassessment/actions/runs/44004302052) and reproducibility [44004302061](https://github.com/ryotamatsuki/economides-quality-equilibrium-reassessment/actions/runs/44004302061). Prior source freeze: ECONOMIDES-THEORY-FREEZE-2026-09-10-v1 on main; proposed refreeze still **DRAFT/NOT FROZEN**.

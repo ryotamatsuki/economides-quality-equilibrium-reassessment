@@ -1,5 +1,7 @@
 # Theory Re-freeze Candidate — restricted pure-quality P4
 
+> **2026-11-17 Stage6/7.5 re-entry audit:** `docs/STAGE6_NONPRIORITY_CORRECTION_REKILL_20261117.md` and `docs/STAGE75_NONPRIORITY_NOTE_REAPPRAISAL_20261117.md`. Non-priority correction-note positioning has been assessed; it changes the misleading historical firstness risk, but **does not prove nonabsorption by Bunte (1995) or Sorenson (1995)**. Stage6/7.5 `CONDITIONAL GO`; canonical Stage8 **FREEZE BLOCKED** under Stage8 §§3,10. This exact P4 specification may be treated as a stable **PRE-FREEZE CANDIDATE ONLY**, not a production frozen theorem. No new author mathematical review necessary.
+
 **State: DRAFT / NOT FROZEN. No Stage 8 GO, no replacement of `theory/THEORY_FREEZE.md`.**
 Date 2026-11-17 JST. Proposed freeze ID: `ECONOMIDES-SHORT-NOTE-P4-REFREEZE-2026-11-17-CANDIDATE` (never use as an operative frozen ID until gate closure).
 

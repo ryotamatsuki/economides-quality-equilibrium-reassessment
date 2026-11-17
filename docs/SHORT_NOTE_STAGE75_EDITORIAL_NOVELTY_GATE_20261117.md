@@ -1,5 +1,7 @@
 # Stage 7.5 — Contribution Completeness & Editorial Value Audit for the P4 short note
 
+> **Superseding formal reassessment (same day):** `docs/STAGE75_NONPRIORITY_NOTE_REAPPRAISAL_20261117.md`. The corrected P4 equilibrium correspondence is substantive and a focused non-priority note is the authorized *working route*. Nevertheless the one essential published-paper theorem absorption test remains `UNRESOLVED` and deferred by the author, so Stage 7.5 remains `CONDITIONAL GO`, not scientific novelty GO. Author proof verification is already complete.
+
 Date: 2026-11-17 JST. Author-selected working form: a **short theoretical correction note**, not the older 18-page RIO-style full paper, nor the sibling all-λ PR #10 as a separately approved submission. Actor for editorial assessment: **AI**, not an external field referee, and not a substitute for author certification of scholarly priority.
 
 ## Skeptical editor: current paper

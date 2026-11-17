@@ -1,5 +1,7 @@
 # Short-note research routing — 2026-11-17
 
+> **Superseding formal re-kill / no-bypass verdict:** `docs/STAGE6_NONPRIORITY_CORRECTION_REKILL_20261117.md` and `docs/STAGE75_NONPRIORITY_NOTE_REAPPRAISAL_20261117.md` independently test the user's non-priority correction-note strategy. Stage6 `CONDITIONAL GO`, Stage7.5 `CONDITIONAL GO`, Stage8 `FREEZE BLOCKED`, Stage9 `TECHNICAL PASS / FORMAL GO WITHHELD`, Stage10A `CONTENT COMPLETE / CANONICAL GO WITHHELD`. Do not falsely reinterpret author decision to defer papers as verified source non-absorption.
+
 The author explicitly chose on 2026-11-17 to set aside further inaccessible Bunte/Sorenson primary-text acquisition and move forward as far as authorized: 「全文取得はできないのでおいといて次行って」.
 
 This record distinguishes **mathematical completion**, **technical preparation**, and **canonical stage authorization**. It does not alter research-paper-workflow canonical gate semantics.
