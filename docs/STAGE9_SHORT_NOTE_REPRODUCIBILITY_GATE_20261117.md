@@ -1,6 +1,6 @@
 # Stage 9 — restricted P4 repository/reproducibility audit (2026-11-17)
 
-**Verdict: REPRODUCIBILITY BASELINE TECHNICALLY PASS / FORMAL STAGE 9 GO BLOCKED BY STAGE 8.** Author has attested verification on 2026-11-17, but the author-authored proof-logic and scoped paper-contribution record is still missing.
+**Verdict: REPRODUCIBILITY BASELINE TECHNICALLY PASS / FORMAL STAGE 9 GO BLOCKED BY STAGE 8.** Author has attested verification on 2026-11-17, and author reasoning on existence vs completeness has now been recorded, but full necessity proof review and scoped paper-contribution judgment remain undocumented.
 The canonical Stage9 entry contract requires an actual approved Stage8 theory freeze; the short-note freeze remains CANDIDATE. A green CI is not authorization to certify Stage9 before Stage8.
 
 ## Actual repository / reference snapshot
