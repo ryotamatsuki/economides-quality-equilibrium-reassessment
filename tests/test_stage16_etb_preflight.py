@@ -23,7 +23,7 @@ def _environments(text, name):
 def test_no_scientific_theorem_or_equation_drift():
     assert _equation_blocks(SRC) == _equation_blocks(BASE)
     for name in ("theorem", "lemma", "proof"):
-        assert _environments(SRC, name) == _environments(BASE)
+        assert _environments(SRC, name) == _environments(BASE, name)
     for label in ["eq:demand", "eq:prices", "eq:payoff",
                   "eq:cornerBR", "eq:FOC", "eq:gain", "eq:NE"]:
         assert r"\label{" + label + "}" in SRC
