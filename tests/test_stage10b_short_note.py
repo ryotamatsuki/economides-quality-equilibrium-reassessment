@@ -52,3 +52,17 @@ def test_ber_metadata_abstract_and_ai_disclosure():
 def test_latex_main_environment_pairs():
     for e in ["document", "abstract", "theorem", "lemma", "proof"]:
         assert SRC.count(r"\begin{" + e + "}") == SRC.count(r"\end{" + e + "}")
+
+
+def test_internal_refs_and_citation_keys_resolve_in_sources():
+    source_labels = set(re.findall(r"\\label\{([^{}]+)\}", SRC))
+    cited_labels = set(re.findall(r"\\(?:eqref|ref)\{([^{}]+)\}", SRC))
+    assert not cited_labels - source_labels, sorted(cited_labels - source_labels)
+
+    bib_text = (Path(__file__).resolve().parents[1] / "references" / "references.bib").read_text(encoding="utf-8")
+    known_bib_keys = set(re.findall(r"@\\w+\\s*\{\s*([^,]+)", bib_text))
+    cited_bib_keys = set()
+    for match in re.finditer(r"\\cite(?:t|p)?(?:\[[^\]]*\])?\{([^{}]+)\}", SRC):
+        cited_bib_keys.update(k.strip() for k in match.group(1).split(","))
+    assert not cited_bib_keys - known_bib_keys, sorted(cited_bib_keys - known_bib_keys)
+    assert cited_bib_keys, "Expected substantive references to original and prior works"
