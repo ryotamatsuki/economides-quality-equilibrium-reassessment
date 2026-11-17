@@ -1,6 +1,6 @@
 PYTHON ?= python
 
-.PHONY: verify symbolic numerical test p4-audit outputs paper rio-package title-page clean
+.PHONY: verify symbolic numerical test p4-audit outputs paper short-note rio-package title-page clean
 
 verify: symbolic numerical test p4-audit outputs
 
@@ -21,6 +21,9 @@ outputs:
 
 paper:
 	cd paper && latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
+
+short-note:
+	cd paper/short_note && latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
 
 title-page:
 	cd paper && latexmk -pdf -interaction=nonstopmode -halt-on-error title_page.tex

@@ -55,11 +55,14 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y latexmk texlive-latex-base texlive-latex-extra texlive-bibtex-extra poppler-utils
       - name: Build manuscript
         run: make paper
+      - name: Build provisional Stage10B short note
+        run: make short-note
       - name: Build and compile RIO submission variants
         run: make rio-package
       - name: Reject unresolved LaTeX citations or references
         run: |
           ! grep -E "Citation .* undefined|Reference .* undefined|There were undefined references" paper/main.log
+          ! grep -E "Citation .* undefined|Reference .* undefined|There were undefined references" paper/short_note/main.log
           ! grep -E "Citation .* undefined|Reference .* undefined|There were undefined references" build/rio_anonymous_compile/main.log
           ! grep -E "Citation .* undefined|Reference .* undefined|There were undefined references" build/rio_identified_compile/main.log
       - name: Confirm clean source packages contain no build debris
@@ -72,6 +75,12 @@ jobs:
           awk '$4 == "no" {print "UNEMBEDDED FONT:", $0; bad=1} END {exit bad}' /tmp/anonymous-fonts.txt
           pdffonts build/rio_identified_compile/main.pdf | tee /tmp/identified-fonts.txt
           awk '$4 == "no" {print "UNEMBEDDED FONT:", $0; bad=1} END {exit bad}' /tmp/identified-fonts.txt
+      - name: Upload Stage10B provisional short note PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage10b-provisional-short-note-pdf
+          path: paper/short_note/main.pdf
+          if-no-files-found: error
       - name: Upload anonymous manuscript PDF
         uses: actions/upload-artifact@v4
         with:
