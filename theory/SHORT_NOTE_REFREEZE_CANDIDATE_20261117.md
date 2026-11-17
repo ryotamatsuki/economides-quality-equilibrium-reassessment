@@ -50,6 +50,12 @@ Inherited diagnostic counterexamples: quartic quality cost and bounded quality <
 - Stage7.5 contribution-completeness / editorial-value audit: **AI CONDITIONAL GO — exactly one essential published-prior-art equivalence blocker**; record in `docs/SHORT_NOTE_STAGE75_EDITORIAL_NOVELTY_GATE_20261117.md`. Not an author novelty sign-off.
 - Formal Stage8: **FREEZE BLOCKED** pending resolution of material closest-paper novelty / editorial nonredundancy risk; author proof review is now confirmed (old RIO consideration no longer active as of 2026-11-17, but later transfer/submission not verified). No `THEORY FROZEN` verdict.
 
+## No-more-full-text-search decision and mathematically complete pre-freeze
+
+The author instructed on 2026-11-17: 「全文取得はできないのでおいといて次行って」. Record as a *deferral of unavailable-source acquisition*, not a favorable novelty finding. **ALL P4 mathematics and author review are closed within specified model scope.** This candidate is **scientific-source-complete as a specification**, including explicit source/formalization boundary; its **canonical Stage8 gate stays FREEZE BLOCKED** solely by outstanding material closest-paper/source equivalence and article originality evaluation. No additional proof of P4 or repeat author signoff is necessary. Prior source limits follow `docs/SHORT_NOTE_STAGE75_EDITORIAL_NOVELTY_GATE_20261117.md`.
+
+This branch deliberately does not issue a frozen production theorem ID, tag, or file change to `theory/THEORY_FREEZE.md`; the 2026-09-10 freeze remains operative in main. The new result is an explicitly **UNRELEASED REFREEZE CANDIDATE** with immutable source commit provenance, not a silently expanded old theorem.
+
 ## Change control and next-stage linkage
 
 Existing frozen v1 remains operative on main. New P4 cannot be pasted into the old freeze while old P4-exclusion wording is retained. Only after the real author record and novelty/editorial compatibility are closed: record approved freeze date, ID and immutable commit, reconcile old vs new certified claims, preserve proof/limits and update `theory/THEORY_FREEZE.md` through reviewed change-control PR; then Stage9 can issue its own reproducibility verdict. Stage10A blueprint `docs/stage10a/MANUSCRIPT_BLUEPRINT.md` remains provisional and must be checked against approved freeze.

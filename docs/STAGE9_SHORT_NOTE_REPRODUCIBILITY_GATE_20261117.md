@@ -32,6 +32,12 @@ Existing production `main` was checked, not reset; historical 2026-09-10 v1 free
 | Candidate theory specification (not frozen) | theory/SHORT_NOTE_REFREEZE_CANDIDATE_20261117.md |
 | Exemplar benchmark and writing blueprint | docs/stage10a/ (PR #13 child branch) |
 
+## Technical evidence refreshed 2026-11-17
+
+- Latest fully **completed successful** branch CI reviewed at decision time: run [44014433290](https://github.com/ryotamatsuki/economides-quality-equilibrium-reassessment/actions/runs/44014433290), commit `7192d083f4021004b7b4a84f19c3a67376f76ccc`. This workflow passed the source-connected P4 regression audit, exact symbolic/numerical tests, generated-output determinism, pinned Lean verification, existing LaTeX and flat RIO source-package checks.
+- Later documentation commits after this SHA do not change `ShortNoteFormal.lean`, `verification/short_note_independent_audit.py`, `tests/test_short_note_p4.py`, `Makefile`, `requirements.txt`, or `verify.yml`. The updated head CI must still be checked before any final Stage9 GO. Passing the old 18-page RIO manuscript compilation is not evidence that a new short note has been written or built.
+- The author has deferred further Bunte/Sorenson full-text acquisition. This has no effect on CI or theorem correctness, but does **not** remove the missing Stage8-entry decision. Therefore record `STAGE9 TECHNICAL PREFLIGHT PASS / CANONICAL GO WITHHELD`.
+
 ## Mandatory Stage9 final GO prerequisites
 
 1. Author's substantive P4 proof review: **DONE** (contextual verification recorded). The selected paper form is the short correction note. Still required: reasoned closest-paper distinction / editorial contribution case that does not assume unseen Bunte/Sorenson results or duplicate PR #10, plus verified disposition of any later transfer/submission. Private editorial correspondence is retained outside this public repository.
