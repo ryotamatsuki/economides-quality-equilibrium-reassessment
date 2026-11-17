@@ -75,10 +75,15 @@ jobs:
           awk '$4 == "no" {print "UNEMBEDDED FONT:", $0; bad=1} END {exit bad}' /tmp/anonymous-fonts.txt
           pdffonts build/rio_identified_compile/main.pdf | tee /tmp/identified-fonts.txt
           awk '$4 == "no" {print "UNEMBEDDED FONT:", $0; bad=1} END {exit bad}' /tmp/identified-fonts.txt
-      - name: Upload Stage10B provisional short note PDF
+      - name: Inspect Stage13 BER note PDF metadata and font embedding
+        run: |
+          pdfinfo paper/short_note/main.pdf | tee /tmp/stage13-ber-pdfinfo.txt
+          pdffonts paper/short_note/main.pdf | tee /tmp/stage13-ber-fonts.txt
+          awk '$4 == "no" {print "UNEMBEDDED FONT:", $0; bad=1} END {exit bad}' /tmp/stage13-ber-fonts.txt
+      - name: Upload Stage13 BER provisional note PDF
         uses: actions/upload-artifact@v4
         with:
-          name: stage10b-provisional-short-note-pdf
+          name: stage13-ber-provisional-note-pdf
           path: paper/short_note/main.pdf
           if-no-files-found: error
       - name: Upload anonymous manuscript PDF
