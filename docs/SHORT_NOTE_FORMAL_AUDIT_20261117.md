@@ -1,0 +1,3 @@
+# Short-note formal audit (verification branch only)
+
+Draft, not certified until exact HEAD CI passes. Prior PR #10 (7f40e32f15a8ddafff283dd880b2995bda6ba5fc) contains a wider companion project and verified algebraic core. The present restricted-domain result is not a new discovery relative to that internal project. This branch is separate and must not merge into main without author approval. The new target proves a Nash-equilibrium iff for the encoded reduced payoff, not primitive price continuation or mixed/full-game equilibria. Source and dependency pin inherited from the existing correction repository. No change to frozen theory or manuscript.
