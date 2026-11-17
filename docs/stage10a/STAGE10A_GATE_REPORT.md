@@ -1,5 +1,7 @@
 # Stage 10A — Gate, provenance and coherence report
 
+> **Final re-entry assessment 2026-11-17:** all three eligible exemplary-paper *full-text writing comparisons*, seven-dimensional scores, role-selection synthesis and `MANUSCRIPT_BLUEPRINT.md` are **CONTENT COMPLETE / PREPARATORY VERIFIED**. Evidence: register, role map, blueprint and coherence notes. This is **not canonical Stage10A GO**: the mandatory Stage8 freeze ID and Stage9 formal GO do not exist because Stage6/7.5 source-theorem absorption is unresolved. No new exemplary source acquisition is required. Preserve the entire package unchanged for immediate formal review when the entry contract is eventually satisfied.
+
 Date: 2026-11-17 JST
 Project: Economides (1989) short correction note
 Entry baseline: `7427264fa83280256f188045670d171ae0667d69`, Lean CI [44004302052](https://github.com/ryotamatsuki/economides-quality-equilibrium-reassessment/actions/runs/44004302052) and reproducibility [44004302061](https://github.com/ryotamatsuki/economides-quality-equilibrium-reassessment/actions/runs/44004302061). Prior source freeze: ECONOMIDES-THEORY-FREEZE-2026-09-10-v1 on main; proposed refreeze still **DRAFT/NOT FROZEN**.
@@ -23,9 +25,9 @@ PASS (design only): narrative is one source correction, one model, one complete 
 **NO-GO — NOT ELIGIBLE TO ENTER THE CANONICAL STAGE 10A GATE YET.**
 This is a route/prerequisite verdict, not a negative verdict on the benchmark research.
 
-Independent blockers: (1) revised Stage 8 author verification/freeze NOT approved; (2) Stage 9 reproducibility preflight not an authorized Stage-9 GO. Literature novelty and internal overlapping project dissemination are also unresolved and must be addressed by the relevant scientific stage, not by benchmarking. Multiple blockers make CONDITIONAL GO (defined as exactly one) inappropriate. Stage 10B is **NOT AUTHORIZED** and no official Stage-10A GO is issued.
+Updated on 2026-11-17: P4 author mathematical verification has since been **CONFIRMED** (see research_provenance/AUTHOR_INTELLECTUAL_CONTRIBUTION_RECORD_SHORT_NOTE.md) and Stage9 technical CI has passed. The author elected to defer acquiring the inaccessible original texts of Bunte (1995) and Sorenson (1995); their exact result overlap remains **UNRESOLVED**, not disproved. The material novelty/editorial gate keeps canonical Stage8 FREEZE BLOCKED, and hence formal Stage9 GO and Stage10A entry are not authorized. The other related publication-unit limitation remains declared. Stage 10B is **NOT AUTHORIZED**. This does not invalidate the 3-source full-text *writing-exemplar* research, which is complete and separate from scientific prior-art equivalence.
 
-Bounded next actions: record author's substantive theory judgments and complete prior-correction/internal-overlap review; close Stage 7.5A/Stage 8 if valid; certify Stage 9 GO from the approved freeze and reproducibility artifacts; then re-read this exact 3-paper source register and revalidate/refine the blueprint with freeze ID and formally decide Stage 10A. Proceed to Stage 10B only after all prerequisites and Stage-10A GO.
+Bounded next actions: preserve the completed author mathematical review and the present 3-exemplar source register. Do not redo P4 proof or repeatedly request the same full-text inaccessible papers. Keep the exact prior-art uncertainty visible; reopen Stage6/7.5 only on new source evidence or a formally approved change of scientific contribution. If canonical Stage8 clears, certify Stage9 against its exact frozen SHA, refresh this Stage10A blueprint, and advance to Stage10B only after a formal Stage10A GO.
 
 ## Sources and version control
 

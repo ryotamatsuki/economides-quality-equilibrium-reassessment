@@ -1,8 +1,8 @@
 PYTHON ?= python
 
-.PHONY: verify symbolic numerical test outputs paper rio-package title-page clean
+.PHONY: verify symbolic numerical test p4-audit outputs paper rio-package title-page clean
 
-verify: symbolic numerical test outputs
+verify: symbolic numerical test p4-audit outputs
 
 symbolic:
 	$(PYTHON) verification/symbolic_checks.py
@@ -12,6 +12,9 @@ numerical:
 
 test:
 	pytest -q
+
+p4-audit:
+	$(PYTHON) verification/short_note_independent_audit.py
 
 outputs:
 	$(PYTHON) scripts/generate_outputs.py
