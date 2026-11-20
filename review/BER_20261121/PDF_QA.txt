@@ -1,0 +1,14 @@
+BER PDF technical QA — 2026-11-21 (FINAL source)
+PDF pages: 6
+Abstract word count: 129 (Python token-count approximation, <=150)
+Overfull hbox: none
+Undefined citations or references: none
+Reference list: present
+Theorem 4/27 cutoff: present on page 3
+Author/AI/funding declarations: present
+Page dimensions: US Letter 612x792 pt
+PDF SHA256: 17d5bf162e39bb03661ed932af1f0f369752dfc1781e0f7a8fe8795384356d20
+Verification: see verification_output.txt (SymPy exact identities, finite rational sampling)
+Lean: historical certificate only, not rebuilt for this package
+TeX build: pdflatex + bibtex8 + pdflatex twice; success
+Visual inspection: all six pages previewed; final first page rendered again after Keywords/JEL line adjustment.

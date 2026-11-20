@@ -1,0 +1,3 @@
+PASS: branch continuity, slope jump, price capture squares, exact gain, cutoff equality, local response slope
+PASS: 6 exact lambda regimes; 294 rational rival-quality grid points; 11 price gaps and 4411 price alternatives per player
+SCOPE: exact identities plus sampled global checks; analytic proof gives exhaustive all-quality claim; Lean not rerun
